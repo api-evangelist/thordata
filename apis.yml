@@ -1,90 +1,55 @@
 name: Thordata
 description: >-
-  Proxy network and web-data-scraping infrastructure providing residential, mobile, ISP, and datacenter proxies plus
-  scraping APIs (SERP, Web Unlocker, Web Scraper) with AI-ready data feeds.
+  Proxy network and web-data-scraping infrastructure providing residential, ISP, datacenter, and mobile proxies plus
+  scraping APIs (Web Scraper API, Web Unlocker, SERP API) and datasets. Exposes a token-authenticated REST Public API
+  for account and proxy-fleet management.
 url: https://thordata.apievangelist.com/apis.yml
 created: '2026-07-22'
 modified: '2026-07-22'
 specificationVersion: '0.21'
 tags:
-  - proxy
-  - residential-proxy
-  - mobile-proxy
-  - datacenter-proxy
-  - isp-proxy
+  - residential-proxies
+  - isp-proxies
+  - datacenter-proxies
+  - mobile-proxies
   - web-scraping
   - serp-api
   - web-unlocker
-  - data-extraction
-  - ai-data
-  - rest-api
+  - datasets
+  - proxy-management-api
+  - ai-data-infrastructure
+  - mcp
+  - llms-txt
 apis:
-  - name: Management (Public) API
+  - name: Thordata Public API
     description: >-
-      Account balance/traffic, location lists (country/state/city/ASN), proxy-user CRUD, IP whitelisting, ISP/datacenter
-      IP lists, and unlimited-residential server management. Token authentication via query parameter.
+      Token-authenticated REST API for account and proxy-fleet management (traffic/wallet balance, locations, proxy
+      users, whitelist IPs, ISP/datacenter proxy lists), plus proxy/scraper data products documented alongside.
     humanURL: https://doc.thordata.com/interface-documentation
-    baseURL: https://openapi.thordata.com/api
+    baseURL: https://openapi.thordata.com/api/
     tags:
-      - proxy
-      - residential-proxy
-      - mobile-proxy
-      - datacenter-proxy
-      - isp-proxy
+      - residential-proxies
+      - isp-proxies
+      - datacenter-proxies
+      - mobile-proxies
       - web-scraping
       - serp-api
       - web-unlocker
-      - data-extraction
-      - ai-data
-      - rest-api
+      - datasets
+      - proxy-management-api
+      - ai-data-infrastructure
+      - mcp
+      - llms-txt
     properties:
       - type: Documentation
         url: https://doc.thordata.com/interface-documentation
       - type: LLMSTxt
         url: https://doc.thordata.com/interface-documentation/llms.txt
-  - name: SERP API
-    description: Search engine results (Google/Bing/Yandex/DuckDuckGo) via POST request. Token authentication in request header.
-    humanURL: https://doc.thordata.com/interface-documentation
-    baseURL: https://scraperapi.thordata.com/request
-    tags:
-      - proxy
-      - residential-proxy
-      - mobile-proxy
-      - datacenter-proxy
-      - isp-proxy
-      - web-scraping
-      - serp-api
-      - web-unlocker
-      - data-extraction
-      - ai-data
-      - rest-api
-    properties:
-      - type: Documentation
-        url: https://doc.thordata.com/interface-documentation
-  - name: Universal Scraping API (Web Unlocker)
-    description: Web unlocking/scraping via POST request. Token authentication in request header.
-    humanURL: https://doc.thordata.com/interface-documentation
-    baseURL: https://universalapi.thordata.com/request
-    tags:
-      - proxy
-      - residential-proxy
-      - mobile-proxy
-      - datacenter-proxy
-      - isp-proxy
-      - web-scraping
-      - serp-api
-      - web-unlocker
-      - data-extraction
-      - ai-data
-      - rest-api
-    properties:
-      - type: Documentation
-        url: https://doc.thordata.com/interface-documentation
 maintainers:
   - FN: Thordata
-    url: https://www.thordata.com/
+    url: https://github.com/Thordata/Thordata
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 90
-  at: '2026-07-22T01:53:24.182Z'
+  at: '2026-07-22T02:00:44.106Z'
