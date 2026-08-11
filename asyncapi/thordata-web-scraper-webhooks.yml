@@ -1,0 +1,122 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://doc.thordata.com/doc/scraping/web-scraper-api/integrations/webhook-integration,
+  https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json (tasks.webhook)
+spec_type: none
+asyncapi_published: false
+note: >-
+  Thordata publishes no AsyncAPI document, but it does operate a real, documented outbound webhook
+  surface for Web Scraper API task lifecycle events, with a published payload schema, a variable
+  vocabulary and a fixed header contract. That is captured here as a webhook catalog. Nothing
+  below is inferred - the events, variables and headers are all published.
+surface:
+  name: Web Scraper API task webhooks
+  direction: outbound (Thordata -> subscriber)
+  transport: HTTP POST
+  content_type: application/json
+  configured_via: Thordata dashboard, Web Scraper API integrations
+  docs: https://doc.thordata.com/doc/scraping/web-scraper-api/integrations/webhook-integration
+  subscriber_url: customer-supplied
+events:
+  - name: In Progress
+    spec_name: Running
+    description: The scraping task is executing.
+  - name: Task Success
+    spec_name: Task Succeeded
+    description: The task completed successfully and results are available for download.
+    example_event_type: ACTOR.RUN.SUCCEEDED
+  - name: Task Failure
+    spec_name: Task Failed
+    description: The task returned no data or an error occurred.
+payload:
+  templating: >-
+    The payload is a customer-authored JSON template. Variables are interpolated with double curly
+    braces, so the subscriber controls the delivered shape. The template must be valid JSON.
+  example_template: |
+    {
+      "userId": "{{userId}}",
+      "eventType": "{{eventType}}",
+      "createdAt": "{{createdAt}}",
+      "eventData": "{{eventData}}",
+      "resource": "{{resource}}"
+    }
+  variables:
+    - {name: userId, type: string, description: Thordata user id that triggered the event}
+    - {name: userName, type: string, description: Account id}
+    - {name: createdAt, type: string, description: Webhook trigger time, ISO format}
+    - {name: eventType, type: string, description: Type of triggered event}
+    - {name: eventData, type: object, description: Contextual data related to the event}
+    - {name: resource, type: object, description: Detailed event resource info, including result links}
+    - {name: globals, type: object, description: Current event date, ISO 8601}
+  event_data_fields:
+    - {name: prodect_id, type: string, description: 'Product id (spelled prodect_id in the published payload)'}
+    - {name: apiRunId, type: string, description: API run id}
+  resource_fields:
+    - {name: taskId, type: string, description: Task id}
+    - {name: url, type: string, description: JSON-encoded string of the original scraping parameters}
+    - {name: apiKey, type: string, description: Token used for the run}
+    - {name: apiUrl, type: string}
+    - {name: apiCode, type: integer, description: API response code}
+    - {name: apiResponseTime, type: integer, unit: ms}
+    - {name: apiErrorMsg, type: string}
+    - {name: apiResult, type: string}
+    - {name: errorNumber, type: integer, description: Error count}
+    - {name: successRate, type: number}
+    - {name: runseconds, type: integer, description: Run time in seconds}
+    - {name: detail, type: string, description: 'Human-readable summary, e.g. "26 requests in total: 26 successful, 0 failed"'}
+    - {name: flow, type: integer, unit: MB, description: Data transfer}
+    - {name: fileSize, type: integer}
+    - {name: type, type: integer}
+    - {name: csvUrl, type: string, description: CSV result download URL}
+    - {name: jsonUrl, type: string, description: JSON result download URL}
+    - {name: audioUrl, type: string}
+    - {name: videoUrl, type: string}
+    - {name: subtitleUrl, type: string}
+    - {name: createdAt, type: string, description: Task created at}
+    - {name: finishedAt, type: string, description: Task finished at}
+headers:
+  customizable: true
+  customizable_note: A headers template accepts the same variable interpolation as the payload; values must be strings.
+  reserved:
+    - {name: Host, note: hard-coded to the request URL, always overwritten}
+    - {name: Content-Type, value: application/json, note: always overwritten}
+    - {name: Webhook, note: 'carries the Tasks value; always overwritten'}
+    - {name: 'Webhook-Dispatch-Id', note: 'carries the Tasks id; always overwritten - this is the delivery idempotency handle'}
+    - {name: 'Request-Origin', note: always overwritten}
+security:
+  signature: none
+  signature_note: >-
+    No HMAC signature, no shared secret and no signing header are documented. A subscriber cannot
+    cryptographically verify that a delivery came from Thordata. The published example payload
+    additionally shows the account's own apiKey being echoed inside the resource object, which
+    means the webhook body carries a credential to a customer-controlled endpoint.
+  replay_protection: >-
+    Webhook-Dispatch-Id carries the task id and is the only handle available for de-duplicating
+    redeliveries. No timestamp header, no nonce.
+  retry_policy: not documented
+  delivery_guarantee: not documented
+other_integrations:
+  note: >-
+    The Web Scraper API also delivers results through non-webhook destinations, configured in the
+    same dashboard integrations panel.
+  destinations:
+    - {name: Amazon S3, docs: 'https://doc.thordata.com/doc/scraping/web-scraper-api/integrations/amazon-s3-integration'}
+    - {name: Google Gmail, docs: 'https://doc.thordata.com/doc/scraping/web-scraper-api/integrations/google-gmail-integration'}
+    - {name: Snowflake, docs: 'https://doc.thordata.com/doc/scraping/web-scraper-api/integrations/snowflake-integration'}
+scheduling:
+  mechanism: 5-field cron expressions
+  fields:
+    - 'minute: 0-59'
+    - 'hour: 0-23'
+    - 'day: 1-31 or ?'
+    - 'month: 1-12'
+    - 'weekday: 0-7 (0 and 7 are Sunday) or ?'
+  example: '0 8 * * 1-5 - every weekday at 08:00'
+  docs: https://doc.thordata.com/doc/scraping/web-scraper-api/scheduler
+  note: Scheduled runs emit the same webhook events as manual runs.
+gaps:
+  - No AsyncAPI document - the event surface is documented in prose and a variable table only.
+  - No webhook signature or verification mechanism.
+  - No documented retry or delivery guarantee.
+  - Webhooks cover only the Web Scraper API; SERP, Universal and Web Unlocker are synchronous with no event surface.

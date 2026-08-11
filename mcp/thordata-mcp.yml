@@ -1,0 +1,97 @@
+generated: '2026-08-11'
+method: derived
+status: candidate
+source: >-
+  openapi/ (derived from https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json),
+  https://github.com/Thordata/thordata-langchain-tools
+search_result: >-
+  No MCP server exists. mcp.thordata.com does not resolve; /mcp returns 404 on www.thordata.com and
+  api.thordata.com; no MCP package on npm or PyPI; no MCP repository in the Thordata GitHub
+  organization (30 repos enumerated 2026-08-11). Probed and confirmed absent - this is not an
+  unchecked field.
+note: >-
+  Worth stating plainly, because it is the most striking gap in this profile: Thordata builds
+  heavily for AI consumers - an official LangChain tool pack, a RAG pipeline reference
+  implementation, a web QA agent, a Firecrawl-compatible API, an llms.txt generator tool, and a
+  980-line llms.txt of its own - and ships no MCP server. The agent-tool surface below already
+  exists as LangChain tools; MCP is the one packaging Thordata has not done.
+existing_agent_surfaces:
+  - name: thordata-langchain-tools
+    kind: LangChain tool pack
+    official: true
+    url: https://github.com/Thordata/thordata-langchain-tools
+    tools: 7
+    registry: none (git install only - not published to PyPI as of 2026-08-11)
+    note: The closest thing Thordata has to an MCP tool list. Mapped in mcp/thordata-tool-crosswalk.yml.
+  - name: thordata-firecrawl
+    kind: Firecrawl-compatible scraping API
+    official: true
+    url: https://github.com/Thordata/thordata-firecrawl
+    package: https://pypi.org/project/thordata-firecrawl/
+  - name: n8n-nodes-thordata
+    kind: n8n workflow node
+    official: true
+    url: https://github.com/Thordata/n8n-nodes-thordata
+    note: Unpublished from npm 2026-02-13; source only.
+server: null
+candidate_server:
+  name: thordata
+  transport: http
+  url: null
+  note: >-
+    No server exists. The tool list below is a CANDIDATE derived from real OpenAPI operations in
+    this repo, offered as the shape an official Thordata MCP server would take. Every
+    source_operation is a real operationId present in the referenced spec file.
+tools:
+  - name: serp_search
+    description: Run a real-time search on Google, Bing, Yandex or DuckDuckGo and return parsed JSON or raw HTML.
+    source_operation: openapi/thordata-scraper-api-openapi.yml#searchSerp
+  - name: scrape_url
+    description: Fetch any URL through the unblocking layer with optional JS rendering, geo-targeting and PNG or HTML output.
+    source_operation: openapi/thordata-universal-api-openapi.yml#scrapeUrl
+  - name: run_scraper_task
+    description: Launch a pre-built site scraper (Amazon, LinkedIn, TikTok, Zillow and 16 more) as an asynchronous task.
+    source_operation: openapi/thordata-scraper-api-openapi.yml#runScraperTask
+  - name: run_video_scraper_task
+    description: Launch a video or audio collection task with codec, resolution and bitrate selection.
+    source_operation: openapi/thordata-scraper-api-openapi.yml#runVideoScraperTask
+  - name: list_scraper_tasks
+    description: List Web Scraper API tasks with page/size pagination.
+    source_operation: openapi/thordata-web-scraper-tasks-openapi.yml#listScraperTasks
+  - name: get_scraper_task_status
+    description: Poll the status of one or more scraper tasks.
+    source_operation: openapi/thordata-web-scraper-tasks-openapi.yml#getScraperTaskStatus
+  - name: download_scraper_task_result
+    description: Download a completed task result as json, csv, video, subtitle or audio.
+    source_operation: openapi/thordata-web-scraper-tasks-openapi.yml#downloadScraperTaskResult
+  - name: get_account_usage
+    description: Read daily traffic usage statistics over a date range of up to 180 days.
+    source_operation: openapi/thordata-public-api-openapi.yml#getAccountUsageStatistics
+  - name: get_traffic_balance
+    description: Read remaining traffic balance in KB.
+    source_operation: openapi/thordata-public-api-openapi.yml#getTrafficBalance
+  - name: get_wallet_balance
+    description: Read wallet balance in USD.
+    source_operation: openapi/thordata-public-api-openapi.yml#getWalletBalance
+  - name: list_proxies
+    description: List purchased ISP or datacenter proxies with credentials and expiry.
+    source_operation: openapi/thordata-public-api-openapi.yml#listProxies
+  - name: list_proxy_users
+    description: List proxy sub-users with per-user traffic limits and usage.
+    source_operation: openapi/thordata-public-api-openapi.yml#listProxyUsers
+  - name: create_proxy_user
+    description: Create a proxy sub-user with an optional traffic cap in MB.
+    source_operation: openapi/thordata-public-api-openapi.yml#createProxyUser
+  - name: list_locations
+    description: List the countries available for geo-targeting a given proxy product.
+    source_operation: openapi/thordata-locations-api-openapi.yml#listCountries
+  - name: extract_proxies
+    description: Pull a batch of residential proxy endpoints filtered by country, state or city.
+    source_operation: openapi/thordata-proxy-extract-api-openapi.yml#extractResidentialProxies
+agentic_notes:
+  - >-
+    Collection tools (serp_search, scrape_url, run_scraper_task) are billed on success and have no
+    idempotency contract, so an MCP server fronting them should treat every call as a new charge.
+  - >-
+    Proxy user and whitelist operations are account-mutating and should carry a higher consequence
+    class than the read and collection tools.

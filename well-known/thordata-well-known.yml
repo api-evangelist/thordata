@@ -1,0 +1,61 @@
+generated: '2026-08-11'
+method: probed
+source: live GET of each path on every Thordata host in apis.yml and openapi/ servers[]
+result: none
+note: >-
+  Every /.well-known/ path returned 404 on every Thordata host. No WellKnown, SecurityTxt,
+  APICatalog or AgentCard pointer is emitted in apis.yml, because there is no served document to
+  point at - this file records a verified ABSENCE, not a presence. Worth flagging back to the
+  provider: Thordata runs a real vulnerability reward program at
+  https://www.thordata.com/security-vulnerabilities-reward-program with security@thordata.com as
+  the contact, but publishes no RFC 9116 /.well-known/security.txt to advertise it. That is a
+  one-file fix on their side.
+hosts:
+  - host: https://www.thordata.com
+    catch_all_404_body: HTML
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://doc.thordata.com
+    catch_all_404_body: HTML
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://scraperapi.thordata.com
+    catch_all_404_body: 'JSON: {"ret":404,"code":1,"msg":"page not exists!"}'
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://thordata.com
+    catch_all_404_body: HTML
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+oauth_discovery: >-
+  Not applicable. Thordata has no OAuth 2.0 or OIDC surface - authentication is bearer tokens plus a
+  publicToken/publicKey header pair (see authentication/thordata-authentication.yml), so the absence
+  of /.well-known/oauth-authorization-server is correct rather than a gap.

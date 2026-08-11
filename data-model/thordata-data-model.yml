@@ -1,0 +1,131 @@
+generated: '2026-08-11'
+method: derived
+source: >-
+  openapi/ (derived from https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json),
+  asyncapi/thordata-web-scraper-webhooks.yml
+summary: >-
+  Thordata's data model is thin by design. It is a collection API, so most operations take a target
+  and return content rather than reading or writing persistent resources. Only three entity
+  families actually persist: the Account and its balances, the Proxy inventory and its sub-users
+  and whitelist, and the Scraper Task and its result artifacts. There are no id prefixes and no
+  cross-entity $ref graph in the spec - relationships below are derived from shared identifier
+  fields and from the account scoping every endpoint inherits.
+entities:
+  - name: Account
+    description: The Thordata account, addressed implicitly by the credential pair rather than by an id.
+    identifier: none in the API surface; userId and userName appear in webhook payloads
+    fields:
+      - {name: balance, type: number, unit: USD, source: getWalletBalance}
+      - {name: traffic_balance, type: number, unit: KB, source: getTrafficBalance}
+      - {name: total_usage_traffic, type: number, unit: KB, source: getAccountUsageStatistics}
+      - {name: range_usage_traffic, type: number, unit: KB, source: getAccountUsageStatistics}
+      - {name: query_days, type: integer, source: getAccountUsageStatistics}
+    operations: [getWalletBalance, getTrafficBalance, getAccountUsageStatistics]
+  - name: Proxy
+    description: A purchased ISP or datacenter proxy endpoint with its own credentials and expiry.
+    identifier: ip
+    fields:
+      - {name: ip, type: string}
+      - {name: port, type: integer}
+      - {name: username, type: string}
+      - {name: password, type: string}
+      - {name: expiration_time, type: string}
+    discriminator: {field: proxy_type, values: {1: ISP, 2: Datacenter}}
+    operations: [listProxies, getProxyExpiration]
+  - name: ProxyUser
+    description: A sub-user of a rotating proxy product, with an optional traffic cap.
+    identifier: username
+    fields:
+      - {name: username, type: string, required: true}
+      - {name: password, type: string, required: true}
+      - {name: status, type: boolean, description: enabled or disabled}
+      - {name: traffic_limit, type: integer, unit: MB, description: '0 = unlimited, minimum 100'}
+      - {name: usage_traffic, type: number, unit: KB}
+    discriminator: {field: proxy_type, values: {1: Residential, 2: Unlimited}}
+    operations: [listProxyUsers, createProxyUser, updateProxyUser, deleteProxyUser,
+                 getProxyUserUsage, getProxyUserUsageHourly]
+    note: >-
+      username is the primary key and is not namespaced - public API code 10018 "The username
+      already exists" is the uniqueness constraint surfacing as an error.
+  - name: WhitelistedIp
+    description: An IP allowed to use the proxy gateway without per-request credentials.
+    identifier: ip
+    fields:
+      - {name: ip, type: string, required: true}
+      - {name: status, type: boolean}
+    discriminator: {field: proxy_type, values: {1: Residential, 2: Unlimited, 9: Mobile}}
+    operations: [listWhitelistedIps, addWhitelistedIp, deleteWhitelistedIp]
+    note: proxy_type here uses a THIRD value mapping (9 = Mobile) distinct from Proxy and ProxyUser.
+  - name: ScraperTask
+    description: An asynchronous Web Scraper API run against one pre-built scraper and a set of inputs.
+    identifier: taskId (also apiRunId in webhook payloads)
+    fields:
+      - {name: spider_name, type: string, description: 'target site key, e.g. amazon.com'}
+      - {name: spider_id, type: string, description: 'scraper key, e.g. amazon_product_by-url'}
+      - {name: spider_parameters, type: string, description: JSON-encoded array of per-input objects}
+      - {name: spider_errors, type: boolean}
+      - {name: file_name, type: string, description: 'supports the {{TasksID}} template'}
+      - {name: status, type: string}
+      - {name: successRate, type: number}
+      - {name: errorNumber, type: integer}
+      - {name: runseconds, type: integer}
+      - {name: flow, type: integer, unit: MB}
+      - {name: createdAt, type: string}
+      - {name: finishedAt, type: string}
+    operations: [runScraperTask, runVideoScraperTask, listScraperTasks, getScraperTaskStatus,
+                 downloadScraperTaskResult]
+  - name: TaskResult
+    description: The downloadable artifact set produced by a completed ScraperTask.
+    identifier: tasks_id (foreign key to ScraperTask.taskId)
+    fields:
+      - {name: type, type: string, enum: [json, csv, video, subtitle, audio]}
+      - {name: jsonUrl, type: string}
+      - {name: csvUrl, type: string}
+      - {name: videoUrl, type: string}
+      - {name: audioUrl, type: string}
+      - {name: subtitleUrl, type: string}
+      - {name: fileSize, type: integer}
+    operations: [downloadScraperTaskResult]
+    note: >-
+      Result URLs delivered in webhook payloads point at Tencent Cloud COS object storage
+      (th-scrapers-*.cos.na-siliconvalley.myqcloud.com), not a thordata.com host.
+  - name: Location
+    description: Geo-targeting reference data - the countries, states, cities and ASNs per product.
+    identifier: country_code / state_code
+    operations: [listCountries, listStates, listCities, listAsns]
+  - name: SerpResult
+    description: Transient parsed search-engine result. Not persisted and not addressable.
+    identifier: none
+    operations: [searchSerp]
+  - name: PageContent
+    description: Transient collected page - HTML or PNG. Not persisted and not addressable.
+    identifier: none
+    operations: [scrapeUrl]
+relationships:
+  - {from: Account, to: Proxy, kind: has_many, via: 'implicit - credential scope'}
+  - {from: Account, to: ProxyUser, kind: has_many, via: 'implicit - credential scope'}
+  - {from: Account, to: WhitelistedIp, kind: has_many, via: 'implicit - credential scope'}
+  - {from: Account, to: ScraperTask, kind: has_many, via: userId}
+  - {from: ScraperTask, to: TaskResult, kind: has_many, via: tasks_id}
+  - {from: ProxyUser, to: Proxy, kind: belongs_to, via: proxy_type, note: 'product family, not a hard FK'}
+  - {from: Location, to: Proxy, kind: belongs_to, via: proxy_type, note: 'availability is per product'}
+  - {from: WhitelistedIp, to: ProxyUser, kind: has_one,
+     via: 'proxy_type, alternative to username/password auth'}
+observations:
+  - >-
+    proxy_type is overloaded across three different value sets - {1: ISP, 2: Datacenter} on Proxy,
+    {1: Residential, 2: Unlimited} on ProxyUser, {1: Residential, 2: Unlimited, 9: Mobile} on
+    WhitelistedIp. The same integer means different products depending on the endpoint. This is the
+    single most likely source of integration error in the platform.
+  - >-
+    Nothing collected is addressable. SERP results and page content are returned inline and never
+    get an id, so there is no re-fetch, no caching handle and no way to reference a prior
+    collection. Only Web Scraper tasks produce a durable, retrievable artifact.
+  - >-
+    No components.schemas reuse exists in Thordata's own published OpenAPI - the response bodies
+    are undeclared. The field shapes above come from v1.json responseFields blocks, which are
+    richer than the published spec.
+  - >-
+    prodect_id is a published misspelling of product_id in the webhook payload. Recorded as-is
+    because it is on the wire.
+render: null

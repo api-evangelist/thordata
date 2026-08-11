@@ -1,0 +1,73 @@
+generated: '2026-08-11'
+method: searched
+source: https://github.com/Thordata/thordata-python-sdk/blob/main/CHANGELOG.md
+api_changelog: null
+note: >-
+  Thordata publishes no API changelog. There is no release-notes page, no dated "what's new"
+  section in the docs and no entry for one in either llms.txt. The only dated record of change on
+  the whole platform is the SDK changelogs, and they mix client-library refactors with real
+  API-surface additions - so an integrator has to read a Python library's changelog to learn that
+  the SERP API gained nine engine variants. The entries below are the API-affecting ones extracted
+  from the Python SDK changelog; SDK-internal changes are excluded.
+scheme: semver (per SDK, not per API)
+current_version:
+  api: v1 (unversioned in the URL; v1 refers to the SDK specification)
+  python_sdk: 1.8.5
+  published: '2026-02-27'
+sources:
+  - {name: Python SDK, url: 'https://github.com/Thordata/thordata-python-sdk/blob/main/CHANGELOG.md'}
+  - {name: JavaScript SDK, url: 'https://github.com/Thordata/thordata-js-sdk/blob/main/CHANGELOG.md'}
+  - {name: Go SDK, url: 'https://github.com/Thordata/thordata-go-sdk/blob/main/CHANGELOG.md'}
+  - {name: Java SDK, url: 'https://github.com/Thordata/thordata-java-sdk/blob/main/CHANGELOG.md'}
+  - {name: Canonical spec, url: 'https://github.com/Thordata/thordata-sdk-spec'}
+entries:
+  - version: 1.8.4
+    date: '2026-02'
+    breaking: false
+    api_surface_change: false
+    highlights:
+      - Namespace-based client API (client.universal, client.scraper, client.account, client.proxy)
+      - Unified APIResponse wrapper and centralized constants for endpoints and error codes
+      - Error messages now carry URL, method, status code and request id
+      - Connection pooling, DNS caching and batch utilities; stated 30-40 percent gain under high concurrency
+    note: Explicitly backward compatible; the older flat methods still work.
+  - version: 1.8.2
+    date: '2026-02-06'
+    breaking: false
+    api_surface_change: false
+    highlights:
+      - Code-quality cleanup for browser examples and environment helpers
+  - version: 1.8.1
+    date: '2026-02'
+    breaking: false
+    api_surface_change: false
+    highlights:
+      - Browser module made import-safe when Playwright is not installed
+  - version: 1.8.0
+    date: '2026-02'
+    breaking: false
+    api_surface_change: true
+    additions:
+      - 'SERP API: ai_overview parameter, Google engine only, default False'
+      - >-
+        SERP API: nine additional Google engine variants - google_ai_mode, google_play_product,
+        google_play_games, google_play_movies, google_play_books, google_scholar_cite,
+        google_scholar_author, google_finance_markets, google_patents_details
+      - >-
+        Browser automation module built on Playwright - BrowserSession with navigate, snapshot,
+        click_ref, type_ref, screenshot_page, get_html, scroll and go_back
+    deprecations:
+      - >-
+        SERP API output format "both" (json=2) deprecated because the dashboard does not support
+        it; the SDK now emits a deprecation warning
+    note: >-
+      The clearest example of the problem. Two genuine API changes - a new parameter and nine new
+      engines - plus a deprecation, announced only inside a Python package changelog. A Go, Java or
+      raw-HTTP consumer has no channel that would tell them.
+gaps:
+  - No API changelog, release-notes page or dated "what's new" anywhere on thordata.com or doc.thordata.com.
+  - API-surface additions and deprecations are announced inside client-library changelogs.
+  - No RSS/Atom feed, mailing list or subscribable channel for API change.
+  - >-
+    Changelogs use non-dates ("2026-02-XX") for several releases, so even the substitute record is
+    not reliably dated.

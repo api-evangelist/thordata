@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: Thordata Universal Scraping API / Web Unlocker
+  version: 1.0.0
+  description: Single-endpoint page collection with optional JavaScript rendering, geo-targeting, resource blocking, custom
+    headers/cookies and HTML or PNG output. universalapi.thordata.com and webunlocker.thordata.com are documented aliases
+    for the same contract.
+  contact:
+    name: Thordata Support
+    email: support@thordata.com
+    url: https://www.thordata.com/contact-us
+  x-derived-from: https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-on: '2026-08-11'
+servers:
+- url: https://universalapi.thordata.com
+  description: Universal Scraping API
+- url: https://webunlocker.thordata.com
+  description: Web Unlocker (documented alias)
+tags:
+- name: Universal Scraping API
+  description: Fetch any URL through Thordata's unblocking layer
+paths:
+  /request:
+    post:
+      operationId: scrapeUrl
+      tags:
+      - Universal Scraping API
+      summary: Scrape a URL
+      description: Fetch a target URL and return rendered HTML or a PNG screenshot. Billed only on a 200 response; a 300 means
+        accepted but nothing collected.
+      security:
+      - ScraperBearer: []
+      - ScraperHeaderToken: []
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                block_resources:
+                  type: string
+                  description: Comma-separated resource types to block (e.g., image,script,css)
+                clean_content:
+                  type: string
+                  description: Comma-separated content types to remove (e.g., js,css)
+                cookies:
+                  type: string
+                  description: JSON string of cookies list (SDK serializes list[dict] via json.dumps)
+                  example: '[{"name":"session","value":"abc"}]'
+                country:
+                  type: string
+                  description: Proxy country code (e.g., us, de)
+                headers:
+                  type: string
+                  description: JSON string of headers list (SDK serializes list[dict] via json.dumps)
+                  example: '[{"name":"User-Agent","value":"Mozilla/5.0"}]'
+                js_render:
+                  type: string
+                  description: Enable JavaScript rendering
+                  default: 'False'
+                  enum:
+                  - 'True'
+                  - 'False'
+                type:
+                  type: string
+                  description: Output format
+                  default: html
+                  enum:
+                  - html
+                  - png
+                url:
+                  type: string
+                  description: Target URL to scrape
+                wait:
+                  type: string
+                  description: Wait time in milliseconds (0-100000)
+                wait_for:
+                  type: string
+                  description: CSS selector to wait for
+              required:
+              - url
+      responses:
+        '200':
+          description: Collected page content.
+          content:
+            text/html:
+              schema:
+                type: string
+            image/png:
+              schema:
+                type: string
+                format: binary
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '400':
+          description: Bad Request - invalid parameters were passed. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '401':
+          description: Unauthorized - authentication failed; check token validity. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '403':
+          description: Forbidden - the target server refused to fulfill the request. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '429':
+          description: Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '500':
+          description: Internal Server Error. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '504':
+          description: Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+components:
+  securitySchemes:
+    ScraperBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: Scraper token (THORDATA_SCRAPER_TOKEN) from Dashboard > Account Settings.
+    ScraperHeaderToken:
+      type: apiKey
+      in: header
+      name: token
+      description: 'Alternate to bearer: scraperToken sent in the token header.'
+  schemas:
+    Envelope:
+      type: object
+      description: Thordata JSON envelope. The effective status is the payload `code` when present and not 200, otherwise
+        the HTTP status (v1.json errors.precedence).
+      properties:
+        code:
+          type: integer
+          description: Application status code. 200 success, 300 not collected (not billed).
+        msg:
+          type: string
+          description: 'Human-readable message. Alternate field names: message, error, detail, description.'
+        data:
+          description: Result payload; shape varies by operation.

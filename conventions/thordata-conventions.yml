@@ -1,0 +1,105 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://doc.thordata.com/doc/overview,
+  https://doc.thordata.com/doc/scraping/serp-api/send-your-first-request,
+  https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters,
+  https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json
+summary: >-
+  Thordata is a collection-oriented API, not a resource CRUD API. Almost every scraping call is a
+  single POST with a form-encoded body, and the interesting semantics are in output format,
+  geo-targeting and billing rather than in REST conventions. There is no idempotency contract, no
+  pagination on the collection endpoints and no API versioning in the URL.
+authentication:
+  style: bearer token, plus a separate publicToken/publicKey header pair
+  detail: see authentication/thordata-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key header, no request-deduplication window and no idempotency discussion
+    anywhere in the documentation or in the canonical SDK spec. Retrying a scraping POST issues a
+    NEW billable collection - a duplicate 200 is charged twice. Because errors are unbilled and the
+    SDKs recommend exponential backoff on 429/5xx, the practical exposure is narrow, but there is
+    no server-side guarantee. Asynchronous Web Scraper tasks are the most exposed surface: a
+    retried /builder call creates a second task.
+  scored: false
+request_format:
+  content_types:
+    - application/x-www-form-urlencoded (primary, used by every documented example)
+    - application/json (accepted on the SERP /request endpoint)
+  method: POST for all collection endpoints; GET for Public API reads and proxy IP extraction
+  complex_values: >-
+    Structured parameters (headers, cookies, spider_parameters) are passed as JSON-ENCODED STRINGS
+    inside form fields, not as nested objects. The SDKs json.dumps() them before sending.
+pagination:
+  style: page/size
+  applies_to: [POST /tasks-list]
+  request_params: {page: 1-based page number, size: page size}
+  response_fields: {count: total records, list: the page}
+  note: >-
+    The scraping endpoints have no pagination. SERP result depth is controlled by the search-engine
+    parameters start and num, which are passthroughs to the target engine, not API pagination.
+output_control:
+  format_param:
+    serp: 'json (1=json, 0=html, 2=both - "both" deprecated, dashboard does not support it)'
+    universal_and_unlocker: 'type (html | png)'
+  javascript_rendering: js_render (True | False) - required for SPA and dynamically loaded content
+  resource_blocking: block_resources - comma-separated (image, script, css) to cut collection time
+  content_stripping: clean_content - comma-separated (js, css) to remove from the returned body
+  waiting:
+    wait: fixed wait in milliseconds, maximum 100000
+    wait_for: CSS selector to await; overrides wait; maximum 30 seconds, returns content on timeout
+geo_targeting:
+  param: country
+  values: ISO country code, or Random
+  reference: https://openapi.thordata.com/api/locations (countries, states, cities, asn)
+  proxy_side: encoded into the proxy username rather than a request parameter
+metadata:
+  supported: false
+  note: No customer-defined metadata on requests or tasks. file_name on scraper tasks accepts the {{TasksID}} template.
+request_tracing:
+  request_id_header: null
+  note: >-
+    No request-id response header is documented. A task id (taskId / apiRunId) is returned for
+    asynchronous Web Scraper tasks and echoed in webhook payloads, which is the only correlation
+    handle. Synchronous SERP and Universal calls are untraceable after the fact from the client
+    side. Python SDK 1.8.4 release notes say error messages now include a request id, implying one
+    exists on the wire but is not documented as a response header.
+versioning:
+  scheme: none in the API surface
+  api_version_in_url: false
+  spec_version: v1 (Thordata/thordata-sdk-spec, "v1 is considered stable")
+  policy: >-
+    Backward-compatible changes update v1.json and its git tag; breaking changes require a new
+    major version (v2). This is the SDK specification's policy, and it is the only versioning
+    contract Thordata publishes. It is not stated as an HTTP API compatibility promise.
+  detail: see lifecycle/thordata-lifecycle.yml
+error_envelope:
+  shape: '{code, msg, data}'
+  precedence: payload code when present and not 200, otherwise HTTP status
+  detail: see errors/thordata-problem-types.yml
+rate_limit_signaling:
+  response_headers: none documented
+  status_codes: [429, 402]
+  retry_guidance: exponential backoff (published in v1.json errors.httpStatus.rateLimit)
+  detail: see rate-limits/thordata-rate-limits.yml
+billing_semantics:
+  rule: only a 200 is billed
+  note: >-
+    Unusual and agent-relevant - failures, empty collections (300) and rate limits cost nothing, so
+    a retry loop is financially safe in a way it is not on most metered APIs.
+async_model:
+  applies_to: Web Scraper API
+  flow: POST /builder or /video_builder -> poll POST /tasks-status -> POST /tasks-download
+  callbacks: webhooks on In Progress / Task Success / Task Failure (see asyncapi/)
+  scheduling: 5-field cron expressions via the dashboard Timer page
+user_agent:
+  format: 'thordata-{lang}-sdk/{version} {runtime}/{runtime_version} ({os_info})'
+  note: Standardized across all four official SDKs by the canonical spec.
+cross_links:
+  authentication: authentication/thordata-authentication.yml
+  errors: errors/thordata-problem-types.yml
+  lifecycle: lifecycle/thordata-lifecycle.yml
+  rate_limits: rate-limits/thordata-rate-limits.yml
+  webhooks: asyncapi/thordata-web-scraper-webhooks.yml

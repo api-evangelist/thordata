@@ -1,0 +1,39 @@
+generated: '2026-08-11'
+method: generated
+source: >-
+  openapi/ (derived from https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json),
+  https://doc.thordata.com/doc/llms.txt
+note: >-
+  No provider-published Agent Skills or AGENTS.md exist in the Thordata GitHub organization (30
+  repos enumerated 2026-08-11). These four are generated from this repo's OpenAPI, conventions and
+  error catalog. Every operationId referenced was verified present in the named spec file.
+skills:
+  - file: thordata-serp-search.md
+    name: Collect search engine results with the Thordata SERP API
+    api: openapi/thordata-scraper-api-openapi.yml
+    operations: [searchSerp, listCountries]
+  - file: thordata-scrape-page.md
+    name: Fetch a blocked or JavaScript-heavy page with the Thordata Universal Scraping API
+    api: openapi/thordata-universal-api-openapi.yml
+    operations: [scrapeUrl]
+  - file: thordata-run-scraper-task.md
+    name: Run a Thordata Web Scraper task and collect the results
+    api: openapi/thordata-scraper-api-openapi.yml
+    operations: [runScraperTask, runVideoScraperTask, getScraperTaskStatus, listScraperTasks,
+                 downloadScraperTaskResult]
+  - file: thordata-manage-proxy-users.md
+    name: Provision and meter Thordata proxy sub-users
+    api: openapi/thordata-public-api-openapi.yml
+    operations: [listProxyUsers, createProxyUser, updateProxyUser, deleteProxyUser,
+                 getProxyUserUsage, getProxyUserUsageHourly, listWhitelistedIps, addWhitelistedIp,
+                 deleteWhitelistedIp, getTrafficBalance, getWalletBalance, getAccountUsageStatistics]
+cross_cutting_rules:
+  - Only a 200 response is billed; every error class is free, so backoff loops are financially safe.
+  - No idempotency key anywhere - a retried success is a second charge, a retried task launch is a second task.
+  - No rate-limit headers and no published numeric limit; back off exponentially on 429 and 402.
+  - >-
+    Resolve status by precedence - trust the body `code` when present and not 200, otherwise the
+    HTTP status.
+  - >-
+    proxy_type means different products on different endpoint families; never reuse a value across
+    them.

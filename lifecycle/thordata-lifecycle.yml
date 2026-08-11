@@ -1,0 +1,71 @@
+generated: '2026-08-11'
+method: searched
+source: https://github.com/Thordata/thordata-sdk-spec (README versioning policy), https://github.com/Thordata/thordata-python-sdk/blob/main/CHANGELOG.md,
+  https://www.thordata.com/service-agreement, https://doc.thordata.com/doc/llms.txt
+versioning:
+  scheme: none-in-url
+  current: v1
+  applies_to: SDK specification (Thordata/thordata-sdk-spec)
+  docs: https://github.com/Thordata/thordata-sdk-spec#versioning-policy
+  policy: '"v1 is considered stable. Backward-compatible changes update v1.json (and git tag). Breaking changes
+    require a new major version (v2)." The HTTP endpoints themselves carry no version segment, no version header
+    and no date-pinning - the only versioning contract on record is the one governing the shared SDK specification.'
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: 'No RFC 8594 Sunset or Deprecation header support, no published deprecation window and no deprecation policy
+    page. Deprecations do happen and are announced only in SDK changelogs after the fact - two are on record: the
+    SERP "both" output format (json=2), deprecated in Python SDK 1.8.0 because the dashboard does not support it,
+    and the HTTP proxy protocol, marked deprecated in v1.json with the note that most proxy servers reject it. Neither
+    is announced on any Thordata-owned web page.'
+  observed_deprecations:
+  - item: SERP output format "both" (json=2)
+    status: deprecated
+    announced_in: thordata-python-sdk CHANGELOG 1.8.0
+    reason: dashboard does not support this format
+  - item: HTTP proxy protocol
+    status: deprecated
+    announced_in: thordata-sdk-spec v1.json proxy.protocols.supported.http
+    reason: most proxy servers reject the HTTP proxy protocol; use https or socks5h
+sla:
+  url: null
+  uptime_target: null
+  note: No published SLA or uptime commitment. The service agreement at https://www.thordata.com/service-agreement
+    is a terms-of-service document, not an availability guarantee. Marketing pages cite success-rate figures; those
+    are not contractual.
+status_page: null
+status_page_note: No status page exists. status.thordata.com does not resolve (DNS failure, curl exit 6), and no
+  status or uptime link appears in the documentation, the llms.txt index or the sitemap. For an infrastructure provider
+  whose entire value proposition is availability of a proxy pool, this is the most conspicuous operational-transparency
+  gap in the profile.
+changelog:
+  api_changelog: null
+  sdk_changelogs:
+  - https://github.com/Thordata/thordata-python-sdk/blob/main/CHANGELOG.md
+  - https://github.com/Thordata/thordata-js-sdk/blob/main/CHANGELOG.md
+  - https://github.com/Thordata/thordata-go-sdk/blob/main/CHANGELOG.md
+  - https://github.com/Thordata/thordata-java-sdk/blob/main/CHANGELOG.md
+  note: There is no API changelog. Client-library changelogs are the only dated record of change, and they conflate
+    SDK-internal refactors with genuine API-surface additions. See changelog/thordata-changelog.yml.
+deprecated_operations: []
+support:
+  email: support@thordata.com
+  contact_page: https://www.thordata.com/contact-us
+  response_note: 24-hour response commitment stated on the Web Scraper data-field feedback flow
+gaps:
+- No status page - the single highest-value operational artifact missing from this provider.
+- No API-level changelog or release notes; SDK changelogs are the substitute.
+- No deprecation policy, no Sunset/Deprecation headers, no advance notice channel.
+- No published SLA or uptime target.
+- Published OpenAPI names a server host (api.thordata.com) that 404s, and covers 4 of ~27 operations.
+spec_reality_drift:
+- finding: Thordata's own published OpenAPI declares https://api.thordata.com/api as a "Proxy API" server, but that
+    host returns "404 page not found" on /api and on /openapi.json. No documented operation uses it. The real proxy
+    management host is https://openapi.thordata.com/api.
+  source: https://thordata.github.io/thordata-sdk-spec/openapi.json
+  checked: '2026-08-11'
+- finding: The published OpenAPI carries 4 operations. The canonical v1.json it is generated from describes roughly
+    27, so the spec Thordata publishes covers about 15 percent of its own documented surface.
+  source: https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json
+  checked: '2026-08-11'

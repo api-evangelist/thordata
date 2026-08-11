@@ -1,0 +1,436 @@
+openapi: 3.0.3
+info:
+  title: Thordata Public API
+  version: 1.0.0
+  description: Account, billing balance, proxy inventory, proxy sub-user management and IP whitelisting. Authenticated with
+    the publicToken + publicKey pair, sent as the token and key headers (also accepted as query parameters).
+  contact:
+    name: Thordata Support
+    email: support@thordata.com
+    url: https://www.thordata.com/contact-us
+  x-derived-from: https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-on: '2026-08-11'
+servers:
+- url: https://openapi.thordata.com/api
+  description: Public API
+tags:
+- name: Account
+  description: Balances and usage statistics
+- name: Proxy
+  description: Purchased proxy inventory
+- name: Proxy Users
+  description: Proxy sub-user lifecycle and per-user usage
+- name: Whitelist
+  description: IP whitelisting for password-free proxy authentication
+paths:
+  /account/usage-statistics:
+    get:
+      operationId: getAccountUsageStatistics
+      tags:
+      - Account
+      summary: Daily traffic usage statistics
+      description: Returns query_days, range_usage_traffic (KB), total_usage_traffic (KB), traffic_balance (KB) and a daily
+        usage breakdown. The query range cannot exceed 180 days (public API code 10021).
+      parameters:
+      - &id001
+        name: token
+        in: query
+        required: true
+        description: Public token. May also be sent as the token header.
+        schema:
+          type: string
+      - &id002
+        name: key
+        in: query
+        required: true
+        description: Public key. May also be sent as the key header.
+        schema:
+          type: string
+      - name: from_date
+        in: query
+        required: false
+        description: Start date of the range
+        schema:
+          type: string
+      - name: to_date
+        in: query
+        required: false
+        description: End date of the range
+        schema:
+          type: string
+      responses: &id003
+        '200':
+          description: Success. Billed only when the payload code is 200.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '400':
+          description: Bad Request - invalid parameters were passed. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '401':
+          description: Unauthorized - authentication failed; check token validity. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '403':
+          description: Forbidden - the target server refused to fulfill the request. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '429':
+          description: Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '500':
+          description: Internal Server Error. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '504':
+          description: Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+  /account/traffic-balance:
+    get:
+      operationId: getTrafficBalance
+      tags:
+      - Account
+      summary: Remaining traffic balance
+      description: Returns traffic_balance as a number in KB.
+      parameters:
+      - *id001
+      - *id002
+      responses: *id003
+  /account/wallet-balance:
+    get:
+      operationId: getWalletBalance
+      tags:
+      - Account
+      summary: Wallet balance
+      description: Returns balance as a number in USD.
+      parameters:
+      - *id001
+      - *id002
+      responses: *id003
+  /proxy/proxy-list:
+    get:
+      operationId: listProxies
+      tags:
+      - Proxy
+      summary: List purchased proxies
+      description: Returns ip, port, username, password and expiration_time per proxy. proxy_type 1=ISP, 2=Datacenter.
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: 1=ISP, 2=Datacenter
+        schema:
+          type: integer
+      responses: *id003
+  /proxy/expiration-time:
+    get:
+      operationId: getProxyExpiration
+      tags:
+      - Proxy
+      summary: Expiration time for specific proxy IPs
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: Proxy product type
+        schema:
+          type: integer
+      - name: ips
+        in: query
+        required: false
+        description: Proxy IPs to query
+        schema:
+          type: string
+      responses: *id003
+  /proxy-users/user-list:
+    get:
+      operationId: listProxyUsers
+      tags:
+      - Proxy Users
+      summary: List proxy sub-users
+      description: Returns user_count, limit (KB), remaining_limit (KB) and a list of {username, password, status, traffic_limit,
+        usage_traffic}. proxy_type 1=Residential, 2=Unlimited.
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: 1=Residential, 2=Unlimited
+        schema:
+          type: integer
+      responses: *id003
+  /proxy-users/create-user:
+    post:
+      operationId: createProxyUser
+      tags:
+      - Proxy Users
+      summary: Create a proxy sub-user
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                proxy_type:
+                  type: integer
+                status:
+                  type: string
+                  description: Enabled or disabled
+                  enum:
+                  - 'true'
+                  - 'false'
+                traffic_limit:
+                  type: integer
+                  description: Traffic limit in MB (0 = unlimited, min 100)
+              required:
+              - password
+              - proxy_type
+              - username
+      parameters:
+      - *id001
+      - *id002
+      responses: *id003
+  /proxy-users/update-user:
+    post:
+      operationId: updateProxyUser
+      tags:
+      - Proxy Users
+      summary: Update a proxy sub-user
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                proxy_type:
+                  type: integer
+                status:
+                  type: string
+                  enum:
+                  - 'true'
+                  - 'false'
+                traffic_limit:
+                  type: integer
+              required:
+              - proxy_type
+              - username
+      parameters:
+      - *id001
+      - *id002
+      responses: *id003
+  /proxy-users/delete-user:
+    post:
+      operationId: deleteProxyUser
+      tags:
+      - Proxy Users
+      summary: Delete a proxy sub-user
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                proxy_type:
+                  type: integer
+              required:
+              - proxy_type
+              - username
+      parameters:
+      - *id001
+      - *id002
+      responses: *id003
+  /proxy-users/usage-statistics:
+    get:
+      operationId: getProxyUserUsage
+      tags:
+      - Proxy Users
+      summary: Daily usage statistics for a proxy sub-user
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: Proxy product type
+        schema:
+          type: integer
+      - name: username
+        in: query
+        required: false
+        description: Sub-user name
+        schema:
+          type: string
+      - name: from_date
+        in: query
+        required: false
+        description: Start date
+        schema:
+          type: string
+      - name: to_date
+        in: query
+        required: false
+        description: End date
+        schema:
+          type: string
+      responses: *id003
+  /proxy-users/usage-statistics-hour:
+    get:
+      operationId: getProxyUserUsageHourly
+      tags:
+      - Proxy Users
+      summary: Hourly usage statistics for a proxy sub-user
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: Proxy product type
+        schema:
+          type: integer
+      - name: username
+        in: query
+        required: false
+        description: Sub-user name
+        schema:
+          type: string
+      - name: from_date
+        in: query
+        required: false
+        description: Start date
+        schema:
+          type: string
+      - name: to_date
+        in: query
+        required: false
+        description: End date
+        schema:
+          type: string
+      responses: *id003
+  /whitelisted-ips/ip-list:
+    get:
+      operationId: listWhitelistedIps
+      tags:
+      - Whitelist
+      summary: List whitelisted IPs
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: 1=Residential, 2=Unlimited, 9=Mobile
+        schema:
+          type: integer
+      responses: *id003
+  /whitelisted-ips/add-ip:
+    post:
+      operationId: addWhitelistedIp
+      tags:
+      - Whitelist
+      summary: Whitelist an IP for password-free proxy access
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                ip:
+                  type: string
+                proxy_type:
+                  type: integer
+                  description: 1=Residential, 2=Unlimited, 9=Mobile
+                status:
+                  type: string
+                  enum:
+                  - 'true'
+                  - 'false'
+              required:
+              - ip
+      parameters:
+      - *id001
+      - *id002
+      responses: *id003
+  /whitelisted-ips/delete-ip:
+    post:
+      operationId: deleteWhitelistedIp
+      tags:
+      - Whitelist
+      summary: Remove a whitelisted IP
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                ip:
+                  type: string
+                proxy_type:
+                  type: integer
+              required:
+              - ip
+      parameters:
+      - *id001
+      - *id002
+      responses: *id003
+components:
+  securitySchemes:
+    PublicToken:
+      type: apiKey
+      in: header
+      name: token
+      description: Public token (THORDATA_PUBLIC_TOKEN) from the Thordata Dashboard.
+    PublicKey:
+      type: apiKey
+      in: header
+      name: key
+      description: Public key (THORDATA_PUBLIC_KEY) from the Thordata Dashboard.
+  schemas:
+    Envelope:
+      type: object
+      description: Thordata JSON envelope. The effective status is the payload `code` when present and not 200, otherwise
+        the HTTP status (v1.json errors.precedence).
+      properties:
+        code:
+          type: integer
+          description: Application status code. 200 success, 300 not collected (not billed).
+        msg:
+          type: string
+          description: 'Human-readable message. Alternate field names: message, error, detail, description.'
+        data:
+          description: Result payload; shape varies by operation.

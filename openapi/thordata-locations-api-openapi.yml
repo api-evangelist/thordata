@@ -1,0 +1,187 @@
+openapi: 3.0.3
+info:
+  title: Thordata Locations API
+  version: 1.0.0
+  description: 'Geo-targeting reference data: the countries, states, cities and ASNs available per proxy product.'
+  contact:
+    name: Thordata Support
+    email: support@thordata.com
+    url: https://www.thordata.com/contact-us
+  x-derived-from: https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json
+  x-derived-by: API Evangelist enrichment pipeline
+  x-derived-on: '2026-08-11'
+servers:
+- url: https://openapi.thordata.com/api/locations
+  description: Locations API
+tags:
+- name: Locations
+  description: Geo-targeting reference data
+paths:
+  /countries:
+    get:
+      operationId: listCountries
+      tags:
+      - Locations
+      summary: List supported countries/regions
+      parameters:
+      - &id001
+        name: token
+        in: query
+        required: true
+        description: Public token. May also be sent as the token header.
+        schema:
+          type: string
+      - &id002
+        name: key
+        in: query
+        required: true
+        description: Public key. May also be sent as the key header.
+        schema:
+          type: string
+      - name: proxy_type
+        in: query
+        required: false
+        description: Proxy product type
+        schema:
+          type: string
+      responses: &id003
+        '200':
+          description: Success. Billed only when the payload code is 200.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '400':
+          description: Bad Request - invalid parameters were passed. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '401':
+          description: Unauthorized - authentication failed; check token validity. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '403':
+          description: Forbidden - the target server refused to fulfill the request. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '429':
+          description: Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '500':
+          description: Internal Server Error. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '504':
+          description: Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+  /states:
+    get:
+      operationId: listStates
+      tags:
+      - Locations
+      summary: List supported states for a country
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: Proxy product type
+        schema:
+          type: string
+      - name: country_code
+        in: query
+        required: false
+        description: ISO country code
+        schema:
+          type: string
+      responses: *id003
+  /cities:
+    get:
+      operationId: listCities
+      tags:
+      - Locations
+      summary: List supported cities
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: Proxy product type
+        schema:
+          type: string
+      - name: country_code
+        in: query
+        required: false
+        description: ISO country code
+        schema:
+          type: string
+      - name: state_code
+        in: query
+        required: false
+        description: State code
+        schema:
+          type: string
+      responses: *id003
+  /asn:
+    get:
+      operationId: listAsns
+      tags:
+      - Locations
+      summary: List supported ASNs for a country
+      parameters:
+      - *id001
+      - *id002
+      - name: proxy_type
+        in: query
+        required: false
+        description: Proxy product type
+        schema:
+          type: string
+      - name: country_code
+        in: query
+        required: false
+        description: ISO country code
+        schema:
+          type: string
+      responses: *id003
+components:
+  securitySchemes:
+    PublicToken:
+      type: apiKey
+      in: header
+      name: token
+      description: Public token (THORDATA_PUBLIC_TOKEN) from the Thordata Dashboard.
+    PublicKey:
+      type: apiKey
+      in: header
+      name: key
+      description: Public key (THORDATA_PUBLIC_KEY) from the Thordata Dashboard.
+  schemas:
+    Envelope:
+      type: object
+      description: Thordata JSON envelope. The effective status is the payload `code` when present and not 200, otherwise
+        the HTTP status (v1.json errors.precedence).
+      properties:
+        code:
+          type: integer
+          description: Application status code. 200 success, 300 not collected (not billed).
+        msg:
+          type: string
+          description: 'Human-readable message. Alternate field names: message, error, detail, description.'
+        data:
+          description: Result payload; shape varies by operation.

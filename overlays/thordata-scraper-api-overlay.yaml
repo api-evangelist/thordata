@@ -1,0 +1,71 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Thordata Scraper API
+  version: 1.0.0
+extends: openapi/thordata-scraper-api-openapi.yml
+x-generated: '2026-08-11'
+x-method: generated
+x-note: Records the enrichment API Evangelist added on top of Thordata's own canonical specification. The upstream
+  published OpenAPI (openapi/_original/thordata-openapi.json) carries 4 operations with no operationIds, no descriptions,
+  no per-operation security and no response schemas; these actions capture what was added.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-08-11'
+    x-apievangelist-source: https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json
+    x-apievangelist-artifacts:
+      authentication: authentication/thordata-authentication.yml
+      conventions: conventions/thordata-conventions.yml
+      errors: errors/thordata-problem-types.yml
+      rate_limits: rate-limits/thordata-rate-limits.yml
+      lifecycle: lifecycle/thordata-lifecycle.yml
+      data_model: data-model/thordata-data-model.yml
+- target: $.info
+  description: Support contact, absent from the upstream published spec.
+  update:
+    contact:
+      name: Thordata Support
+      email: support@thordata.com
+      url: https://www.thordata.com/contact-us
+- target: $.paths.*.*
+  description: Added operationId, summary and description to every operation. The upstream spec declares none, so
+    no operation is addressable by id.
+  update:
+    x-apievangelist-added:
+    - operationId
+    - summary
+    - description
+- target: $.paths.*.*.responses
+  description: Added the full documented error class set (300/400/401/403/429/500/504) with billing and retryability
+    semantics. The upstream spec documents success only.
+  update:
+    x-apievangelist-added: documented-error-responses
+- target: $.paths.*.*
+  description: Attached per-operation security requirements; the upstream spec declares schemes but applies none.
+  update:
+    x-apievangelist-added: per-operation-security
+- target: $.components.schemas
+  description: Added the Envelope schema; the upstream spec ships components.schemas empty.
+  update:
+    x-apievangelist-added: Envelope
+- target: $.info
+  description: Billing semantics are commercially load-bearing on this API and are not in any spec.
+  update:
+    x-billing:
+      rule: only a 200 response is billed
+      unbilled_codes:
+      - 300
+      - 400
+      - 401
+      - 403
+      - 404
+      - 429
+      - 500
+      - 504
+      source: https://doc.thordata.com/doc/scraping/serp-api/billing-instructions
+- target: $.info
+  description: Idempotency posture, recorded explicitly because its absence is a real integration risk.
+  update:
+    x-idempotency:
+      supported: false
+      note: No idempotency key; a retried success is billed again.

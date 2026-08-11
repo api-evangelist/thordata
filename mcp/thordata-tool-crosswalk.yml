@@ -1,0 +1,157 @@
+generated: '2026-08-11'
+method: derived
+source: >-
+  https://github.com/Thordata/thordata-langchain-tools (thordata_langchain_tools/*.py, tool names and
+  input models read from source), openapi/ (derived from thordata-sdk-spec v1.json)
+note: >-
+  Thordata publishes no MCP server, so the agent-tool surface crosswalked here is the OFFICIAL
+  LangChain tool pack - seven tools in the Thordata GitHub organization. Each is bound below to the
+  OpenAPI operation that backs it, so the tool inherits a real input contract from the spec rather
+  than a guessed one. Tool names and input fields were read from the published Python source; the
+  bindings are semantic (the package calls the REST endpoints internally) and confidence is marked
+  accordingly.
+surfaces:
+  openapi:
+    files:
+      - openapi/thordata-scraper-api-openapi.yml
+      - openapi/thordata-universal-api-openapi.yml
+      - openapi/thordata-web-scraper-tasks-openapi.yml
+      - openapi/thordata-public-api-openapi.yml
+      - openapi/thordata-locations-api-openapi.yml
+      - openapi/thordata-proxy-extract-api-openapi.yml
+    gated: false
+  graphql:
+    endpoint: null
+    note: Thordata has no GraphQL surface.
+  mcp:
+    url: null
+    gated: null
+    note: No MCP server exists. tools/list could not be called because there is nothing to call.
+  langchain:
+    package: thordata-langchain-tools
+    repo: https://github.com/Thordata/thordata-langchain-tools
+    official: true
+    registry: none (git install only)
+    gated: false
+crosswalk:
+  - tool: thordata_serp_search
+    category: collection
+    rest: [searchSerp]
+    binding: rest
+    confidence: high
+    inputs_declared: [query, engine, num, start, output_format, country, language]
+    note: >-
+      Maps to POST /request on scraperapi.thordata.com. Tool input query maps to the spec field q,
+      engine to engine, num to num, start to start, country to gl, language to hl, output_format to
+      json. The tool exposes a light_json option not present in the documented json enum (0/1/2).
+  - tool: thordata_scrape_webpage
+    category: collection
+    rest: [scrapeUrl]
+    binding: rest
+    confidence: high
+    inputs_declared: [url, js_render, output_format, country, wait_for, wait, block_resources]
+    note: >-
+      Maps to POST /request on universalapi.thordata.com. Every declared input has a matching spec
+      field except output_format, which the tool allows as a comma-separated 'png,html' while the
+      documented type enum is a single value of html or png.
+  - tool: thordata_fetch_markdown
+    category: collection
+    rest: [scrapeUrl]
+    binding: rest
+    confidence: medium
+    inputs_declared: [url, js_render, wait, max_chars, country, block_resources, wait_for]
+    note: >-
+      Client-side composite. Calls the same Universal endpoint and converts HTML to Markdown in the
+      tool, then truncates to max_chars for token control. No Markdown output format exists in the
+      API - this capability lives entirely in the tool.
+  - tool: thordata_batch_scrape
+    category: collection
+    rest: [scrapeUrl]
+    binding: rest
+    confidence: medium
+    inputs_declared: [urls, js_render, output_format, concurrency, country]
+    note: >-
+      Client-side fan-out over scrapeUrl with a concurrency control (1-20). The API has no batch
+      endpoint; concurrency is enforced by the tool, not the server.
+  - tool: thordata_batch_serp
+    category: collection
+    rest: [searchSerp]
+    binding: rest
+    confidence: medium
+    inputs_declared: [queries]
+    note: Client-side fan-out over searchSerp. Same reasoning as thordata_batch_scrape.
+  - tool: thordata_proxy_request
+    category: network
+    rest: []
+    binding: proxy-gateway
+    confidence: high
+    inputs_declared: [url, country, state, city]
+    note: >-
+      Not a REST call at all. Routes an HTTP request through the Thordata proxy gateway using proxy
+      Basic auth, with geo-targeting encoded in the proxy username. There is no OpenAPI operation
+      for this because it is transport-layer, not API-layer. See
+      authentication/thordata-authentication.yml non_http_auth.
+  - tool: thordata_run_task
+    category: collection
+    rest: [runScraperTask, getScraperTaskStatus, downloadScraperTaskResult]
+    binding: rest
+    confidence: medium
+    inputs_declared: [tool_key, params]
+    note: >-
+      Composite. tool_key (e.g. 'amazon.product_by_url', 'youtube.video_info') collapses the
+      spider_name plus spider_id pair from POST /builder, and the tool handles the full
+      launch-poll-download lifecycle behind one call. Fans out to three operations.
+  - tool: thordata_account_info
+    category: account
+    rest: [getAccountUsageStatistics, getTrafficBalance, getWalletBalance]
+    binding: rest
+    confidence: medium
+    inputs_declared: [start_time, end_time, date]
+    note: >-
+      Composite read across the account endpoints. Accepts Unix timestamps where the REST
+      operations take from_date/to_date date strings, so the tool performs the conversion.
+mcp_only: []
+mcp_only_note: >-
+  No MCP server, therefore no MCP-only tools. The equivalent divergence here is TOOL-ONLY
+  capability: thordata_fetch_markdown (HTML-to-Markdown conversion), thordata_batch_scrape and
+  thordata_batch_serp (concurrency fan-out) exist only in the LangChain package. There is no API
+  endpoint for Markdown output or batching - an agent not using the Python tool pack has to
+  implement both itself.
+tool_only:
+  - {tool: thordata_fetch_markdown, capability: HTML to Markdown conversion, implemented_in: client}
+  - {tool: thordata_batch_scrape, capability: concurrent multi-URL fan-out, implemented_in: client}
+  - {tool: thordata_batch_serp, capability: concurrent multi-query fan-out, implemented_in: client}
+  - {tool: thordata_proxy_request, capability: proxy-gateway routing, implemented_in: transport}
+rest_only:
+  - capability: Web Scraper task lifecycle (discrete)
+    operations: [listScraperTasks]
+    note: No tool lists tasks; thordata_run_task hides the lifecycle rather than exposing it.
+  - capability: Video and audio collection
+    operations: [runVideoScraperTask]
+    note: >-
+      The video/audio builder with codec, resolution and bitrate selection has no agent tool, even
+      though the Python SDK ships a YouTube downloader example.
+  - capability: Proxy inventory
+    operations: [listProxies, getProxyExpiration]
+  - capability: Proxy sub-user management
+    operations: [listProxyUsers, createProxyUser, updateProxyUser, deleteProxyUser,
+                 getProxyUserUsage, getProxyUserUsageHourly]
+    note: The entire account-mutating surface is absent from the agent tools - arguably correct.
+  - capability: IP whitelisting
+    operations: [listWhitelistedIps, addWhitelistedIp, deleteWhitelistedIp]
+  - capability: Geo-targeting reference data
+    operations: [listCountries, listStates, listCities, listAsns]
+    note: >-
+      A real gap for agents. thordata_serp_search, thordata_scrape_webpage and
+      thordata_proxy_request all take a country (and state/city) argument, but no tool lets an
+      agent discover which values are valid for a product.
+  - capability: Proxy endpoint extraction
+    operations: [extractResidentialProxies, extractUnlimitedProxies]
+coverage:
+  tools_named: 8
+  tools_bound_to_rest: 7
+  tools_with_no_rest_operation: 1
+  rest_operations_total: 27
+  rest_operations_with_a_tool: 7
+  rest_operations_without_a_tool: 20
+  tool_only_capabilities: 4

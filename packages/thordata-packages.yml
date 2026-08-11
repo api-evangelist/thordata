@@ -1,0 +1,143 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://github.com/Thordata (official org), registry.npmjs.org, pypi.org/pypi,
+  proxy.golang.org, search.maven.org
+note: >-
+  Thordata publishes four official SDKs from the Thordata GitHub organization, all kept in sync
+  against a shared canonical specification repo (Thordata/thordata-sdk-spec). Registry currency
+  diverges sharply from repository activity: every SDK repo was pushed in Feb 2026, but only the
+  Python SDK actually shipped a release then. See currency_findings below.
+packages:
+  - language: python
+    registry: pypi
+    name: thordata-sdk
+    url: https://pypi.org/project/thordata-sdk/
+    install: pip install thordata-sdk
+    official: true
+    version: 1.8.5
+    published: '2026-02-27'
+    source_repo: https://github.com/Thordata/thordata-python-sdk
+    changelog: https://github.com/Thordata/thordata-python-sdk/blob/main/CHANGELOG.md
+    covers:
+      - SERP API
+      - Universal Scraping API / Web Unlocker
+      - Web Scraper API tasks
+      - Proxy network
+      - Public API
+      - Locations
+      - Scraping Browser (optional Playwright extra)
+    note: >-
+      The reference implementation - the only SDK the spec repo marks as covering every product.
+      Ships an optional browser extra (pip install thordata[browser]).
+  - language: javascript
+    registry: npm
+    name: thordata-js-sdk
+    url: https://www.npmjs.com/package/thordata-js-sdk
+    install: npm install thordata-js-sdk
+    official: true
+    version: 1.3.0
+    published: '2026-01-16'
+    source_repo: https://github.com/Thordata/thordata-js-sdk
+    covers:
+      - SERP API
+      - Universal Scraping API / Web Unlocker
+      - Web Scraper API tasks
+      - Public API
+      - Locations
+    note: >-
+      Repository last pushed 2026-02-24, but npm still serves 1.3.0 from 2026-01-16 - roughly six
+      weeks of committed work that never reached the registry a consumer installs from.
+  - language: go
+    registry: go
+    name: github.com/Thordata/thordata-go-sdk
+    url: https://pkg.go.dev/github.com/Thordata/thordata-go-sdk
+    install: go get github.com/Thordata/thordata-go-sdk
+    official: true
+    version: v1.3.0
+    published: '2026-01-16'
+    source_repo: https://github.com/Thordata/thordata-go-sdk
+    covers:
+      - Proxy network
+      - Public API
+      - Locations
+      - Proxy IP extract
+      - SERP API
+      - Web Unlocker
+      - Web Scraper task lifecycle
+    note: >-
+      Resolved from proxy.golang.org: v1.3.0 tagged 2026-01-16. Go modules are served straight from
+      the tag, so the same gap as npm applies - later commits are unreleased.
+  - language: java
+    registry: maven
+    name: com.thordata:thordata-sdk
+    url: https://github.com/Thordata/thordata-java-sdk
+    install: null
+    official: true
+    version: null
+    published: null
+    note: >-
+      NOT PUBLISHED. The repo carries a .github/workflows/maven-publish.yml and a pom.xml, but a
+      Maven Central search for "thordata" returns numFound 0 - there is no coordinate to depend on.
+      Java consumers must build from source. Checked 2026-08-11 via
+      search.maven.org/solrsearch/select?q=thordata.
+  - language: python
+    registry: pypi
+    name: thordata-firecrawl
+    url: https://pypi.org/project/thordata-firecrawl/
+    install: pip install thordata-firecrawl
+    official: true
+    version: 0.2.0
+    published: '2026-03-06'
+    source_repo: https://github.com/Thordata/thordata-firecrawl
+    note: >-
+      Firecrawl-compatible crawling/scraping surface built on Thordata - a drop-in API shape for
+      teams already wired to Firecrawl. Most recently released Thordata package on any registry.
+  - language: python
+    registry: null
+    name: thordata-langchain-tools
+    url: https://github.com/Thordata/thordata-langchain-tools
+    install: null
+    official: true
+    version: null
+    published: null
+    note: >-
+      Official LangChain tool pack (7 agent tools - see mcp/thordata-tool-crosswalk.yml). Source is
+      public and carries a pyproject.toml and CI, but pypi.org/pypi/thordata-langchain-tools returns
+      404 as of 2026-08-11: install is git-only. This is Thordata's most agent-relevant package and
+      it is the one with no registry presence.
+  - language: javascript
+    registry: npm
+    name: n8n-nodes-thordata
+    url: https://www.npmjs.com/package/n8n-nodes-thordata
+    install: null
+    official: true
+    version: null
+    published: null
+    note: >-
+      UNPUBLISHED. Version 0.1.0 was published 2025-12-05 and unpublished from npm on 2026-02-13
+      (registry.npmjs.org/n8n-nodes-thordata reports time.unpublished). The GitHub repo remains
+      public. n8n users cannot install this node from npm.
+currency_findings:
+  - >-
+    Four of the seven first-party packages have no installable release: Java was never published to
+    Maven Central, the LangChain tools were never published to PyPI, and the n8n node was published
+    and then unpublished.
+  - >-
+    The three that are installable are stale relative to their own repositories. Python is the only
+    SDK whose latest release (1.8.5, 2026-02-27) matches its last repository push.
+  - >-
+    Roughly five and a half months elapsed between the newest Thordata release on any registry
+    (thordata-firecrawl 0.2.0, 2026-03-06) and this check on 2026-08-11.
+spec_repo:
+  name: Thordata/thordata-sdk-spec
+  url: https://github.com/Thordata/thordata-sdk-spec
+  role: >-
+    Canonical cross-SDK specification. Defines base URLs, endpoint paths, auth modes, proxy gateway
+    conventions, SERP parameter normalization, error-code precedence and webhook payloads. Consumed
+    by SDK parity tests; every SDK repo pins it as a submodule.
+  artifacts:
+    - v1.json (canonical, generated from spec/v1/*.yaml)
+    - schema/v1.schema.json
+    - mock-server/ (Go mock server, see sandbox/thordata-sandbox.yml)
+    - docs/index.html + openapi.json published to GitHub Pages

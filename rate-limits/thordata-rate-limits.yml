@@ -1,0 +1,67 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://doc.thordata.com/doc/scraping/serp-api/response-codes,
+  https://doc.thordata.com/doc/scraping/universal-scraping-api/billing-instructions,
+  https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json (errors.httpStatus.rateLimit)
+limit_count: 0
+note: >-
+  Thordata publishes NO numeric rate limits. Not one requests-per-second, per-minute, per-hour or
+  concurrency figure appears anywhere in the documentation, the pricing pages or the canonical SDK
+  specification. The docs confirm limits exist - 429 is documented on every product as "the request
+  rate exceeded the API limit" and the Universal Scraping API billing page says 429 means "request
+  exceeds concurrency limits" - but the number is never stated. SERP API marketing says it
+  "supports sending large-scale concurrent requests" without qualifying what that means. An
+  integrator cannot size a client from published material; they have to discover the ceiling by
+  hitting it. This is an honest zero, not an unchecked field.
+limits: []
+signaling:
+  response_headers: []
+  response_headers_note: >-
+    No X-RateLimit-*, no RateLimit-* (RFC 9239 style) and no Retry-After are documented, and none
+    were observed. The only runtime signal an agent gets is the status code itself, which means
+    backoff has to be blind - there is no published reset time, remaining count or ceiling to read.
+  status_codes:
+    - code: 429
+      meaning: Too Many Requests - request rate or concurrency limit exceeded
+      billed: false
+      retryable: true
+      suggested_action: exponential_backoff
+    - code: 402
+      meaning: >-
+        Classified by the canonical SDK spec as a rate_limit category alongside 429 (quota or
+        balance exhaustion). Not documented in the public response-code tables.
+      billed: false
+      retryable: true
+      suggested_action: exponential_backoff
+  retry_guidance:
+    published: true
+    source: v1.json errors.httpStatus.rateLimit.suggestedAction
+    value: exponential_backoff
+    note: >-
+      The retry STRATEGY is published in the machine-readable SDK spec even though the limits are
+      not. The official SDKs implement it (thordata-js-sdk ships src/retry.ts).
+quota_limits:
+  note: >-
+    What Thordata does publish is QUOTA, not RATE - each pricing tier buys a fixed number of
+    responses, credits or GB. Those are in plans/thordata-plans-pricing.yml. Quota exhaustion and
+    rate limiting are different failures and only the former is documented.
+  proxy_user_traffic_limit:
+    mechanism: per-sub-user traffic cap set at creation
+    field: traffic_limit
+    unit: MB
+    rules: 0 means unlimited; minimum non-zero value is 100
+    operations: [createProxyUser, updateProxyUser]
+    source: openapi/thordata-public-api-openapi.yml
+  query_range_limit:
+    scope: Public API usage-statistics endpoints
+    limit: 180 days
+    error_code: 10021
+    message: The query date cannot exceed 180 days
+gaps:
+  - No published numeric rate or concurrency limit for any product.
+  - No rate-limit response headers of any kind, so clients cannot see remaining budget or reset time.
+  - No Retry-After on 429.
+  - >-
+    402 is treated as a rate-limit condition by Thordata's own SDKs but is absent from every
+    published response-code table, so a hand-rolled client will misclassify it.

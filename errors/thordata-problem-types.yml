@@ -1,0 +1,141 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://doc.thordata.com/doc/scraping/serp-api/response-codes,
+  https://doc.thordata.com/doc/scraping/serp-api/billing-instructions,
+  https://doc.thordata.com/doc/scraping/universal-scraping-api/response-codes,
+  https://doc.thordata.com/doc/scraping/web-unlocker/response-codes,
+  https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json (errors block)
+format: proprietary-json-envelope
+rfc9457: false
+note: >-
+  Thordata does not use RFC 9457 application/problem+json. Errors arrive in a JSON envelope whose
+  status semantics are unusual and worth reading carefully: the API reuses HTTP status NUMBERS as
+  application codes inside the body, and adds a non-HTTP code 300 meaning "accepted but nothing was
+  collected". The resolution rule is published, which is the part that matters for an agent.
+envelope:
+  code_field: code
+  message_field_candidates: [msg, message, error, detail, description]
+  success_code: 200
+  precedence: >-
+    payload_code_if_present_and_not_200_else_http_status - i.e. trust the body code when it is
+    present and non-200, otherwise fall back to the HTTP status line.
+  observed_404_shape: '{"ret":404,"code":1,"msg":"page not exists!","ret_data":"","timestamp":...}'
+billing_rule: >-
+  Only a 200 is billed. Every other code - including 300 "not collected" - is free. This makes the
+  error taxonomy commercially load-bearing, not just diagnostic.
+problems:
+  - code: 200
+    title: Success
+    description: The request succeeded and the complete result was retrieved.
+    category: success
+    retryable: false
+    billed: true
+  - code: 300
+    title: Not collected
+    description: >-
+      The request was accepted but the response could not be parsed or processed, so no valid data
+      was collected. Not an HTTP status - Thordata-specific.
+    category: not_collected
+    retryable: true
+    billed: false
+    applies_to: [SERP API, Universal Scraping API, Web Unlocker, Web Scraper API]
+  - code: 400
+    title: Bad Request
+    description: Invalid parameters were passed.
+    category: validation
+    retryable: false
+    billed: false
+  - code: 401
+    title: Unauthorized
+    description: Authentication failed; check token validity.
+    category: auth
+    retryable: false
+    billed: false
+  - code: 402
+    title: Payment Required
+    description: Treated by the SDKs as a rate-limit/quota condition alongside 429.
+    category: rate_limit
+    retryable: true
+    suggested_action: exponential_backoff
+    billed: false
+    source: v1.json errors.httpStatus.rateLimit
+  - code: 403
+    title: Forbidden
+    description: The target server refused to fulfill the request.
+    category: auth
+    retryable: false
+    billed: false
+    applies_to: [SERP API, Web Scraper API]
+  - code: 404
+    title: Not Found
+    description: The requested resource does not exist.
+    category: validation
+    retryable: false
+    billed: false
+    applies_to: [SERP API, Web Scraper API]
+  - code: 422
+    title: Unprocessable Entity
+    description: Validation failure.
+    category: validation
+    retryable: false
+    billed: false
+    source: v1.json errors.httpStatus.validation
+  - code: 429
+    title: Too Many Requests
+    description: The request rate or concurrency limit was exceeded.
+    category: rate_limit
+    retryable: true
+    suggested_action: exponential_backoff
+    billed: false
+  - code: 500
+    title: Internal Server Error
+    description: An error occurred on the Thordata side.
+    category: server
+    retryable: true
+    suggested_action: exponential_backoff
+    billed: false
+  - code: 502
+    title: Bad Gateway
+    category: server
+    retryable: true
+    suggested_action: exponential_backoff
+    source: v1.json errors.httpStatus.server
+  - code: 503
+    title: Service Unavailable
+    category: server
+    retryable: true
+    suggested_action: exponential_backoff
+    source: v1.json errors.httpStatus.server
+  - code: 504
+    title: Timeout Error
+    description: The proxy server timed out waiting for a response from the upstream server.
+    category: server
+    retryable: true
+    suggested_action: exponential_backoff
+    billed: false
+public_api_codes:
+  note: >-
+    The Public API (account, proxy users, whitelist, locations) returns a separate five-digit code
+    space in the same envelope. These do NOT overlap with the HTTP-shaped codes above.
+  codes:
+    - {code: 10000, message: Parameter error, category: validation, retryable: false}
+    - {code: 10001, message: Unknown error, category: unknown, retryable: false}
+    - {code: 10011, message: 'Frequent operations, please try again later', category: rate_limit,
+       retryable: true, suggested_action: exponential_backoff}
+    - {code: 10013, message: public token error, category: auth, retryable: false}
+    - {code: 10014, message: public key error, category: auth, retryable: false}
+    - {code: 10018, message: The username already exists, category: validation, retryable: false}
+    - {code: 10021, message: The query date cannot exceed 180 days, category: validation, retryable: false}
+per_product_code_sets:
+  serp: [200, 300, 400, 401, 403, 404, 429, 500, 504]
+  tasks: [200, 300, 400, 401, 403, 404, 429, 500, 504]
+  webunlocker: [200, 300, 400, 401, 403, 429, 500, 504]
+  universal: [200, 300, 400, 401, 429, 500, 504]
+gaps:
+  - No machine-readable error type URIs; codes are integers with prose descriptions only.
+  - No error identifier or request id is documented on the error envelope, only on webhook payloads.
+  - >-
+    The published response-code tables contain copy errors - the Universal and Web Unlocker tables
+    label 429 with the 403 description, 500 with the 404 description and 504 with the 429
+    description. v1.json is the more reliable source and is what this catalog follows.

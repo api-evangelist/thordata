@@ -1,0 +1,109 @@
+generated: '2026-08-11'
+method: searched
+source: https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json (auth block); openapi/ derived
+  specs; https://doc.thordata.com/doc/scraping/serp-api/configuration
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+  credential_pairs:
+  - name: scraperToken
+    env: THORDATA_SCRAPER_TOKEN
+    used_by:
+    - SERP API
+    - Web Unlocker
+    - Universal Scraping API
+    - Web Scraper builder
+    - Video builder
+    source: Dashboard > API Playground > Token
+  - name: publicToken
+    env: THORDATA_PUBLIC_TOKEN
+    used_by:
+    - Public API
+    - Locations API
+    - Web Scraper tasks
+    source: Dashboard
+  - name: publicKey
+    env: THORDATA_PUBLIC_KEY
+    used_by:
+    - Public API
+    - Locations API
+    - Web Scraper tasks
+    source: Dashboard
+  - name: browserUsername / browserPassword
+    env: THORDATA_BROWSER_USERNAME / THORDATA_BROWSER_PASSWORD
+    used_by:
+    - Scraping Browser CDP connection
+    source: Dashboard > Scraping Browser > Users
+schemes:
+- name: PublicToken
+  type: apiKey
+  in: header
+  parameter: token
+  description: Public token (THORDATA_PUBLIC_TOKEN) from the Thordata Dashboard.
+  sources:
+  - openapi/thordata-locations-api-openapi.yml
+  - openapi/thordata-public-api-openapi.yml
+  - openapi/thordata-scraper-api-openapi.yml
+  - openapi/thordata-universal-api-openapi.yml
+  - openapi/thordata-web-scraper-tasks-openapi.yml
+- name: PublicKey
+  type: apiKey
+  in: header
+  parameter: key
+  description: Public key (THORDATA_PUBLIC_KEY) from the Thordata Dashboard.
+  sources:
+  - openapi/thordata-locations-api-openapi.yml
+  - openapi/thordata-public-api-openapi.yml
+  - openapi/thordata-scraper-api-openapi.yml
+  - openapi/thordata-web-scraper-tasks-openapi.yml
+- name: ScraperBearer
+  type: http
+  scheme: bearer
+  bearerFormat: Token
+  description: Scraper token (THORDATA_SCRAPER_TOKEN) from Dashboard > Account Settings.
+  sources:
+  - openapi/thordata-scraper-api-openapi.yml
+  - openapi/thordata-universal-api-openapi.yml
+docs: https://doc.thordata.com/doc/scraping/serp-api/configuration
+non_http_auth:
+- surface: Proxy gateway (residential / ISP / datacenter / mobile / high-bandwidth)
+  mechanism: proxy Basic auth
+  credential: username:password, with the td-customer- prefix and product/session modifiers encoded in the username
+  hosts:
+  - pr.thordata.net
+  - t.pr.thordata.net
+  - t.na.thordata.net
+  - t.eu.thordata.net
+  - t.as.thordata.net
+  - dc.pr.thordata.net
+  - m.pr.thordata.net
+  - isp.pr.thordata.net
+  ports:
+    residential: 9999
+    isp: 6666
+    datacenter: 7777
+    mobile: 5555
+  protocols:
+  - https (required by most accounts)
+  - socks5h
+  - http (deprecated, generally rejected)
+  alternative: IP whitelisting via /whitelisted-ips/add-ip removes the need for per-request credentials
+  docs: https://doc.thordata.com/doc/proxies/residential-proxies/user-and-pass-auth
+  note: Not expressible as an OpenAPI securityScheme - this is transport-layer proxy auth, not API auth.
+- surface: SERP API proxy-based access
+  mechanism: proxy Basic auth against scraping.thordata.com:30001
+  credential: td-customer-serp_USERNAME:PASSWORD
+  docs: https://doc.thordata.com/doc/scraping/serp-api/configuration
+- surface: Scraping Browser
+  mechanism: credentials embedded in a Chrome DevTools Protocol websocket connection URL
+  note: Consumed by Puppeteer / Playwright / Selenium; sub-users are created in the dashboard.
+  docs: https://doc.thordata.com/doc/scraping/scraping-browser/getting-started
+notes:
+- Two independent credential families. The scraper token authenticates collection endpoints; the publicToken + publicKey
+  pair authenticates account, proxy and task-lifecycle endpoints.
+- The Web Scraper builder endpoints require ALL THREE (Authorization bearer + token + key headers).
+- SERP and Web Unlocker accept the scraper token either as an Authorization bearer or in a bare token header.
+- No OAuth 2.0 or OpenID Connect surface exists anywhere in the Thordata platform, so there is no scope model.

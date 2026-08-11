@@ -1,0 +1,88 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide,
+  https://doc.thordata.com/doc/scraping/serp-api/api-playground,
+  https://www.thordata.com/pricing/serpapi,
+  https://github.com/Thordata/thordata-sdk-spec/tree/main/mock-server
+summary: >-
+  Thordata has no test-vs-live key separation and no sandbox environment. What it does have is a
+  free trial quota on the real production API, an interactive dashboard playground, and - the
+  genuinely interesting piece - an open-source mock server in the SDK specification repo that lets
+  a developer run the API contract locally with no account at all.
+test_live_separation:
+  supported: false
+  note: >-
+    One credential set. There are no test-mode key prefixes, no separate sandbox host and no
+    mode switch. Every call from a developer's first request onward hits production and draws down
+    real quota. Because only 200 responses are billed, experimentation is cheaper than on most
+    metered APIs, but there is no isolation.
+free_trial:
+  mechanism: trial quota on the production API
+  activation: Dashboard > product > Pricing > apply for free trial
+  quotas:
+    - {product: SERP API, quota: 5000 responses, price: 0}
+    - {product: Web Scraper API, quota: 5000 credits, price: 0, duration: 7 days}
+    - {product: Residential Proxies, quota: 'available, amount not published'}
+  note: Trial credentials are the same scraperToken used in production.
+playground:
+  name: API Playground
+  url: https://dashboard.thordata.com/serp-api/playground
+  docs: https://doc.thordata.com/doc/scraping/serp-api/api-playground
+  auth_required: true
+  capabilities:
+    - Select engine (Google, Bing, Yandex, DuckDuckGo) and configure query parameters
+    - Execute a live request and preview scraped content plus structured JSON in real time
+    - Copy or download the result as JSON or HTML
+    - Copy the token used for programmatic calls
+  siblings:
+    - {name: Web Scraper API Request Builder, url: 'https://dashboard.thordata.com/web-scraper'}
+    - {name: Scraping Browser Playground, docs: 'https://doc.thordata.com/doc/scraping/scraping-browser/getting-started'}
+mock_server:
+  available: true
+  location: https://github.com/Thordata/thordata-sdk-spec/tree/main/mock-server
+  language: Go
+  distribution: source + Dockerfile
+  ci: '.github/workflows/mock.yml in the same repo'
+  purpose: >-
+    Serves the endpoints defined in the canonical v1.json so SDK parity tests - and any developer -
+    can exercise the contract offline. This is the closest thing Thordata offers to a sandbox, and
+    it is unauthenticated and free. It is not linked from doc.thordata.com or from either llms.txt,
+    so nobody reading the documentation would find it.
+  note: >-
+    The JS SDK ships its own tests/mockServer.ts as well, so the mock pattern is used across the
+    SDK line rather than being a one-off.
+test_values:
+  magic_values: none
+  note: >-
+    No test identifiers, fixture URLs or simulator values are published. Because the product
+    collects live web data, the documented examples use real public targets rather than sentinel
+    values - the recurring ones in the docs are https://www.google.com/search?q=pizza for SERP and
+    https://www.google.com for the Universal Scraping API and Web Unlocker.
+  proxy_verification_endpoint:
+    url: https://ipinfo.thordata.com
+    usage: 'curl -x "https://user:pass@host:9999" "https://ipinfo.thordata.com"'
+    purpose: >-
+      Thordata-operated echo endpoint used throughout the SDK spec to confirm a proxy connection is
+      working and to see the exit IP. The nearest thing to a test fixture in the platform.
+    source: v1.json proxy.protocols.supported (curl_example)
+environment_variables:
+  note: >-
+    The canonical spec standardizes env-var names across all four SDKs, which is how a developer
+    switches credentials rather than switching environments.
+  variables:
+    - THORDATA_SCRAPER_TOKEN
+    - THORDATA_PUBLIC_TOKEN
+    - THORDATA_PUBLIC_KEY
+    - THORDATA_BROWSER_USERNAME
+    - THORDATA_BROWSER_PASSWORD
+    - THORDATA_PROXY_HOST
+    - THORDATA_PROXY_PORT
+    - THORDATA_PROXY_PROTOCOL
+    - THORDATA_UPSTREAM_PROXY
+    - THORDATA_INTEGRATION (opt in to live integration tests)
+    - THORDATA_INTEGRATION_STRICT (fail rather than skip on network interference)
+gaps:
+  - No sandbox environment and no test-mode credentials.
+  - The mock server exists but is undiscoverable from the documentation.
+  - The playground requires an account, so there is no anonymous try-before-signup path.

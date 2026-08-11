@@ -1,0 +1,139 @@
+generated: '2026-08-11'
+method: derived
+source: >-
+  openapi/ (derived specs), errors/thordata-problem-types.yml,
+  authentication/thordata-authentication.yml, conventions/thordata-conventions.yml,
+  https://www.thordata.com/kyc, https://www.thordata.com/acceptable-use-policy,
+  https://raw.githubusercontent.com/Thordata/thordata-sdk-spec/main/v1.json
+summary: >-
+  Thordata conforms to very few cross-cutting API standards. It is a bearer-token HTTP API with a
+  proprietary JSON envelope; there is no OAuth, no OIDC, no problem-details, no discovery surface.
+  Where it does align with a standard it is on the network side - SOCKS5h, TLS, proxy Basic auth -
+  rather than the API side.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 securityScheme in any spec and no OAuth documentation. Authentication is bearer
+      tokens plus a publicToken/publicKey header pair.
+  - id: openid-connect
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on every host.
+  - id: rfc6750-bearer-token
+    conforms: partial
+    evidence: >-
+      SERP, Universal and Web Unlocker accept Authorization Bearer per RFC 6750. However the same
+      token is also accepted in a bare token header, and the Public API uses custom token/key
+      headers, so the platform is not uniformly RFC 6750.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a proprietary {code, msg, data} envelope, not application/problem+json. See
+      errors/thordata-problem-types.yml.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: >-
+      /.well-known/security.txt returns 404 on every host, despite a live vulnerability reward
+      program with a security@thordata.com contact.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset or Deprecation headers and no deprecation policy. See lifecycle/.
+  - id: rfc8615-well-known
+    conforms: false
+    evidence: No /.well-known/ document of any kind is served. See well-known/.
+  - id: rfc9239-ratelimit-headers
+    conforms: false
+    evidence: >-
+      No RateLimit-* or X-RateLimit-* headers and no Retry-After on 429. See rate-limits/.
+  - id: openapi
+    conforms: true
+    evidence: >-
+      Thordata publishes an OpenAPI 3.0.3 document at
+      https://thordata.github.io/thordata-sdk-spec/openapi.json, generated from its own canonical
+      v1.json by tools/v1_to_openapi.py in the same repo. It covers 4 of roughly 27 real operations.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      A real webhook surface exists for Web Scraper task events but no AsyncAPI document is
+      published. See asyncapi/thordata-web-scraper-webhooks.yml.
+  - id: json-api
+    conforms: false
+    evidence: Responses are a bespoke envelope; no JSON:API media type or structure.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header or deduplication contract anywhere in the docs or the canonical SDK
+      spec. See conventions/thordata-conventions.yml.
+  - id: pagination
+    conforms: partial
+    evidence: >-
+      page/size pagination with count and list on POST /tasks-list only. The collection endpoints
+      have no pagination.
+  - id: webhooks
+    conforms: partial
+    evidence: >-
+      Documented outbound webhooks with a published payload vocabulary and reserved headers, but no
+      signature, no retry policy and no delivery guarantee.
+  - id: cron
+    conforms: true
+    evidence: >-
+      Standard 5-field cron expressions for Web Scraper task scheduling. Documented at
+      https://doc.thordata.com/doc/scraping/web-scraper-api/scheduler.
+  - id: socks5h
+    conforms: true
+    evidence: >-
+      Proxy gateway supports SOCKS5 with remote DNS resolution; v1.json explicitly prefers socks5h
+      over socks5 to avoid local DNS leaks.
+  - id: chrome-devtools-protocol
+    conforms: true
+    evidence: >-
+      Scraping Browser exposes a remote browser over CDP, consumed by Puppeteer, Playwright and
+      Selenium. Docs at https://doc.thordata.com/doc/scraping/scraping-browser/getting-started.
+  - id: llms-txt
+    conforms: true
+    evidence: >-
+      Two llms.txt files are served - a full documentation index at
+      https://doc.thordata.com/doc/llms.txt (980 lines, three languages, every page also available
+      as .md) and an AI-crawler policy file at https://www.thordata.com/llms.txt. The docs index is
+      one of the better-executed llms.txt implementations in the catalog.
+  - id: a2a-agent-card
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json both 404 on every host.
+  - id: mcp
+    conforms: false
+    evidence: >-
+      No hosted or published MCP server. mcp.thordata.com does not resolve; no MCP package on npm
+      or PyPI and no MCP repo in the Thordata GitHub organization.
+  - id: saml-sso
+    conforms: partial
+    evidence: >-
+      Okta SSO is documented as a dashboard feature
+      (https://doc.thordata.com/doc/free-tools/sso/using-thordata-to-set-up-okta-sso), but it
+      governs dashboard login only and is not an API authentication path.
+compliance_program:
+  published_certifications: []
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP or CSA STAR certification is claimed anywhere on
+    thordata.com. No trust center exists (trust.thordata.com and security.thordata.com do not
+    resolve). No Compliance or TrustCenter pointer is emitted in apis.yml, because there is no
+    published certification to point at.
+  what_is_published:
+    - id: kyc
+      url: https://www.thordata.com/kyc
+      description: >-
+        A customer-vetting program - compliance-officer review, video identity verification where
+        necessary, mandatory use-case declaration before access, and real-time traffic monitoring
+        to check declared use cases against actual traffic. This is due-diligence process, not a
+        third-party audited certification.
+    - id: acceptable-use-policy
+      url: https://www.thordata.com/acceptable-use-policy
+    - id: data-deletion-policy
+      url: https://www.thordata.com/data-deletion-policy
+    - id: privacy-policy
+      url: https://www.thordata.com/privacy-policy
+    - id: service-agreement
+      url: https://www.thordata.com/service-agreement
+    - id: vulnerability-reward-program
+      url: https://www.thordata.com/security-vulnerabilities-reward-program
+      description: See security/thordata-vulnerability-disclosure.yml - a real paid bounty, $100-$2,000.

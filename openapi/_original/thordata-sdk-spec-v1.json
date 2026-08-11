@@ -1,0 +1,1799 @@
+{
+  "auth": {
+    "apiAuth": {
+      "browser": {
+        "notes": [
+          "Used to build remote browser connection URLs.",
+          "Python SDK applies 'td-customer-' prefix and URL-encodes credentials."
+        ],
+        "required": [
+          "browserUsername",
+          "browserPassword"
+        ]
+      },
+      "builder": {
+        "headers": {
+          "Authorization": "Bearer {scraperToken}",
+          "key": "{publicKey}",
+          "token": "{publicToken}"
+        },
+        "note": "Requires all three headers",
+        "required": [
+          "scraperToken",
+          "publicToken",
+          "publicKey"
+        ]
+      },
+      "locations": {
+        "headers": {
+          "key": "{publicKey}",
+          "token": "{publicToken}"
+        },
+        "required": [
+          "publicToken",
+          "publicKey"
+        ]
+      },
+      "publicApi": {
+        "headers": {
+          "key": "{publicKey}",
+          "token": "{publicToken}"
+        },
+        "required": [
+          "publicToken",
+          "publicKey"
+        ]
+      },
+      "serp": {
+        "headers": {
+          "bearer": {
+            "Authorization": "Bearer {scraperToken}"
+          },
+          "headerToken": {
+            "token": "{scraperToken}"
+          }
+        },
+        "mode": "bearer or headerToken",
+        "required": [
+          "scraperToken"
+        ]
+      },
+      "tasksDownload": {
+        "headers": {
+          "key": "{publicKey}",
+          "token": "{publicToken}"
+        },
+        "required": [
+          "publicToken",
+          "publicKey"
+        ]
+      },
+      "tasksList": {
+        "headers": {
+          "key": "{publicKey}",
+          "token": "{publicToken}"
+        },
+        "required": [
+          "publicToken",
+          "publicKey"
+        ]
+      },
+      "tasksStatus": {
+        "headers": {
+          "key": "{publicKey}",
+          "token": "{publicToken}"
+        },
+        "required": [
+          "publicToken",
+          "publicKey"
+        ]
+      },
+      "videoBuilder": {
+        "headers": {
+          "Authorization": "Bearer {scraperToken}",
+          "key": "{publicKey}",
+          "token": "{publicToken}"
+        },
+        "note": "Same as builder",
+        "required": [
+          "scraperToken",
+          "publicToken",
+          "publicKey"
+        ]
+      },
+      "webunlocker": {
+        "headers": {
+          "bearer": {
+            "Authorization": "Bearer {scraperToken}"
+          },
+          "headerToken": {
+            "token": "{scraperToken}"
+          }
+        },
+        "mode": "bearer or headerToken",
+        "required": [
+          "scraperToken"
+        ]
+      }
+    },
+    "credentials": {
+      "browserPassword": {
+        "envVar": "THORDATA_BROWSER_PASSWORD",
+        "required": false,
+        "source": "Dashboard",
+        "usedBy": [
+          "browser"
+        ]
+      },
+      "browserUsername": {
+        "envVar": "THORDATA_BROWSER_USERNAME",
+        "required": false,
+        "source": "Dashboard",
+        "usedBy": [
+          "browser"
+        ]
+      },
+      "publicKey": {
+        "envVar": "THORDATA_PUBLIC_KEY",
+        "required": false,
+        "source": "Dashboard",
+        "usedBy": [
+          "publicApi",
+          "locations",
+          "tasks"
+        ]
+      },
+      "publicToken": {
+        "envVar": "THORDATA_PUBLIC_TOKEN",
+        "required": false,
+        "source": "Dashboard",
+        "usedBy": [
+          "publicApi",
+          "locations",
+          "tasks"
+        ]
+      },
+      "scraperToken": {
+        "envVar": "THORDATA_SCRAPER_TOKEN",
+        "required": false,
+        "source": "Dashboard",
+        "usedBy": [
+          "serp",
+          "webunlocker",
+          "builder",
+          "videoBuilder"
+        ]
+      }
+    },
+    "decisionTree": {
+      "answers": {
+        "Browser": {
+          "useCredential": [
+            "browserUsername",
+            "browserPassword"
+          ]
+        },
+        "Locations": {
+          "useCredential": [
+            "publicToken",
+            "publicKey"
+          ]
+        },
+        "Public API (usage, users, whitelist, proxy list)": {
+          "useCredential": [
+            "publicToken",
+            "publicKey"
+          ]
+        },
+        "SERP": {
+          "authMode": "bearer (default) or headerToken",
+          "useCredential": [
+            "scraperToken"
+          ]
+        },
+        "Task status/download/list": {
+          "useCredential": [
+            "publicToken",
+            "publicKey"
+          ]
+        },
+        "Web Scraper builder/video_builder": {
+          "note": "Need all three",
+          "useCredential": [
+            "scraperToken",
+            "publicToken",
+            "publicKey"
+          ]
+        },
+        "Web Unlocker": {
+          "authMode": "bearer (default) or headerToken",
+          "useCredential": [
+            "scraperToken"
+          ]
+        }
+      },
+      "question": "Which API are you calling?"
+    },
+    "serpWebunlockerAuth": {
+      "modes": {
+        "bearer": {
+          "default": true,
+          "format": "Bearer {scraperToken}",
+          "header": "Authorization"
+        },
+        "headerToken": {
+          "default": false,
+          "format": "{scraperToken}",
+          "header": "token"
+        }
+      }
+    }
+  },
+  "endpoints": {
+    "locations": {
+      "asnPath": "/asn",
+      "citiesPath": "/cities",
+      "countriesPath": "/countries",
+      "statesPath": "/states"
+    },
+    "proxyExtract": {
+      "baseUrl": "https://get-ip.thordata.net",
+      "method": "GET",
+      "notes": [
+        "Python SDK uses td-customer query param when username is provided"
+      ],
+      "residentialPath": "/api",
+      "unlimitedPath": "/unlimited_api"
+    },
+    "serp": {
+      "builderPath": "/builder",
+      "requestPath": "/request",
+      "videoBuilderPath": "/video_builder"
+    },
+    "webScraper": {
+      "downloadPath": "/tasks-download",
+      "listPath": "/tasks-list",
+      "statusPath": "/tasks-status"
+    },
+    "webunlocker": {
+      "requestPath": "/request"
+    }
+  },
+  "env": {
+    "additionalBaseUrls": {
+      "child": {
+        "default": "https://openapi.thordata.com/api/child",
+        "env": "THORDATA_CHILD_BASE_URL"
+      },
+      "gateway": {
+        "default": "https://openapi.thordata.com/api/gateway",
+        "env": "THORDATA_GATEWAY_BASE_URL"
+      },
+      "proxyApi": {
+        "default": "https://openapi.thordata.com/api",
+        "env": "THORDATA_PROXY_API_BASE_URL"
+      },
+      "whitelist": {
+        "default": "https://openapi.thordata.com/api",
+        "env": "THORDATA_WHITELIST_BASE_URL"
+      }
+    },
+    "baseUrls": {
+      "locations": {
+        "default": "https://openapi.thordata.com/api/locations",
+        "env": "THORDATA_LOCATIONS_BASE_URL"
+      },
+      "scraperapi": {
+        "default": "https://scraperapi.thordata.com",
+        "env": "THORDATA_SCRAPERAPI_BASE_URL"
+      },
+      "universalapi": {
+        "aliases": [
+          "https://webunlocker.thordata.com"
+        ],
+        "default": "https://universalapi.thordata.com",
+        "env": "THORDATA_UNIVERSALAPI_BASE_URL"
+      },
+      "webScraperApi": {
+        "default": "https://openapi.thordata.com/api/web-scraper-api",
+        "env": "THORDATA_WEB_SCRAPER_API_BASE_URL"
+      },
+      "webunlocker": {
+        "aliases": [
+          "https://universalapi.thordata.com"
+        ],
+        "default": "https://webunlocker.thordata.com",
+        "env": "THORDATA_WEBUNLOCKER_BASE_URL"
+      }
+    },
+    "integrationTest": {
+      "enabled": {
+        "default": false,
+        "env": "THORDATA_INTEGRATION"
+      },
+      "httpTest": {
+        "default": false,
+        "description": "Include HTTP protocol in integration tests (deprecated)",
+        "env": "THORDATA_INTEGRATION_HTTP"
+      },
+      "strict": {
+        "default": false,
+        "description": "Fail tests on network interference instead of skipping",
+        "env": "THORDATA_INTEGRATION_STRICT"
+      }
+    },
+    "proxyEndpoint": {
+      "host": {
+        "description": "Proxy gateway host (get from Dashboard endpoint generator)",
+        "env": "THORDATA_PROXY_HOST",
+        "example": "vpn9wq0d.pr.thordata.net",
+        "required": false
+      },
+      "port": {
+        "default": 9999,
+        "description": "Proxy gateway port",
+        "env": "THORDATA_PROXY_PORT",
+        "required": false
+      },
+      "protocol": {
+        "default": "https",
+        "description": "Proxy protocol (https recommended, http deprecated)",
+        "enum": [
+          "http",
+          "https",
+          "socks5h"
+        ],
+        "env": "THORDATA_PROXY_PROTOCOL",
+        "notes": [
+          "Most Thordata accounts require HTTPS protocol",
+          "HTTP protocol is not supported by most proxy servers",
+          "socks5h provides remote DNS resolution for better privacy"
+        ],
+        "required": false
+      }
+    },
+    "proxyEndpointPerProduct": {
+      "datacenter": {
+        "hostEnv": "THORDATA_DATACENTER_PROXY_HOST",
+        "portEnv": "THORDATA_DATACENTER_PROXY_PORT",
+        "protocolEnv": "THORDATA_DATACENTER_PROXY_PROTOCOL"
+      },
+      "mobile": {
+        "hostEnv": "THORDATA_MOBILE_PROXY_HOST",
+        "portEnv": "THORDATA_MOBILE_PROXY_PORT",
+        "protocolEnv": "THORDATA_MOBILE_PROXY_PROTOCOL"
+      },
+      "residential": {
+        "hostEnv": "THORDATA_RESIDENTIAL_PROXY_HOST",
+        "portEnv": "THORDATA_RESIDENTIAL_PROXY_PORT",
+        "protocolEnv": "THORDATA_RESIDENTIAL_PROXY_PROTOCOL"
+      }
+    },
+    "tokens": {
+      "publicKey": {
+        "env": "THORDATA_PUBLIC_KEY",
+        "required": false
+      },
+      "publicToken": {
+        "env": "THORDATA_PUBLIC_TOKEN",
+        "required": false
+      },
+      "scraperToken": {
+        "env": "THORDATA_SCRAPER_TOKEN",
+        "required": true
+      }
+    },
+    "upstreamProxy": {
+      "description": "Upstream proxy for accessing Thordata from restricted networks",
+      "env": "THORDATA_UPSTREAM_PROXY",
+      "required": false,
+      "supportedProtocols": [
+        "socks5",
+        "socks5h",
+        "http",
+        "https"
+      ]
+    }
+  },
+  "errors": {
+    "apiCodes": {
+      "notCollected": {
+        "billed": false,
+        "category": "not_collected",
+        "code": 300,
+        "description": "Request accepted but no data collected (not billed).",
+        "retryable": true
+      },
+      "success": {
+        "billed": true,
+        "category": "success",
+        "code": 200,
+        "retryable": false
+      }
+    },
+    "httpStatus": {
+      "auth": {
+        "category": "auth",
+        "codes": [
+          401,
+          403
+        ],
+        "retryable": false
+      },
+      "rateLimit": {
+        "category": "rate_limit",
+        "codes": [
+          402,
+          429
+        ],
+        "retryable": true,
+        "suggestedAction": "exponential_backoff"
+      },
+      "server": {
+        "category": "server",
+        "codes": [
+          500,
+          502,
+          503,
+          504
+        ],
+        "retryable": true,
+        "suggestedAction": "exponential_backoff"
+      },
+      "validation": {
+        "category": "validation",
+        "codes": [
+          400,
+          404,
+          422
+        ],
+        "retryable": false
+      }
+    },
+    "payload": {
+      "codeField": "code",
+      "messageFieldCandidates": [
+        "msg",
+        "message",
+        "error",
+        "detail",
+        "description"
+      ],
+      "successCode": 200
+    },
+    "precedence": {
+      "effectiveCodeRule": "payload_code_if_present_and_not_200_else_http_status"
+    },
+    "publicApiCodes": {
+      "10000": {
+        "category": "validation",
+        "message": "Parameter error",
+        "retryable": false
+      },
+      "10001": {
+        "category": "unknown",
+        "message": "Unknown error",
+        "retryable": false
+      },
+      "10011": {
+        "category": "rate_limit",
+        "message": "Frequent operations, please try again later",
+        "retryable": true,
+        "suggestedAction": "exponential_backoff"
+      },
+      "10013": {
+        "category": "auth",
+        "message": "public token error",
+        "retryable": false
+      },
+      "10014": {
+        "category": "auth",
+        "message": "public key error",
+        "retryable": false
+      },
+      "10018": {
+        "category": "validation",
+        "message": "The username already exists",
+        "retryable": false
+      },
+      "10021": {
+        "category": "validation",
+        "message": "The query date cannot exceed 180 days",
+        "retryable": false
+      }
+    },
+    "serpCodes": [
+      200,
+      300,
+      400,
+      401,
+      403,
+      404,
+      429,
+      500,
+      504
+    ],
+    "tasksCodes": [
+      200,
+      300,
+      400,
+      401,
+      403,
+      404,
+      429,
+      500,
+      504
+    ],
+    "webunlockerCodes": [
+      200,
+      300,
+      400,
+      401,
+      403,
+      429,
+      500,
+      504
+    ]
+  },
+  "extract": {
+    "baseUrl": "https://get-ip.thordata.net",
+    "common": {
+      "method": "GET",
+      "queryParams": {
+        "city": {
+          "required": false,
+          "type": "string"
+        },
+        "country": {
+          "required": false,
+          "type": "string"
+        },
+        "num": {
+          "description": "Number of IPs to request",
+          "required": true,
+          "type": "string"
+        },
+        "port": {
+          "required": false,
+          "type": "string"
+        },
+        "protocol": {
+          "description": "Proxy protocol hint for returned endpoints",
+          "notes": [
+            "Python SDK default is 'http'",
+            "Common values: http, https, socks5, socks5h"
+          ],
+          "type": "string"
+        },
+        "return_type": {
+          "default": "txt",
+          "description": "Response format",
+          "enum": [
+            "txt",
+            "json"
+          ],
+          "type": "string"
+        },
+        "sep": {
+          "default": "\\r\\n",
+          "description": "Separator used for txt return_type",
+          "type": "string"
+        },
+        "state": {
+          "required": false,
+          "type": "string"
+        },
+        "td-customer": {
+          "description": "Optional username identifier used by the service",
+          "notes": [
+            "Python SDK sets td-customer from THORDATA_RESIDENTIAL_USERNAME (or THORDATA_UNLIMITED_USERNAME for unlimited)"
+          ],
+          "required": false,
+          "type": "string"
+        },
+        "time": {
+          "description": "Time limit (seconds or minutes depending on backend), passed as 'time'",
+          "required": false,
+          "type": "string"
+        }
+      }
+    },
+    "residential": {
+      "endpoint": "/api",
+      "inherits": "common",
+      "notes": [
+        "Supports country/state/city filters"
+      ]
+    },
+    "responses": {
+      "json": {
+        "description": "JSON response with code and data list",
+        "shape": {
+          "code": "integer",
+          "data": {
+            "items": {
+              "ip": "string",
+              "port": "integer"
+            },
+            "type": "array"
+          }
+        },
+        "successCodes": [
+          0,
+          200
+        ]
+      },
+      "txt": {
+        "description": "Plain text list of host:port separated by sep",
+        "example": "1.2.3.4:9999\\r\\n5.6.7.8:9999"
+      }
+    },
+    "unlimited": {
+      "endpoint": "/unlimited_api",
+      "inherits": "common",
+      "notes": [
+        "Python SDK uses this endpoint when product == 'unlimited'"
+      ]
+    }
+  },
+  "locations": {
+    "asn": {
+      "baseUrlRef": "locations",
+      "endpoint": "/asn",
+      "method": "GET",
+      "params": [
+        "proxy_type",
+        "country_code"
+      ]
+    },
+    "auth": {
+      "headers": {
+        "key": "publicKey",
+        "token": "publicToken"
+      }
+    },
+    "cities": {
+      "baseUrlRef": "locations",
+      "endpoint": "/cities",
+      "method": "GET",
+      "params": [
+        "proxy_type",
+        "country_code",
+        "state_code"
+      ]
+    },
+    "countries": {
+      "baseUrlRef": "locations",
+      "endpoint": "/countries",
+      "method": "GET",
+      "params": [
+        "proxy_type"
+      ]
+    },
+    "states": {
+      "baseUrlRef": "locations",
+      "endpoint": "/states",
+      "method": "GET",
+      "params": [
+        "proxy_type",
+        "country_code"
+      ]
+    }
+  },
+  "network": {
+    "apiTraffic": {
+      "notes": [
+        "API calls may respect HTTP(S)_PROXY environment variables for users behind local proxies.",
+        "Python SDK: requests.Session for API calls follows trust_env behavior unless disabled explicitly."
+      ],
+      "trustEnv": true
+    },
+    "chinaNotes": [
+      "In restricted networks, prefer system-level tunneling (TUN mode) or set THORDATA_UPSTREAM_PROXY to a local proxy.",
+      "If proxy chaining is unstable in Node/Java, recommend using system proxy or TUN mode."
+    ],
+    "httpsProxyTlsInTls": {
+      "description": "Nested TLS (TLS to proxy + TLS to target)",
+      "go": {
+        "implementation": "custom dialer + tls.Config (implementation-specific)",
+        "status": "recommended"
+      },
+      "java": {
+        "implementation": "custom SSLSocketFactory / proxy selector (advanced)",
+        "status": "optional"
+      },
+      "node": {
+        "implementation": "agent-based (e.g., https-proxy-agent)",
+        "status": "recommended"
+      },
+      "python": {
+        "implementation": "ssl.MemoryBIO / custom tunnel implementation",
+        "status": "supported"
+      },
+      "requiredFor": [
+        "HTTPS proxy protocol",
+        "HTTPS target URLs"
+      ]
+    },
+    "proxyGatewayTraffic": {
+      "notes": [
+        "Proxy gateway traffic should not inherit system proxy env by default to avoid feedback loops.",
+        "Python SDK: proxy network session sets trust_env = False."
+      ],
+      "trustEnv": false
+    },
+    "socks5hRemoteDns": {
+      "description": "SOCKS5 with remote DNS resolution",
+      "notes": [
+        "Prefer socks5h over socks5 to avoid local DNS leaks."
+      ]
+    },
+    "upstreamProxy": {
+      "env": "THORDATA_UPSTREAM_PROXY",
+      "notes": [
+        "Python SDK supports upstream proxy chaining for API and proxy gateway traffic."
+      ],
+      "purpose": "Proxy chaining for restricted networks",
+      "supportedProtocols": [
+        "socks5",
+        "socks5h",
+        "http",
+        "https"
+      ]
+    }
+  },
+  "proxy": {
+    "credentialsEnv": {
+      "datacenter": {
+        "password": "THORDATA_DATACENTER_PASSWORD",
+        "username": "THORDATA_DATACENTER_USERNAME"
+      },
+      "isp": {
+        "host": "THORDATA_ISP_HOST",
+        "password": "THORDATA_ISP_PASSWORD",
+        "username": "THORDATA_ISP_USERNAME"
+      },
+      "mobile": {
+        "password": "THORDATA_MOBILE_PASSWORD",
+        "username": "THORDATA_MOBILE_USERNAME"
+      },
+      "residential": {
+        "password": "THORDATA_RESIDENTIAL_PASSWORD",
+        "username": "THORDATA_RESIDENTIAL_USERNAME"
+      }
+    },
+    "gateway": {
+      "compatibilityHosts": [
+        "pr.thordata.net",
+        "t.pr.thordata.net",
+        "t.na.thordata.net",
+        "t.eu.thordata.net",
+        "t.as.thordata.net",
+        "dc.pr.thordata.net",
+        "m.pr.thordata.net",
+        "isp.pr.thordata.net"
+      ],
+      "dashboardHostPatterns": [
+        "{shard}.pr.thordata.net",
+        "{shard}.{region}.thordata.net"
+      ],
+      "defaultHost": "pr.thordata.net",
+      "endpointEnv": {
+        "host": "THORDATA_PROXY_HOST",
+        "port": "THORDATA_PROXY_PORT",
+        "protocol": "THORDATA_PROXY_PROTOCOL"
+      },
+      "notes": [
+        "IMPORTANT: Most accounts require HTTPS proxy protocol",
+        "HTTP proxy protocol is generally unsupported; prefer https or socks5h",
+        "Always use Dashboard-provided endpoint (e.g., vpn9wq0d.pr.thordata.net)",
+        "SDK implementations must support TLS to proxy for https protocol",
+        "For HTTPS proxy + HTTPS target: requires TLS-in-TLS (Python SDK supports)"
+      ],
+      "regions": {
+        "common": [
+          "na",
+          "eu",
+          "as"
+        ],
+        "defaultRegionAlias": "pr",
+        "residentialExtra": [
+          "va"
+        ]
+      }
+    },
+    "products": {
+      "datacenter": {
+        "port": 7777,
+        "recommended_protocol": "https"
+      },
+      "isp": {
+        "port": 6666,
+        "recommended_protocol": "https"
+      },
+      "mobile": {
+        "port": 5555,
+        "recommended_protocol": "https"
+      },
+      "residential": {
+        "port": 9999,
+        "recommended_protocol": "https"
+      }
+    },
+    "protocols": {
+      "sdkNormalization": {
+        "socks5": {
+          "normalizedTo": "socks5h"
+        }
+      },
+      "supported": {
+        "http": {
+          "description": "HTTP proxy (deprecated)",
+          "notes": [
+            "Python SDK allows 'http' in protocol validation",
+            "Most proxy servers reject HTTP proxy protocol"
+          ],
+          "status": "deprecated"
+        },
+        "https": {
+          "curl_example": "curl -x \"https://user:pass@host:9999\" \"https://ipinfo.thordata.com\"",
+          "description": "HTTPS proxy (TLS encrypted connection to proxy)",
+          "implementation_notes": [
+            "Requires TLS handshake with proxy server",
+            "For HTTPS target: requires TLS-in-TLS (nested TLS)",
+            "Python: Full support via ssl.MemoryBIO"
+          ],
+          "required_by": "Most Thordata accounts",
+          "security": "TLS encryption between client and proxy"
+        },
+        "socks5h": {
+          "advantages": [
+            "Better privacy (DNS queries via proxy)",
+            "No nested TLS issues"
+          ],
+          "curl_example": "curl -x \"socks5h://user:pass@host:9999\" \"https://ipinfo.thordata.com\"",
+          "description": "SOCKS5 proxy with remote DNS resolution",
+          "implementation_notes": [
+            "Use 'socks5h' scheme (not 'socks5') for remote DNS"
+          ]
+        }
+      }
+    },
+    "upstreamProxySupport": {
+      "environment_variable": "THORDATA_UPSTREAM_PROXY",
+      "notes": [
+        "Upstream proxy is used to reach Thordata from restricted networks",
+        "Python SDK supports proxy chaining including TLS-in-TLS"
+      ],
+      "supported_upstream_protocols": [
+        "socks5",
+        "socks5h",
+        "http",
+        "https"
+      ]
+    },
+    "username": {
+      "examples": {
+        "basic": "td-customer-myaccount",
+        "with_city": "td-customer-myaccount-country-us-city-seattle",
+        "with_country": "td-customer-myaccount-country-us",
+        "with_session": "td-customer-myaccount-country-us-sessid-abc123-sesstime-10"
+      },
+      "prefix": "td-customer-",
+      "segmentKeys": {
+        "asn": "asn",
+        "city": "city",
+        "continent": "continent",
+        "country": "country",
+        "sessionDurationMinutes": "sesstime",
+        "sessionId": "sessid",
+        "state": "state"
+      },
+      "segmentOrder": [
+        "continent",
+        "country",
+        "state",
+        "city",
+        "asn",
+        "sessid",
+        "sesstime"
+      ]
+    }
+  },
+  "publicApi": {
+    "accountBalance": {
+      "traffic": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/account/traffic-balance",
+        "method": "GET",
+        "params": [
+          "token",
+          "key"
+        ],
+        "responseFields": {
+          "traffic_balance": {
+            "type": "number",
+            "unit": "KB"
+          }
+        }
+      },
+      "wallet": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/account/wallet-balance",
+        "method": "GET",
+        "params": [
+          "token",
+          "key"
+        ],
+        "responseFields": {
+          "balance": {
+            "type": "number",
+            "unit": "USD"
+          }
+        }
+      }
+    },
+    "auth": {
+      "headers": {
+        "key": "publicKey",
+        "token": "publicToken"
+      }
+    },
+    "proxyExpiration": {
+      "baseUrl": "https://openapi.thordata.com/api",
+      "endpoint": "/proxy/expiration-time",
+      "method": "GET",
+      "params": [
+        "token",
+        "key",
+        "proxy_type",
+        "ips"
+      ]
+    },
+    "proxyList": {
+      "baseUrl": "https://openapi.thordata.com/api",
+      "endpoint": "/proxy/proxy-list",
+      "method": "GET",
+      "params": [
+        "token",
+        "key",
+        "proxy_type"
+      ],
+      "proxyTypes": {
+        "1": "ISP",
+        "2": "Datacenter"
+      },
+      "responseFields": [
+        "ip",
+        "port",
+        "username",
+        "password",
+        "expiration_time"
+      ]
+    },
+    "proxyUsers": {
+      "create": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/proxy-users/create-user",
+        "method": "POST",
+        "requestFields": {
+          "password": {
+            "required": true,
+            "type": "string"
+          },
+          "proxy_type": {
+            "required": true,
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          },
+          "traffic_limit": {
+            "description": "Traffic limit in MB (0 = unlimited, min 100)",
+            "type": "integer"
+          },
+          "username": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      },
+      "delete": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/proxy-users/delete-user",
+        "method": "POST",
+        "requestFields": {
+          "proxy_type": {
+            "required": true,
+            "type": "integer"
+          },
+          "username": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      },
+      "list": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/proxy-users/user-list",
+        "method": "GET",
+        "params": [
+          "token",
+          "key",
+          "proxy_type"
+        ],
+        "proxyTypes": {
+          "1": "Residential",
+          "2": "Unlimited"
+        },
+        "responseFields": {
+          "limit": {
+            "type": "number",
+            "unit": "KB"
+          },
+          "list": {
+            "items": {
+              "password": "string",
+              "status": "boolean",
+              "traffic_limit": "integer",
+              "usage_traffic": "number",
+              "username": "string"
+            },
+            "type": "array"
+          },
+          "remaining_limit": {
+            "type": "number",
+            "unit": "KB"
+          },
+          "user_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "update": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/proxy-users/update-user",
+        "method": "POST",
+        "requestFields": {
+          "proxy_type": {
+            "required": true,
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          },
+          "traffic_limit": {
+            "type": "integer"
+          },
+          "username": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      },
+      "usage": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/proxy-users/usage-statistics",
+        "method": "GET",
+        "params": [
+          "token",
+          "key",
+          "proxy_type",
+          "username",
+          "from_date",
+          "to_date"
+        ]
+      },
+      "usageHour": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/proxy-users/usage-statistics-hour",
+        "method": "GET",
+        "params": [
+          "token",
+          "key",
+          "proxy_type",
+          "username",
+          "from_date",
+          "to_date"
+        ]
+      }
+    },
+    "usageStatistics": {
+      "baseUrl": "https://openapi.thordata.com/api",
+      "endpoint": "/account/usage-statistics",
+      "method": "GET",
+      "params": [
+        "token",
+        "key",
+        "from_date",
+        "to_date"
+      ],
+      "responseFields": {
+        "data": {
+          "description": "Daily usage breakdown",
+          "type": "array"
+        },
+        "query_days": {
+          "type": "integer"
+        },
+        "range_usage_traffic": {
+          "type": "number",
+          "unit": "KB"
+        },
+        "total_usage_traffic": {
+          "type": "number",
+          "unit": "KB"
+        },
+        "traffic_balance": {
+          "type": "number",
+          "unit": "KB"
+        }
+      }
+    },
+    "whitelist": {
+      "addIp": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/whitelisted-ips/add-ip",
+        "method": "POST",
+        "requestFields": {
+          "ip": {
+            "required": true,
+            "type": "string"
+          },
+          "proxy_type": {
+            "description": "1=Residential, 2=Unlimited, 9=Mobile",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "true",
+              "false"
+            ],
+            "type": "string"
+          }
+        }
+      },
+      "deleteIp": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/whitelisted-ips/delete-ip",
+        "method": "POST",
+        "requestFields": {
+          "ip": {
+            "required": true,
+            "type": "string"
+          },
+          "proxy_type": {
+            "type": "integer"
+          }
+        }
+      },
+      "list": {
+        "baseUrl": "https://openapi.thordata.com/api",
+        "endpoint": "/whitelisted-ips/ip-list",
+        "method": "GET",
+        "params": [
+          "token",
+          "key",
+          "proxy_type"
+        ]
+      }
+    }
+  },
+  "sdkScopes": {
+    "languages": {
+      "go": {
+        "notes": [
+          "Best for gateway services and high concurrency; keep APIs minimal and robust."
+        ],
+        "p0": [
+          "proxyNetwork",
+          "publicApi",
+          "locations",
+          "unlimited",
+          "extract"
+        ],
+        "p1": [
+          "serp",
+          "webunlocker",
+          "webScraperTasksLifecycle"
+        ],
+        "role": "Infrastructure / high-performance networking"
+      },
+      "java": {
+        "notes": [
+          "Focus on account management and task orchestration.",
+          "Do not prioritize complex TLS-in-TLS proxy chaining; provide basic proxy URL builders only if requested."
+        ],
+        "p0": [
+          "publicApi",
+          "locations",
+          "webScraperTasksLifecycle"
+        ],
+        "p1": [
+          "serp",
+          "webunlocker"
+        ],
+        "p2": [
+          "proxyNetworkBasic",
+          "browserConnection"
+        ],
+        "role": "Enterprise integration / management"
+      },
+      "node": {
+        "notes": [
+          "Prefer agent-based proxy handling; document limitations for TLS-in-TLS.",
+          "Browser users usually rely on Playwright/Puppeteer; SDK should provide connection URL helpers."
+        ],
+        "p0": [
+          "serp",
+          "webunlocker",
+          "webScraperTasks",
+          "publicApi",
+          "locations"
+        ],
+        "p1": [
+          "browserConnection",
+          "proxyNetwork",
+          "unlimited"
+        ],
+        "role": "Product integration / service SDK"
+      },
+      "python": {
+        "notes": [
+          "Primary SDK for scraping/AI pipelines; must cover all products."
+        ],
+        "p0": [
+          "serp",
+          "webunlocker",
+          "webScraperTasks",
+          "proxyNetwork",
+          "publicApi",
+          "locations",
+          "unlimited",
+          "extract",
+          "browserConnection"
+        ],
+        "p1": [
+          "advancedRetry",
+          "highConcurrencyAsync"
+        ],
+        "role": "Flagship / full coverage"
+      }
+    },
+    "principles": [
+      "Spec is canonical; language SDKs may implement a subset based on ecosystem needs.",
+      "Python SDK is the reference implementation for behavioral details.",
+      "All SDKs should implement consistent auth, error precedence, and base URL env handling."
+    ]
+  },
+  "serp": {
+    "engines": {
+      "aliases": {
+        "bing_search": "bing",
+        "duckduckgo_search": "duckduckgo",
+        "google_local": "google",
+        "google_product": "google_product",
+        "google_search": "google",
+        "google_web": "google",
+        "yandex_search": "yandex"
+      }
+    },
+    "mappings": {
+      "searchTypeToTbm": {
+        "images": "isch",
+        "isch": "isch",
+        "news": "nws",
+        "nws": "nws",
+        "shop": "shop",
+        "shopping": "shop",
+        "vid": "vid",
+        "videos": "vid"
+      },
+      "timeFilterToTbs": {
+        "day": "qdr:d",
+        "hour": "qdr:h",
+        "month": "qdr:m",
+        "week": "qdr:w",
+        "year": "qdr:y"
+      }
+    },
+    "request": {
+      "fields": {
+        "engine": {
+          "required": true,
+          "type": "string"
+        },
+        "gl": {
+          "type": "string"
+        },
+        "hl": {
+          "type": "string"
+        },
+        "json": {
+          "enum": [
+            "0",
+            "1",
+            "2"
+          ],
+          "meaning": "1=json,0=html,2=both",
+          "type": "string"
+        },
+        "no_cache": {
+          "enum": [
+            "True",
+            "False"
+          ],
+          "type": "string"
+        },
+        "num": {
+          "type": "string"
+        },
+        "q": {
+          "requiredIfEngineNot": [
+            "yandex"
+          ],
+          "type": "string"
+        },
+        "render_js": {
+          "enum": [
+            "True",
+            "False"
+          ],
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        },
+        "tbm": {
+          "type": "string"
+        },
+        "tbs": {
+          "type": "string"
+        },
+        "text": {
+          "requiredIfEngine": [
+            "yandex"
+          ],
+          "type": "string"
+        }
+      }
+    }
+  },
+  "tasks": {
+    "builder": {
+      "auth": {
+        "headers": {
+          "AuthorizationBearer": "scraperToken",
+          "key": "publicKey",
+          "token": "publicToken"
+        }
+      },
+      "baseUrlRef": "scraperapi",
+      "endpoint": "/builder",
+      "method": "POST",
+      "requestFields": [
+        "file_name",
+        "spider_id",
+        "spider_name",
+        "spider_parameters",
+        "spider_errors",
+        "spider_universal"
+      ]
+    },
+    "download": {
+      "auth": {
+        "headers": {
+          "key": "publicKey",
+          "token": "publicToken"
+        }
+      },
+      "baseUrlRef": "webScraperApi",
+      "downloadTypes": [
+        "json",
+        "csv",
+        "video",
+        "subtitle",
+        "audio"
+      ],
+      "endpoint": "/tasks-download",
+      "method": "POST",
+      "requestFields": [
+        "tasks_id",
+        "type"
+      ]
+    },
+    "list": {
+      "auth": {
+        "headers": {
+          "key": "publicKey",
+          "token": "publicToken"
+        }
+      },
+      "baseUrlRef": "webScraperApi",
+      "endpoint": "/tasks-list",
+      "method": "POST",
+      "requestFields": [
+        "page",
+        "size"
+      ],
+      "responseFields": [
+        "count",
+        "list"
+      ]
+    },
+    "status": {
+      "auth": {
+        "headers": {
+          "key": "publicKey",
+          "token": "publicToken"
+        }
+      },
+      "baseUrlRef": "webScraperApi",
+      "endpoint": "/tasks-status",
+      "method": "POST",
+      "requestFields": [
+        "tasks_ids"
+      ]
+    },
+    "videoBuilder": {
+      "auth": {
+        "headers": {
+          "AuthorizationBearer": "scraperToken",
+          "key": "publicKey",
+          "token": "publicToken"
+        }
+      },
+      "baseUrlRef": "scraperapi",
+      "commonSettings": {
+        "description": "YouTube video/audio common settings (JSON string)",
+        "fields": {
+          "audio_format": {
+            "description": "Audio format selector (e.g., opus, mp3, aac)",
+            "type": "string"
+          },
+          "bitrate": {
+            "description": "Audio bitrate selector (e.g., '<=320')",
+            "type": "string"
+          },
+          "resolution": {
+            "description": "Video resolution selector (SDK commonly uses expressions like '<=360p')",
+            "type": "string"
+          },
+          "selected_only": {
+            "description": "If true, only download selected streams",
+            "type": "boolean"
+          },
+          "video_codec": {
+            "description": "Video codec selector (e.g., vp9, h264)",
+            "type": "string"
+          }
+        }
+      },
+      "endpoint": "/video_builder",
+      "method": "POST",
+      "requestFields": [
+        "file_name",
+        "spider_id",
+        "spider_name",
+        "spider_parameters",
+        "spider_errors",
+        "common_settings"
+      ]
+    },
+    "webhook": {
+      "description": "Webhook events sent by Thordata when task status changes",
+      "events": [
+        "Running",
+        "Task Succeeded",
+        "Task Failed"
+      ],
+      "payload": {
+        "apiCode": {
+          "description": "API response code",
+          "type": "integer"
+        },
+        "apiErrorMsg": {
+          "description": "Error message if any",
+          "type": "string"
+        },
+        "audioUrl": {
+          "description": "Audio download URL (for audio tasks)",
+          "type": "string"
+        },
+        "createdTime": {
+          "description": "Task creation time",
+          "type": "string"
+        },
+        "csvUrl": {
+          "description": "CSV result download URL",
+          "type": "string"
+        },
+        "endTime": {
+          "description": "Task completion time",
+          "type": "string"
+        },
+        "jsonUrl": {
+          "description": "JSON result download URL",
+          "type": "string"
+        },
+        "prodect_id": {
+          "description": "Product ID",
+          "type": "string"
+        },
+        "status": {
+          "description": "Task status",
+          "type": "string"
+        },
+        "subtitleUrl": {
+          "description": "Subtitle download URL",
+          "type": "string"
+        },
+        "taskId": {
+          "description": "Task ID",
+          "type": "string"
+        },
+        "videoUrl": {
+          "description": "Video download URL (for video tasks)",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "universal": {
+    "endpoint": {
+      "auth": {
+        "headers": {
+          "AuthorizationBearer": "scraperToken"
+        },
+        "mode": "bearer"
+      },
+      "baseUrlRef": "webunlocker",
+      "method": "POST",
+      "path": "/request"
+    },
+    "request": {
+      "contentType": "application/x-www-form-urlencoded",
+      "fields": {
+        "block_resources": {
+          "description": "Comma-separated resource types to block (e.g., image,script,css)",
+          "required": false,
+          "type": "string"
+        },
+        "clean_content": {
+          "description": "Comma-separated content types to remove (e.g., js,css)",
+          "required": false,
+          "type": "string"
+        },
+        "cookies": {
+          "description": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)",
+          "example": "[{\"name\":\"session\",\"value\":\"abc\"}]",
+          "required": false,
+          "type": "string"
+        },
+        "country": {
+          "description": "Proxy country code (e.g., us, de)",
+          "required": false,
+          "type": "string"
+        },
+        "headers": {
+          "description": "JSON string of headers list (SDK serializes list[dict] via json.dumps)",
+          "example": "[{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0\"}]",
+          "required": false,
+          "type": "string"
+        },
+        "js_render": {
+          "default": "False",
+          "description": "Enable JavaScript rendering",
+          "enum": [
+            "True",
+            "False"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "default": "html",
+          "description": "Output format",
+          "enum": [
+            "html",
+            "png"
+          ],
+          "type": "string"
+        },
+        "url": {
+          "description": "Target URL to scrape",
+          "required": true,
+          "type": "string"
+        },
+        "wait": {
+          "description": "Wait time in milliseconds (0-100000)",
+          "required": false,
+          "type": "string"
+        },
+        "wait_for": {
+          "description": "CSS selector to wait for",
+          "required": false,
+          "type": "string"
+        }
+      }
+    },
+    "response": {
+      "output": {
+        "html": {
+          "contentType": "text/html",
+          "type": "string"
+        },
+        "png": {
+          "contentType": "image/png",
+          "type": "bytes"
+        }
+      },
+      "successCodes": [
+        200
+      ]
+    },
+    "userAgent": {
+      "components": {
+        "lang": "python, go, js, java",
+        "os_info": "Operating system and architecture details",
+        "runtime": "python, node, java, go",
+        "runtime_version": "Language runtime version",
+        "version": "SDK semantic version"
+      },
+      "description": "Standard User-Agent format for all SDKs",
+      "format": "thordata-{lang}-sdk/{version} {runtime}/{runtime_version} ({os_info})"
+    }
+  },
+  "unlimited": {
+    "auth": {
+      "headers": {
+        "key": "publicKey",
+        "token": "publicToken"
+      }
+    },
+    "balancingMonitor": {
+      "baseUrlRefDerived": true,
+      "endpoint": "/unlimited/balancing-monitor",
+      "method": "GET",
+      "params": [
+        "token",
+        "key",
+        "ins_id",
+        "region",
+        "start_time",
+        "end_time",
+        "period"
+      ],
+      "responseNotes": [
+        "Python SDK notes this endpoint may use status_code instead of code",
+        "Python SDK returns payload field if present"
+      ]
+    },
+    "baseUrl": {
+      "derivedFrom": {
+        "baseUrlRef": "locations",
+        "example": "https://openapi.thordata.com/api",
+        "rule": "remove_suffix:/locations"
+      }
+    },
+    "bindUser": {
+      "add": {
+        "baseUrlRefDerived": true,
+        "endpoint": "/add_unlimited_servers_bind_user",
+        "method": "POST",
+        "requestFields": {
+          "ip": {
+            "required": true,
+            "type": "string"
+          },
+          "username": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      },
+      "delete": {
+        "baseUrlRefDerived": true,
+        "endpoint": "/del_unlimited_servers_bind_user",
+        "method": "POST",
+        "requestFields": {
+          "ip": {
+            "required": true,
+            "type": "string"
+          },
+          "username": {
+            "required": true,
+            "type": "string"
+          }
+        }
+      },
+      "list": {
+        "baseUrlRefDerived": true,
+        "endpoint": "/get_unlimited_servers_bind_user",
+        "method": "POST",
+        "requestFields": {
+          "ip": {
+            "description": "Domain or IP of unlimited proxy server",
+            "required": true,
+            "type": "string"
+          }
+        }
+      }
+    },
+    "renew": {
+      "baseUrlRefDerived": true,
+      "endpoint": "/unlimited/renew",
+      "method": "POST",
+      "requestFields": {
+        "month": {
+          "required": true,
+          "type": "integer"
+        },
+        "plan_name": {
+          "required": true,
+          "type": "string"
+        }
+      }
+    },
+    "restart": {
+      "baseUrlRefDerived": true,
+      "endpoint": "/unlimited/restart-server",
+      "method": "POST",
+      "requestFields": {
+        "plan_name": {
+          "required": true,
+          "type": "string"
+        }
+      }
+    },
+    "serverList": {
+      "baseUrlRefDerived": true,
+      "endpoint": "/unlimited/server-list",
+      "method": "GET",
+      "params": [
+        "token",
+        "key"
+      ]
+    },
+    "serverMonitor": {
+      "baseUrlRefDerived": true,
+      "endpoint": "/unlimited/server-monitor",
+      "method": "GET",
+      "params": [
+        "token",
+        "key",
+        "ins_id",
+        "region",
+        "start_time",
+        "end_time",
+        "period"
+      ],
+      "responseNotes": [
+        "Python SDK expects data.code == 200 and returns data.data"
+      ]
+    },
+    "upgrade": {
+      "baseUrlRefDerived": true,
+      "endpoint": "/unlimited/upgrade",
+      "method": "POST",
+      "requestFields": {
+        "plan_name": {
+          "required": true,
+          "type": "string"
+        },
+        "target_plan": {
+          "required": true,
+          "type": "string"
+        }
+      }
+    }
+  },
+  "version": 1
+}
