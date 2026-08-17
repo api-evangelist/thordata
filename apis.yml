@@ -16,7 +16,7 @@ description: >-
   prepaid and unusual in one respect that matters to automated consumers: only a 200 response is
   charged, so failed and empty collections cost nothing.
 image: https://www.thordata.com/logo.png
-url: https://thordata.apievangelist.com/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/thordata/refs/heads/main/apis.yml
 created: '2026-07-23'
 modified: '2026-08-11'
 specificationVersion: '0.21'
