@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thordata Scraper API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SERP API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a SERP API search",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scraperapi.thordata.com/request",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve real-time search engine results as parsed JSON or raw HTML. Supports Google, Bing, Yandex and DuckDuckGo. Billed only on a 200 response."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Web Scraper API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Launch a Web Scraper API task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scraperapi.thordata.com/builder",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "spider_name",
+                  "value": ""
+                },
+                {
+                  "name": "spider_id",
+                  "value": ""
+                },
+                {
+                  "name": "spider_parameters",
+                  "value": ""
+                },
+                {
+                  "name": "spider_errors",
+                  "value": ""
+                },
+                {
+                  "name": "spider_universal",
+                  "value": ""
+                },
+                {
+                  "name": "file_name",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Run a pre-built scraper from the Web Scraper Store against a list of inputs. Requires all three headers: Authorization bearer scraperToken, token, key."
+        },
+        {
+          "info": {
+            "name": "Launch a video/audio Web Scraper API task",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://scraperapi.thordata.com/video_builder",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "spider_name",
+                  "value": ""
+                },
+                {
+                  "name": "spider_id",
+                  "value": ""
+                },
+                {
+                  "name": "spider_parameters",
+                  "value": ""
+                },
+                {
+                  "name": "spider_errors",
+                  "value": ""
+                },
+                {
+                  "name": "file_name",
+                  "value": ""
+                },
+                {
+                  "name": "common_settings",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Same contract as /builder plus common_settings for video/audio stream selection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

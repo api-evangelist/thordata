@@ -1,0 +1,2552 @@
+{
+  "item": [
+    {
+      "id": "a154ef97-022c-4ec2-aa92-3b34bedeef65",
+      "name": "SERP API",
+      "description": {
+        "content": "Real-time search engine results",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8cedd953-6441-4af4-98b1-2f1fc7a64810",
+          "name": "Run a SERP API search",
+          "request": {
+            "name": "Run a SERP API search",
+            "description": {
+              "content": "Retrieve real-time search engine results as parsed JSON or raw HTML. Supports Google, Bing, Yandex and DuckDuckGo. Billed only on a 200 response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "engine",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "gl",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "hl",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "json",
+                  "value": "<string>",
+                  "description": "1=json,0=html,2=both"
+                },
+                {
+                  "disabled": false,
+                  "key": "no_cache",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "num",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Required unless engine is one of: yandex"
+                },
+                {
+                  "disabled": false,
+                  "key": "render_js",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tbm",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "tbs",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>",
+                  "description": "Required when engine is one of: yandex"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d63145f1-8378-46e7-9c48-bf328311802e",
+              "name": "Success. Billed only when the payload code is 200.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "engine",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "hl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "1=json,0=html,2=both",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "no_cache",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required unless engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "render_js",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required when engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54ce76c2-8944-45be-be5c-cfdb13464e86",
+              "name": "Bad Request - invalid parameters were passed. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "engine",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "hl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "1=json,0=html,2=both",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "no_cache",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required unless engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "render_js",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required when engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "480fa2c6-0897-4a5e-8bb8-802158a71724",
+              "name": "Unauthorized - authentication failed; check token validity. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "engine",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "hl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "1=json,0=html,2=both",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "no_cache",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required unless engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "render_js",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required when engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a2f2f4e-5c64-4d65-9ce1-857de0c3ac63",
+              "name": "Forbidden - the target server refused to fulfill the request. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "engine",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "hl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "1=json,0=html,2=both",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "no_cache",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required unless engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "render_js",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required when engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02c96eb6-85e7-47d3-910d-0e9ddc19885e",
+              "name": "Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "engine",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "hl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "1=json,0=html,2=both",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "no_cache",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required unless engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "render_js",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required when engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "63ecdb5b-5935-4f8c-85db-ac095274a19d",
+              "name": "Internal Server Error. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "engine",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "hl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "1=json,0=html,2=both",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "no_cache",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required unless engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "render_js",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required when engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afcf7a9f-aae9-4ed2-bee1-812d5f58569f",
+              "name": "Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "engine",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "gl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "hl",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "1=json,0=html,2=both",
+                        "type": "text/plain"
+                      },
+                      "key": "json",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "no_cache",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required unless engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "q",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "render_js",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "start",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbm",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "tbs",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Required when engine is one of: yandex",
+                        "type": "text/plain"
+                      },
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2f71f935-e194-4a7a-9796-e09b29f4974b",
+      "name": "Web Scraper API",
+      "description": {
+        "content": "Pre-built site scrapers launched as asynchronous tasks",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "91f1a155-ffca-4ddb-b014-14299e1639f6",
+          "name": "Launch a Web Scraper API task",
+          "request": {
+            "name": "Launch a Web Scraper API task",
+            "description": {
+              "content": "Run a pre-built scraper from the Web Scraper Store against a list of inputs. Requires all three headers: Authorization bearer scraperToken, token, key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "builder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "spider_id",
+                  "value": "<string>",
+                  "description": "(Required) Scraper id, e.g. amazon_product_by-url"
+                },
+                {
+                  "disabled": false,
+                  "key": "spider_name",
+                  "value": "<string>",
+                  "description": "(Required) Target site key, e.g. amazon.com"
+                },
+                {
+                  "disabled": false,
+                  "key": "spider_parameters",
+                  "value": "<string>",
+                  "description": "(Required) JSON-encoded array of per-input parameter objects"
+                },
+                {
+                  "disabled": false,
+                  "key": "spider_errors",
+                  "value": "<string>",
+                  "description": "Include per-input errors in the result set"
+                },
+                {
+                  "disabled": false,
+                  "key": "spider_universal",
+                  "value": "<string>",
+                  "description": "Universal spider flag"
+                },
+                {
+                  "disabled": false,
+                  "key": "file_name",
+                  "value": "<string>",
+                  "description": "Output file name; supports the {{TasksID}} template"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "08d2ce10-8c8a-4030-985c-4a715d6b010b",
+              "name": "Success. Billed only when the payload code is 200.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Scraper id, e.g. amazon_product_by-url",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target site key, e.g. amazon.com",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of per-input parameter objects",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Include per-input errors in the result set",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Universal spider flag",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_universal",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output file name; supports the {{TasksID}} template",
+                        "type": "text/plain"
+                      },
+                      "key": "file_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f242ea98-a087-4b3c-8c06-ae2648345285",
+              "name": "Bad Request - invalid parameters were passed. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Scraper id, e.g. amazon_product_by-url",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target site key, e.g. amazon.com",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of per-input parameter objects",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Include per-input errors in the result set",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Universal spider flag",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_universal",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output file name; supports the {{TasksID}} template",
+                        "type": "text/plain"
+                      },
+                      "key": "file_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c5ef92b-c953-41b8-9f34-da71dbaf9c44",
+              "name": "Unauthorized - authentication failed; check token validity. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Scraper id, e.g. amazon_product_by-url",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target site key, e.g. amazon.com",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of per-input parameter objects",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Include per-input errors in the result set",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Universal spider flag",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_universal",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output file name; supports the {{TasksID}} template",
+                        "type": "text/plain"
+                      },
+                      "key": "file_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "596a2490-0a92-462f-9176-675b37c9fb27",
+              "name": "Forbidden - the target server refused to fulfill the request. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Scraper id, e.g. amazon_product_by-url",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target site key, e.g. amazon.com",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of per-input parameter objects",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Include per-input errors in the result set",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Universal spider flag",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_universal",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output file name; supports the {{TasksID}} template",
+                        "type": "text/plain"
+                      },
+                      "key": "file_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30b881cb-dadd-4e58-bae7-010454c37b45",
+              "name": "Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Scraper id, e.g. amazon_product_by-url",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target site key, e.g. amazon.com",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of per-input parameter objects",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Include per-input errors in the result set",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Universal spider flag",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_universal",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output file name; supports the {{TasksID}} template",
+                        "type": "text/plain"
+                      },
+                      "key": "file_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b788a904-9853-461d-bff9-7bae14bc5e8a",
+              "name": "Internal Server Error. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Scraper id, e.g. amazon_product_by-url",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target site key, e.g. amazon.com",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of per-input parameter objects",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Include per-input errors in the result set",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Universal spider flag",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_universal",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output file name; supports the {{TasksID}} template",
+                        "type": "text/plain"
+                      },
+                      "key": "file_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9525134f-298c-494b-8f0b-7b75fd7b2792",
+              "name": "Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Scraper id, e.g. amazon_product_by-url",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target site key, e.g. amazon.com",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) JSON-encoded array of per-input parameter objects",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Include per-input errors in the result set",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Universal spider flag",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_universal",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output file name; supports the {{TasksID}} template",
+                        "type": "text/plain"
+                      },
+                      "key": "file_name",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbfd2542-7bd9-4032-8e51-34ff63c3092e",
+          "name": "Launch a video/audio Web Scraper API task",
+          "request": {
+            "name": "Launch a video/audio Web Scraper API task",
+            "description": {
+              "content": "Same contract as /builder plus common_settings for video/audio stream selection.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "video_builder"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "spider_id",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "spider_name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "spider_parameters",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "spider_errors",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "file_name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "common_settings",
+                  "value": "<string>",
+                  "description": "JSON string of video/audio settings: resolution (e.g. '<=360p'), video_codec (vp9, h264), audio_format (opus, mp3, aac), bitrate (e.g. '<=320'), selected_only (boolean)"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eddf84de-1ff1-4e02-a177-1a442b826431",
+              "name": "Success. Billed only when the payload code is 200.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "video_builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of video/audio settings: resolution (e.g. '<=360p'), video_codec (vp9, h264), audio_format (opus, mp3, aac), bitrate (e.g. '<=320'), selected_only (boolean)",
+                        "type": "text/plain"
+                      },
+                      "key": "common_settings",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1884fd7d-b95b-4994-878a-b400ae90d71f",
+              "name": "Bad Request - invalid parameters were passed. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "video_builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of video/audio settings: resolution (e.g. '<=360p'), video_codec (vp9, h264), audio_format (opus, mp3, aac), bitrate (e.g. '<=320'), selected_only (boolean)",
+                        "type": "text/plain"
+                      },
+                      "key": "common_settings",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1319e9f-01e5-43fe-bfad-3202164b778a",
+              "name": "Unauthorized - authentication failed; check token validity. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "video_builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of video/audio settings: resolution (e.g. '<=360p'), video_codec (vp9, h264), audio_format (opus, mp3, aac), bitrate (e.g. '<=320'), selected_only (boolean)",
+                        "type": "text/plain"
+                      },
+                      "key": "common_settings",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "08f0a189-25a3-426a-80c3-2a3b787c9d0a",
+              "name": "Forbidden - the target server refused to fulfill the request. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "video_builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of video/audio settings: resolution (e.g. '<=360p'), video_codec (vp9, h264), audio_format (opus, mp3, aac), bitrate (e.g. '<=320'), selected_only (boolean)",
+                        "type": "text/plain"
+                      },
+                      "key": "common_settings",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c187672-bd4c-4ed9-aa51-9804b02eaa35",
+              "name": "Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "video_builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of video/audio settings: resolution (e.g. '<=360p'), video_codec (vp9, h264), audio_format (opus, mp3, aac), bitrate (e.g. '<=320'), selected_only (boolean)",
+                        "type": "text/plain"
+                      },
+                      "key": "common_settings",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b7591cbd-1493-42ff-a4b9-c91213b72ccc",
+              "name": "Internal Server Error. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "video_builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of video/audio settings: resolution (e.g. '<=360p'), video_codec (vp9, h264), audio_format (opus, mp3, aac), bitrate (e.g. '<=320'), selected_only (boolean)",
+                        "type": "text/plain"
+                      },
+                      "key": "common_settings",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41c68765-6c89-4c47-b37d-2822015bfb3e",
+              "name": "Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "video_builder"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "spider_parameters",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "spider_errors",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "file_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of video/audio settings: resolution (e.g. '<=360p'), video_codec (vp9, h264), audio_format (opus, mp3, aac), bitrate (e.g. '<=320'), selected_only (boolean)",
+                        "type": "text/plain"
+                      },
+                      "key": "common_settings",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 6814,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://scraperapi.thordata.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "006ef90f-4f0c-45b3-8179-b02f6113f2bd",
+    "name": "Thordata Scraper API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "SERP API and Web Scraper API task launch endpoints on the Thordata scraper host. Derived from Thordata's own canonical SDK specification (thordata-sdk-spec v1.json) and the published documentation at https://doc.thordata.com/doc/overview.\n\nContact Support:\n Name: Thordata Support\n Email: support@thordata.com",
+      "type": "text/plain"
+    }
+  }
+}

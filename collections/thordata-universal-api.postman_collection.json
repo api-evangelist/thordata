@@ -1,0 +1,1103 @@
+{
+  "item": [
+    {
+      "id": "526c9682-dede-4408-bd58-780b5c88ccd3",
+      "name": "Universal Scraping API",
+      "description": {
+        "content": "Fetch any URL through Thordata's unblocking layer",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a064db8-f280-4b40-a011-72632f578306",
+          "name": "Scrape a URL",
+          "request": {
+            "name": "Scrape a URL",
+            "description": {
+              "content": "Fetch a target URL and return rendered HTML or a PNG screenshot. Billed only on a 200 response; a 300 means accepted but nothing collected.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "text/html"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<string>",
+                  "description": "(Required) Target URL to scrape"
+                },
+                {
+                  "disabled": false,
+                  "key": "block_resources",
+                  "value": "<string>",
+                  "description": "Comma-separated resource types to block (e.g., image,script,css)"
+                },
+                {
+                  "disabled": false,
+                  "key": "clean_content",
+                  "value": "<string>",
+                  "description": "Comma-separated content types to remove (e.g., js,css)"
+                },
+                {
+                  "disabled": false,
+                  "key": "cookies",
+                  "value": "<string>",
+                  "description": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>",
+                  "description": "Proxy country code (e.g., us, de)"
+                },
+                {
+                  "disabled": false,
+                  "key": "headers",
+                  "value": "<string>",
+                  "description": "JSON string of headers list (SDK serializes list[dict] via json.dumps)"
+                },
+                {
+                  "disabled": false,
+                  "key": "js_render",
+                  "value": "False",
+                  "description": "Enable JavaScript rendering"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "html",
+                  "description": "Output format"
+                },
+                {
+                  "disabled": false,
+                  "key": "wait",
+                  "value": "<string>",
+                  "description": "Wait time in milliseconds (0-100000)"
+                },
+                {
+                  "disabled": false,
+                  "key": "wait_for",
+                  "value": "<string>",
+                  "description": "CSS selector to wait for"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fa20e61a-4920-4979-96e2-e34126a587b2",
+              "name": "Collected page content.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/html"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target URL to scrape",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated resource types to block (e.g., image,script,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "block_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated content types to remove (e.g., js,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "clean_content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "cookies",
+                      "value": "[{\"name\":\"session\",\"value\":\"abc\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Proxy country code (e.g., us, de)",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of headers list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "[{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Enable JavaScript rendering",
+                        "type": "text/plain"
+                      },
+                      "key": "js_render",
+                      "value": "False"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output format",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "html"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Wait time in milliseconds (0-100000)",
+                        "type": "text/plain"
+                      },
+                      "key": "wait",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "CSS selector to wait for",
+                        "type": "text/plain"
+                      },
+                      "key": "wait_for",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9312,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d5a767f-27a4-419b-8aa7-37748eec6426",
+              "name": "Bad Request - invalid parameters were passed. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target URL to scrape",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated resource types to block (e.g., image,script,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "block_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated content types to remove (e.g., js,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "clean_content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "cookies",
+                      "value": "[{\"name\":\"session\",\"value\":\"abc\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Proxy country code (e.g., us, de)",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of headers list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "[{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Enable JavaScript rendering",
+                        "type": "text/plain"
+                      },
+                      "key": "js_render",
+                      "value": "False"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output format",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "html"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Wait time in milliseconds (0-100000)",
+                        "type": "text/plain"
+                      },
+                      "key": "wait",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "CSS selector to wait for",
+                        "type": "text/plain"
+                      },
+                      "key": "wait_for",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9312,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82ddaa8c-318a-4dec-942e-6480b8f1e410",
+              "name": "Unauthorized - authentication failed; check token validity. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target URL to scrape",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated resource types to block (e.g., image,script,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "block_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated content types to remove (e.g., js,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "clean_content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "cookies",
+                      "value": "[{\"name\":\"session\",\"value\":\"abc\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Proxy country code (e.g., us, de)",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of headers list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "[{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Enable JavaScript rendering",
+                        "type": "text/plain"
+                      },
+                      "key": "js_render",
+                      "value": "False"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output format",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "html"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Wait time in milliseconds (0-100000)",
+                        "type": "text/plain"
+                      },
+                      "key": "wait",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "CSS selector to wait for",
+                        "type": "text/plain"
+                      },
+                      "key": "wait_for",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9312,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ce11ba6-6f12-4156-977e-98a4e68b9858",
+              "name": "Forbidden - the target server refused to fulfill the request. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target URL to scrape",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated resource types to block (e.g., image,script,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "block_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated content types to remove (e.g., js,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "clean_content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "cookies",
+                      "value": "[{\"name\":\"session\",\"value\":\"abc\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Proxy country code (e.g., us, de)",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of headers list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "[{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Enable JavaScript rendering",
+                        "type": "text/plain"
+                      },
+                      "key": "js_render",
+                      "value": "False"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output format",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "html"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Wait time in milliseconds (0-100000)",
+                        "type": "text/plain"
+                      },
+                      "key": "wait",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "CSS selector to wait for",
+                        "type": "text/plain"
+                      },
+                      "key": "wait_for",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9312,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d9143d2-8505-4083-98a1-d496fee1ea74",
+              "name": "Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target URL to scrape",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated resource types to block (e.g., image,script,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "block_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated content types to remove (e.g., js,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "clean_content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "cookies",
+                      "value": "[{\"name\":\"session\",\"value\":\"abc\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Proxy country code (e.g., us, de)",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of headers list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "[{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Enable JavaScript rendering",
+                        "type": "text/plain"
+                      },
+                      "key": "js_render",
+                      "value": "False"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output format",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "html"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Wait time in milliseconds (0-100000)",
+                        "type": "text/plain"
+                      },
+                      "key": "wait",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "CSS selector to wait for",
+                        "type": "text/plain"
+                      },
+                      "key": "wait_for",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9312,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61a0d3b7-bc31-40e9-9f9b-b17666f64225",
+              "name": "Internal Server Error. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target URL to scrape",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated resource types to block (e.g., image,script,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "block_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated content types to remove (e.g., js,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "clean_content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "cookies",
+                      "value": "[{\"name\":\"session\",\"value\":\"abc\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Proxy country code (e.g., us, de)",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of headers list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "[{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Enable JavaScript rendering",
+                        "type": "text/plain"
+                      },
+                      "key": "js_render",
+                      "value": "False"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output format",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "html"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Wait time in milliseconds (0-100000)",
+                        "type": "text/plain"
+                      },
+                      "key": "wait",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "CSS selector to wait for",
+                        "type": "text/plain"
+                      },
+                      "key": "wait_for",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9312,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8169cad-dff8-417c-93a9-6f2760fe958f",
+              "name": "Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Target URL to scrape",
+                        "type": "text/plain"
+                      },
+                      "key": "url",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated resource types to block (e.g., image,script,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "block_resources",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Comma-separated content types to remove (e.g., js,css)",
+                        "type": "text/plain"
+                      },
+                      "key": "clean_content",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of cookies list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "cookies",
+                      "value": "[{\"name\":\"session\",\"value\":\"abc\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Proxy country code (e.g., us, de)",
+                        "type": "text/plain"
+                      },
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "JSON string of headers list (SDK serializes list[dict] via json.dumps)",
+                        "type": "text/plain"
+                      },
+                      "key": "headers",
+                      "value": "[{\"name\":\"User-Agent\",\"value\":\"Mozilla/5.0\"}]"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Enable JavaScript rendering",
+                        "type": "text/plain"
+                      },
+                      "key": "js_render",
+                      "value": "False"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Output format",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "html"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Wait time in milliseconds (0-100000)",
+                        "type": "text/plain"
+                      },
+                      "key": "wait",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "CSS selector to wait for",
+                        "type": "text/plain"
+                      },
+                      "key": "wait_for",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Gateway Timeout",
+              "code": 504,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 9312,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://universalapi.thordata.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7d3e06df-6ffb-46db-b4da-45dad9ce3a0d",
+    "name": "Thordata Universal Scraping API / Web Unlocker",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Single-endpoint page collection with optional JavaScript rendering, geo-targeting, resource blocking, custom headers/cookies and HTML or PNG output. universalapi.thordata.com and webunlocker.thordata.com are documented aliases for the same contract.\n\nContact Support:\n Name: Thordata Support\n Email: support@thordata.com",
+      "type": "text/plain"
+    }
+  }
+}

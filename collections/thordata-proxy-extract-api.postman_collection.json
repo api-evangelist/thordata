@@ -1,0 +1,973 @@
+{
+  "item": [
+    {
+      "id": "e9b89ff0-b2f2-464c-b690-50221ee16a6f",
+      "name": "Proxy Extract",
+      "description": {
+        "content": "Batch proxy endpoint extraction",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ec7ef133-b234-4337-89ee-36937d2564e2",
+          "name": "Extract residential proxy endpoints",
+          "request": {
+            "name": "Extract residential proxy endpoints",
+            "description": {
+              "content": "Supports country/state/city filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "num",
+                  "value": "<string>",
+                  "description": "(Required) Number of IPs to request"
+                },
+                {
+                  "disabled": false,
+                  "key": "port",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "protocol",
+                  "value": "<string>",
+                  "description": "Proxy protocol hint for returned endpoints"
+                },
+                {
+                  "disabled": false,
+                  "key": "return_type",
+                  "value": "txt",
+                  "description": "Response format"
+                },
+                {
+                  "disabled": false,
+                  "key": "sep",
+                  "value": "\\r\\n",
+                  "description": "Separator used for txt return_type"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "td-customer",
+                  "value": "<string>",
+                  "description": "Optional username identifier used by the service"
+                },
+                {
+                  "disabled": false,
+                  "key": "time",
+                  "value": "<string>",
+                  "description": "Time limit (seconds or minutes depending on backend), passed as 'time'"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "52608a33-edd0-4c0c-b54b-fbb650eb9b4b",
+              "name": "Proxy endpoints as text (host:port separated by sep) or JSON.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 4458,\n  \"data\": [\n    {\n      \"ip\": \"string\",\n      \"port\": 3321\n    },\n    {\n      \"ip\": \"string\",\n      \"port\": 286\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81bcff5f-0e77-475b-9ea5-88b62c06d8a8",
+              "name": "Bad Request - invalid parameters were passed. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3029,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f1a48aec-96ac-42f9-a226-b8139a5c9caa",
+              "name": "Unauthorized - authentication failed; check token validity. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3029,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cda9395-3b93-45a1-a732-827e37a8222c",
+              "name": "Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3029,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e2c26b4-6325-4f0e-b4dc-ffcbb1352c34",
+              "name": "Internal Server Error. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3029,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "688bbc0c-86c4-4496-bc11-bcc7f9bc3009",
+          "name": "Extract unlimited-product proxy endpoints",
+          "request": {
+            "name": "Extract unlimited-product proxy endpoints",
+            "description": {},
+            "url": {
+              "path": [
+                "unlimited_api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "num",
+                  "value": "<string>",
+                  "description": "(Required) Number of IPs to request"
+                },
+                {
+                  "disabled": false,
+                  "key": "port",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "protocol",
+                  "value": "<string>",
+                  "description": "Proxy protocol hint for returned endpoints"
+                },
+                {
+                  "disabled": false,
+                  "key": "return_type",
+                  "value": "txt",
+                  "description": "Response format"
+                },
+                {
+                  "disabled": false,
+                  "key": "sep",
+                  "value": "\\r\\n",
+                  "description": "Separator used for txt return_type"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "td-customer",
+                  "value": "<string>",
+                  "description": "Optional username identifier used by the service"
+                },
+                {
+                  "disabled": false,
+                  "key": "time",
+                  "value": "<string>",
+                  "description": "Time limit (seconds or minutes depending on backend), passed as 'time'"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c4e79bc8-67af-4a90-89b0-799173777d42",
+              "name": "Proxy endpoints as text (host:port separated by sep) or JSON.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "unlimited_api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 2993,\n  \"data\": [\n    {\n      \"ip\": \"string\",\n      \"port\": 1891\n    },\n    {\n      \"ip\": \"string\",\n      \"port\": 7728\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0b0bccc-02db-4dcb-8aa8-b1d16a9d2486",
+              "name": "Bad Request - invalid parameters were passed. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "unlimited_api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3029,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b65bf18-8322-4aba-a5bf-07965fd858dd",
+              "name": "Unauthorized - authentication failed; check token validity. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "unlimited_api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3029,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c537f4d3-f8d5-44e1-a4d0-16faed88fa11",
+              "name": "Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "unlimited_api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3029,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb9c4434-6155-4dc7-a787-cb38fd6bf383",
+              "name": "Internal Server Error. Retryable with exponential backoff. Not billed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "unlimited_api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "port",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "protocol",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "return_type",
+                      "value": "txt"
+                    },
+                    {
+                      "key": "sep",
+                      "value": "\\r\\n"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "td-customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "time",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 3029,\n  \"msg\": \"string\",\n  \"data\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://get-ip.thordata.net",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e689079f-a5a9-44b2-b0e2-61b998747990",
+    "name": "Thordata Proxy IP Extract API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Pull a batch of proxy endpoints (host:port) for the residential or unlimited product, optionally filtered by country, state, city, protocol and session time.\n\nContact Support:\n Name: Thordata Support\n Email: support@thordata.com",
+      "type": "text/plain"
+    }
+  }
+}

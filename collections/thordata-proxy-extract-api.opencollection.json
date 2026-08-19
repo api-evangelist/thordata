@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thordata Proxy IP Extract API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Proxy Extract",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Extract residential proxy endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://get-ip.thordata.net/api",
+            "params": [
+              {
+                "name": "city",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num",
+                "value": "",
+                "type": "query",
+                "description": "Number of IPs to request"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "protocol",
+                "value": "",
+                "type": "query",
+                "description": "Proxy protocol hint for returned endpoints"
+              },
+              {
+                "name": "return_type",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              },
+              {
+                "name": "sep",
+                "value": "",
+                "type": "query",
+                "description": "Separator used for txt return_type"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "td-customer",
+                "value": "",
+                "type": "query",
+                "description": "Optional username identifier used by the service"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "Time limit (seconds or minutes depending on backend), passed as 'time'"
+              }
+            ]
+          },
+          "docs": "Supports country/state/city filters."
+        },
+        {
+          "info": {
+            "name": "Extract unlimited-product proxy endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://get-ip.thordata.net/unlimited_api",
+            "params": [
+              {
+                "name": "city",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num",
+                "value": "",
+                "type": "query",
+                "description": "Number of IPs to request"
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "protocol",
+                "value": "",
+                "type": "query",
+                "description": "Proxy protocol hint for returned endpoints"
+              },
+              {
+                "name": "return_type",
+                "value": "",
+                "type": "query",
+                "description": "Response format"
+              },
+              {
+                "name": "sep",
+                "value": "",
+                "type": "query",
+                "description": "Separator used for txt return_type"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "td-customer",
+                "value": "",
+                "type": "query",
+                "description": "Optional username identifier used by the service"
+              },
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "Time limit (seconds or minutes depending on backend), passed as 'time'"
+              }
+            ]
+          },
+          "docs": "Extract unlimited-product proxy endpoints"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

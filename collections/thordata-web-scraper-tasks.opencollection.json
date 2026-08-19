@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thordata Web Scraper API - Tasks",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tasks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List scraper tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openapi.thordata.com/api/web-scraper-api/tasks-list",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "page",
+                  "value": ""
+                },
+                {
+                  "name": "size",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "token",
+              "value": "{{token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List scraper tasks"
+        },
+        {
+          "info": {
+            "name": "Get the status of one or more tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openapi.thordata.com/api/web-scraper-api/tasks-status",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "tasks_ids",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "token",
+              "value": "{{token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the status of one or more tasks"
+        },
+        {
+          "info": {
+            "name": "Download a completed task result",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openapi.thordata.com/api/web-scraper-api/tasks-download",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "tasks_id",
+                  "value": ""
+                },
+                {
+                  "name": "type",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "token",
+              "value": "{{token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download a completed task result"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

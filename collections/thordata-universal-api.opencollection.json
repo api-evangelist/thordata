@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thordata Universal Scraping API / Web Unlocker",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Universal Scraping API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Scrape a URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://universalapi.thordata.com/request",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "block_resources",
+                  "value": ""
+                },
+                {
+                  "name": "clean_content",
+                  "value": ""
+                },
+                {
+                  "name": "cookies",
+                  "value": ""
+                },
+                {
+                  "name": "country",
+                  "value": ""
+                },
+                {
+                  "name": "headers",
+                  "value": ""
+                },
+                {
+                  "name": "js_render",
+                  "value": ""
+                },
+                {
+                  "name": "type",
+                  "value": ""
+                },
+                {
+                  "name": "url",
+                  "value": ""
+                },
+                {
+                  "name": "wait",
+                  "value": ""
+                },
+                {
+                  "name": "wait_for",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Fetch a target URL and return rendered HTML or a PNG screenshot. Billed only on a 200 response; a 300 means accepted but nothing collected."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

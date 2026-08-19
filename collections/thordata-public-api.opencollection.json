@@ -1,0 +1,571 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thordata Public API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Daily traffic usage statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/account/usage-statistics",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date of the range"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "End date of the range"
+              }
+            ]
+          },
+          "docs": "Returns query_days, range_usage_traffic (KB), total_usage_traffic (KB), traffic_balance (KB) and a daily usage breakdown. The query range cannot exceed 180 days (public API code 10021)."
+        },
+        {
+          "info": {
+            "name": "Remaining traffic balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/account/traffic-balance",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              }
+            ]
+          },
+          "docs": "Returns traffic_balance as a number in KB."
+        },
+        {
+          "info": {
+            "name": "Wallet balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/account/wallet-balance",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              }
+            ]
+          },
+          "docs": "Returns balance as a number in USD."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Proxy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List purchased proxies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/proxy/proxy-list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "1=ISP, 2=Datacenter"
+              }
+            ]
+          },
+          "docs": "Returns ip, port, username, password and expiration_time per proxy. proxy_type 1=ISP, 2=Datacenter."
+        },
+        {
+          "info": {
+            "name": "Expiration time for specific proxy IPs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/proxy/expiration-time",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "Proxy product type"
+              },
+              {
+                "name": "ips",
+                "value": "",
+                "type": "query",
+                "description": "Proxy IPs to query"
+              }
+            ]
+          },
+          "docs": "Expiration time for specific proxy IPs"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Proxy Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List proxy sub-users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/proxy-users/user-list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "1=Residential, 2=Unlimited"
+              }
+            ]
+          },
+          "docs": "Returns user_count, limit (KB), remaining_limit (KB) and a list of {username, password, status, traffic_limit, usage_traffic}. proxy_type 1=Residential, 2=Unlimited."
+        },
+        {
+          "info": {
+            "name": "Create a proxy sub-user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openapi.thordata.com/api/proxy-users/create-user",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "username",
+                  "value": ""
+                },
+                {
+                  "name": "password",
+                  "value": ""
+                },
+                {
+                  "name": "proxy_type",
+                  "value": ""
+                },
+                {
+                  "name": "status",
+                  "value": ""
+                },
+                {
+                  "name": "traffic_limit",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Create a proxy sub-user"
+        },
+        {
+          "info": {
+            "name": "Update a proxy sub-user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openapi.thordata.com/api/proxy-users/update-user",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "username",
+                  "value": ""
+                },
+                {
+                  "name": "proxy_type",
+                  "value": ""
+                },
+                {
+                  "name": "status",
+                  "value": ""
+                },
+                {
+                  "name": "traffic_limit",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Update a proxy sub-user"
+        },
+        {
+          "info": {
+            "name": "Delete a proxy sub-user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openapi.thordata.com/api/proxy-users/delete-user",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "username",
+                  "value": ""
+                },
+                {
+                  "name": "proxy_type",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Delete a proxy sub-user"
+        },
+        {
+          "info": {
+            "name": "Daily usage statistics for a proxy sub-user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/proxy-users/usage-statistics",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "Proxy product type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Sub-user name"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "End date"
+              }
+            ]
+          },
+          "docs": "Daily usage statistics for a proxy sub-user"
+        },
+        {
+          "info": {
+            "name": "Hourly usage statistics for a proxy sub-user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/proxy-users/usage-statistics-hour",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "Proxy product type"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Sub-user name"
+              },
+              {
+                "name": "from_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date"
+              },
+              {
+                "name": "to_date",
+                "value": "",
+                "type": "query",
+                "description": "End date"
+              }
+            ]
+          },
+          "docs": "Hourly usage statistics for a proxy sub-user"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Whitelist",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List whitelisted IPs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/whitelisted-ips/ip-list",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "1=Residential, 2=Unlimited, 9=Mobile"
+              }
+            ]
+          },
+          "docs": "List whitelisted IPs"
+        },
+        {
+          "info": {
+            "name": "Whitelist an IP for password-free proxy access",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openapi.thordata.com/api/whitelisted-ips/add-ip",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "ip",
+                  "value": ""
+                },
+                {
+                  "name": "proxy_type",
+                  "value": ""
+                },
+                {
+                  "name": "status",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Whitelist an IP for password-free proxy access"
+        },
+        {
+          "info": {
+            "name": "Remove a whitelisted IP",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://openapi.thordata.com/api/whitelisted-ips/delete-ip",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "ip",
+                  "value": ""
+                },
+                {
+                  "name": "proxy_type",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Remove a whitelisted IP"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

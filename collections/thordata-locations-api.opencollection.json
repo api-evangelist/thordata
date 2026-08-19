@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Thordata Locations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List supported countries/regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/locations/countries",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "Proxy product type"
+              }
+            ]
+          },
+          "docs": "List supported countries/regions"
+        },
+        {
+          "info": {
+            "name": "List supported states for a country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/locations/states",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "Proxy product type"
+              },
+              {
+                "name": "country_code",
+                "value": "",
+                "type": "query",
+                "description": "ISO country code"
+              }
+            ]
+          },
+          "docs": "List supported states for a country"
+        },
+        {
+          "info": {
+            "name": "List supported cities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/locations/cities",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "Proxy product type"
+              },
+              {
+                "name": "country_code",
+                "value": "",
+                "type": "query",
+                "description": "ISO country code"
+              },
+              {
+                "name": "state_code",
+                "value": "",
+                "type": "query",
+                "description": "State code"
+              }
+            ]
+          },
+          "docs": "List supported cities"
+        },
+        {
+          "info": {
+            "name": "List supported ASNs for a country",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://openapi.thordata.com/api/locations/asn",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "Public token. May also be sent as the token header."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Public key. May also be sent as the key header."
+              },
+              {
+                "name": "proxy_type",
+                "value": "",
+                "type": "query",
+                "description": "Proxy product type"
+              },
+              {
+                "name": "country_code",
+                "value": "",
+                "type": "query",
+                "description": "ISO country code"
+              }
+            ]
+          },
+          "docs": "List supported ASNs for a country"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
