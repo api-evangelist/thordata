@@ -51,199 +51,387 @@ tags_raw:
   - RAG data pipelines
   - Web data
 apis:
-  - name: Thordata SERP API
-    description: >-
-      Real-time search engine results as parsed JSON or raw HTML across Google, Bing, Yandex and
-      DuckDuckGo, with per-country and per-language targeting, vertical selection (images, news,
-      shopping, video), time filters and optional JavaScript rendering. A single POST /request
-      endpoint authenticated with a bearer scraper token, also reachable through a proxy gateway on
-      scraping.thordata.com:30001. Google support extends to search, shopping, local, videos, news,
-      product, flights, images, lens, trends, hotels, play, jobs, scholar, maps, finance and
-      patents. Billed only on a 200 response.
-    humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
-    baseURL: https://scraperapi.thordata.com
-    tags:
-      - SERP
-      - Search data
-      - Web Scraping
-      - Data Extraction
-      - Data-for-AI
-    tags_raw:
-      - SERP
-      - Search data
-      - Web scraping
-      - Data extraction
-      - Data-for-AI
-    properties:
-      - type: OpenAPI
-        url: openapi/thordata-scraper-api-openapi.yml
-      - type: Documentation
-        url: https://doc.thordata.com/doc/scraping/serp-api/introduction
-      - type: APIReference
-        url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
-      - type: GettingStarted
-        url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
-      - type: Overlay
-        url: overlays/thordata-scraper-api-overlay.yaml
-      - type: Pricing
-        url: https://www.thordata.com/pricing/serpapi
-      - type: Sandbox
-        url: https://dashboard.thordata.com/serp-api/playground
-      - type: AgentSkill
-        url: skills/thordata-serp-search.md
-  - name: Thordata Universal Scraping API & Web Unlocker
-    description: >-
-      Single-endpoint collection of any URL through Thordata's unblocking layer, with optional
-      JavaScript rendering for SPAs, proxy country targeting, resource blocking to cut collection
-      time, JS/CSS stripping, fixed or selector-based waits, and custom headers and cookies. Returns
-      rendered HTML or a PNG screenshot. universalapi.thordata.com and webunlocker.thordata.com are
-      documented aliases for the same contract. Billed only on a 200.
-    humanURL: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
-    baseURL: https://universalapi.thordata.com
-    tags:
-      - Web Scraping
-      - Web unblocking
-      - Data Extraction
-      - Data-for-AI
-      - RAG data pipelines
-    tags_raw:
-      - Web scraping
-      - Web unblocking
-      - Data extraction
-      - Data-for-AI
-      - RAG data pipelines
-    properties:
-      - type: OpenAPI
-        url: openapi/thordata-universal-api-openapi.yml
-      - type: Documentation
-        url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
-      - type: APIReference
-        url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
-      - type: GettingStarted
-        url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
-      - type: Overlay
-        url: overlays/thordata-universal-api-overlay.yaml
-      - type: Pricing
-        url: https://www.thordata.com/pricing/web-unlocker
-      - type: AgentSkill
-        url: skills/thordata-scrape-page.md
-  - name: Thordata Web Scraper API
-    description: >-
-      Pre-built site extractors run as asynchronous tasks - launch with POST /builder or
-      /video_builder on scraperapi.thordata.com, then list, poll and download results from the
-      web-scraper-api host. Twenty published parameter references cover Amazon, LinkedIn, TikTok,
-      Instagram, Facebook, Twitter, Reddit, YouTube, Zillow, Airbnb, Booking, Walmart, eBay, Yelp,
-      Indeed, Glassdoor, Crunchbase, GitHub, Google and Google Play. Results download as JSON, CSV,
-      video, audio or subtitles. Supports cron scheduling and outbound webhooks on task start,
-      success and failure, plus S3, Gmail and Snowflake delivery.
-    humanURL: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
-    baseURL: https://openapi.thordata.com/api/web-scraper-api
-    tags:
-      - Web Scraping
-      - Data Extraction
-      - Data-for-AI
-      - RAG data pipelines
-      - Web Data
-    tags_raw:
-      - Web scraping
-      - Data extraction
-      - Data-for-AI
-      - RAG data pipelines
-      - Web data
-    properties:
-      - type: OpenAPI
-        url: openapi/thordata-web-scraper-tasks-openapi.yml
-      - type: Documentation
-        url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
-      - type: APIReference
-        url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
-      - type: Webhooks
-        url: asyncapi/thordata-web-scraper-webhooks.yml
-      - type: Overlay
-        url: overlays/thordata-web-scraper-tasks-overlay.yaml
-      - type: Pricing
-        url: https://www.thordata.com/pricing/web-scraper-api
-      - type: AgentSkill
-        url: skills/thordata-run-scraper-task.md
-  - name: Thordata Public API
-    description: >-
-      Account and proxy management. Reads wallet balance in USD, traffic balance in KB and daily
-      usage statistics over ranges of up to 180 days; lists purchased ISP and datacenter proxies with
-      their credentials and expiry; creates, updates, meters and deletes proxy sub-users with
-      per-user traffic caps in MB; and manages IP whitelisting for password-free proxy access.
-      Authenticated with a publicToken and publicKey pair sent as the token and key headers, and
-      returns a distinct five-digit error-code space.
-    humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
-    baseURL: https://openapi.thordata.com/api
-    tags:
-      - Proxy network
-      - Residential Proxies
-      - ISP Proxies
-      - Datacenter Proxies
-      - Mobile Proxies
-    tags_raw:
-      - Proxy network
-      - Residential proxies
-      - ISP proxies
-      - Datacenter proxies
-      - Mobile proxies
-    properties:
-      - type: OpenAPI
-        url: openapi/thordata-public-api-openapi.yml
-      - type: Documentation
-        url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
-      - type: Overlay
-        url: overlays/thordata-public-api-overlay.yaml
-      - type: ToolCrosswalk
-        url: mcp/thordata-tool-crosswalk.yml
-      - type: AgentSkill
-        url: skills/thordata-manage-proxy-users.md
-  - name: Thordata Locations API
-    description: >-
-      Geo-targeting reference data - the countries, states, cities and ASNs available for each proxy
-      product. Read this before setting a country, state or city on any collection call or in a
-      proxy username, because availability differs per product.
-    humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/location-settings
-    baseURL: https://openapi.thordata.com/api/locations
-    tags:
-      - Proxy network
-      - Residential Proxies
-      - Mobile Proxies
-    tags_raw:
-      - Proxy network
-      - Residential proxies
-      - Mobile proxies
-    properties:
-      - type: OpenAPI
-        url: openapi/thordata-locations-api-openapi.yml
-      - type: Documentation
-        url: https://doc.thordata.com/doc/proxies/residential-proxies/location-settings
-      - type: Overlay
-        url: overlays/thordata-locations-api-overlay.yaml
-  - name: Thordata Proxy IP Extract API
-    description: >-
-      Pull a batch of proxy endpoints as host:port pairs for the residential or unlimited product,
-      filtered by country, state, city, protocol and session time, returned as plain text or JSON.
-      Used to hand a pool of endpoints to a client that rotates them itself rather than relying on
-      the gateway.
-    humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/making-request
-    baseURL: https://get-ip.thordata.net
-    tags:
-      - Proxy network
-      - Residential Proxies
-      - Datacenter Proxies
-    tags_raw:
-      - Proxy network
-      - Residential proxies
-      - Datacenter proxies
-    properties:
-      - type: OpenAPI
-        url: openapi/thordata-proxy-extract-api-openapi.yml
-      - type: Documentation
-        url: https://doc.thordata.com/doc/proxies/residential-proxies/making-request
-      - type: Overlay
-        url: overlays/thordata-proxy-extract-api-overlay.yaml
+- name: Thordata Locations API
+  description: >-
+    Geo-targeting reference data - the countries, states, cities and ASNs available for each proxy product.
+    Read this before setting a country, state or city on any collection call or in a proxy username, because
+    availability differs per product.
+  humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/location-settings
+  baseURL: https://openapi.thordata.com/api/locations
+  tags:
+  - Proxy network
+  - Residential Proxies
+  - Mobile Proxies
+  tags_raw:
+  - Proxy network
+  - Residential proxies
+  - Mobile proxies
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-locations-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/location-settings
+  - type: Overlay
+    url: overlays/thordata-locations-api-overlay.yaml
+- name: Thordata Proxy IP Extract API
+  description: >-
+    Pull a batch of proxy endpoints as host:port pairs for the residential or unlimited product, filtered
+    by country, state, city, protocol and session time, returned as plain text or JSON. Used to hand a
+    pool of endpoints to a client that rotates them itself rather than relying on the gateway.
+  humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/making-request
+  baseURL: https://get-ip.thordata.net
+  tags:
+  - Proxy network
+  - Residential Proxies
+  - Datacenter Proxies
+  tags_raw:
+  - Proxy network
+  - Residential proxies
+  - Datacenter proxies
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-proxy-extract-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/making-request
+  - type: Overlay
+    url: overlays/thordata-proxy-extract-api-overlay.yaml
+- aid: thordata:thordata-account-api
+  name: Thordata Account API
+  description: Balances and usage statistics
+  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  baseURL: https://scraperapi.thordata.com
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-account-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-proxy-api
+  name: Thordata Proxy API
+  description: Purchased proxy inventory
+  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  baseURL: https://scraperapi.thordata.com
+  tags:
+  - Proxy
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-proxy-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-proxy-users-api
+  name: Thordata Proxy Users API
+  description: Proxy sub-user lifecycle and per-user usage
+  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  baseURL: https://scraperapi.thordata.com
+  tags:
+  - Proxy Users
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-proxy-users-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-serp-api-api
+  name: Thordata SERP API
+  description: Real-time search engine results
+  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  baseURL: https://scraperapi.thordata.com
+  tags:
+  - SERP API
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-serp-api-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-tasks-api
+  name: Thordata Tasks API
+  description: Task lifecycle for the Web Scraper API
+  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  baseURL: https://scraperapi.thordata.com
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-tasks-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-universal-scraping-api-api
+  name: Thordata Universal Scraping API
+  description: Fetch any URL through Thordata's unblocking layer
+  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  baseURL: https://scraperapi.thordata.com
+  tags:
+  - Universal Scraping API
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-universal-scraping-api-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-web-scraper-api-api
+  name: Thordata Web Scraper API
+  description: Pre-built site scrapers launched as asynchronous tasks
+  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  baseURL: https://scraperapi.thordata.com
+  tags:
+  - Web Scraper API
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-web-scraper-api-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-whitelist-api
+  name: Thordata Whitelist API
+  description: IP whitelisting for password-free proxy authentication
+  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  baseURL: https://scraperapi.thordata.com
+  tags:
+  - Whitelist
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-whitelist-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
 common:
+  - type: Overlay
+    url: overlays/thordata-scraper-api-overlay.yaml
+  - type: AgentSkill
+    url: skills/thordata-serp-search.md
+  - type: Overlay
+    url: overlays/thordata-universal-api-overlay.yaml
+  - type: AgentSkill
+    url: skills/thordata-scrape-page.md
+  - type: Overlay
+    url: overlays/thordata-web-scraper-tasks-overlay.yaml
+  - type: AgentSkill
+    url: skills/thordata-run-scraper-task.md
+  - type: Overlay
+    url: overlays/thordata-public-api-overlay.yaml
+  - type: AgentSkill
+    url: skills/thordata-manage-proxy-users.md
   - type: DeveloperPortal
     url: https://dashboard.thordata.com/
   - type: Documentation
