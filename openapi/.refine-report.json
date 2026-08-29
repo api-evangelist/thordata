@@ -1,0 +1,41 @@
+{
+  "provider": "thordata",
+  "sources": [
+    "thordata-locations-api-openapi.yml",
+    "thordata-proxy-extract-api-openapi.yml",
+    "thordata-public-api-openapi.yml",
+    "thordata-scraper-api-openapi.yml",
+    "thordata-universal-api-openapi.yml",
+    "thordata-web-scraper-tasks-openapi.yml"
+  ],
+  "outputs": [
+    "thordata-locations-api-openapi.yml",
+    "thordata-proxy-extract-api-openapi.yml",
+    "thordata-account-api-openapi.yml",
+    "thordata-proxy-api-openapi.yml",
+    "thordata-proxy-users-api-openapi.yml",
+    "thordata-whitelist-api-openapi.yml",
+    "thordata-serp-api-api-openapi.yml",
+    "thordata-web-scraper-api-api-openapi.yml",
+    "thordata-universal-scraping-api-api-openapi.yml",
+    "thordata-tasks-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/thordata-public-api-openapi.yml",
+    "archived openapi/thordata-scraper-api-openapi.yml",
+    "archived openapi/thordata-universal-api-openapi.yml",
+    "archived openapi/thordata-web-scraper-tasks-openapi.yml"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "thordata-locations-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "thordata-proxy-extract-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "thordata-public-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "thordata-scraper-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "thordata-universal-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "thordata-web-scraper-tasks-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: written (+8 apis, 10 total)"
+  ],
+  "skipped": []
+}

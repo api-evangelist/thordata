@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: Thordata Locations API
+  title: Thordata Public Whitelist API
   version: 1.0.0
-  description: 'Geo-targeting reference data: the countries, states, cities and ASNs available per proxy product.'
+  description: Account, billing balance, proxy inventory, proxy sub-user management and IP whitelisting. Authenticated with the publicToken + publicKey pair, sent as the token and key headers (also accepted as query parameters).
   contact:
     name: Thordata Support
     email: support@thordata.com
@@ -11,18 +11,18 @@ info:
   x-derived-by: API Evangelist enrichment pipeline
   x-derived-on: '2026-08-11'
 servers:
-- url: https://openapi.thordata.com/api/locations
-  description: Locations API
+- url: https://openapi.thordata.com/api
+  description: Public API
 tags:
-- name: Locations
-  description: Geo-targeting reference data
+- name: Whitelist
+  description: IP whitelisting for password-free proxy authentication
 paths:
-  /countries:
+  /whitelisted-ips/ip-list:
     get:
-      operationId: listCountries
+      operationId: listWhitelistedIps
       tags:
-      - Locations
-      summary: List supported countries/regions
+      - Whitelist
+      summary: List whitelisted IPs
       parameters:
       - name: token
         in: query
@@ -39,7 +39,88 @@ paths:
       - name: proxy_type
         in: query
         required: false
-        description: Proxy product type
+        description: 1=Residential, 2=Unlimited, 9=Mobile
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Success. Billed only when the payload code is 200.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '400':
+          description: Bad Request - invalid parameters were passed. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '401':
+          description: Unauthorized - authentication failed; check token validity. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '403':
+          description: Forbidden - the target server refused to fulfill the request. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '429':
+          description: Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '500':
+          description: Internal Server Error. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '504':
+          description: Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+  /whitelisted-ips/add-ip:
+    post:
+      operationId: addWhitelistedIp
+      tags:
+      - Whitelist
+      summary: Whitelist an IP for password-free proxy access
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                ip:
+                  type: string
+                proxy_type:
+                  type: integer
+                  description: 1=Residential, 2=Unlimited, 9=Mobile
+                status:
+                  type: string
+                  enum:
+                  - 'true'
+                  - 'false'
+              required:
+              - ip
+      parameters:
+      - name: token
+        in: query
+        required: true
+        description: Public token. May also be sent as the token header.
+        schema:
+          type: string
+      - name: key
+        in: query
+        required: true
+        description: Public key. May also be sent as the key header.
         schema:
           type: string
       responses:
@@ -85,12 +166,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Envelope'
-  /states:
-    get:
-      operationId: listStates
+  /whitelisted-ips/delete-ip:
+    post:
+      operationId: deleteWhitelistedIp
       tags:
-      - Locations
-      summary: List supported states for a country
+      - Whitelist
+      summary: Remove a whitelisted IP
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                ip:
+                  type: string
+                proxy_type:
+                  type: integer
+              required:
+              - ip
       parameters:
       - name: token
         in: query
@@ -102,172 +196,6 @@ paths:
         in: query
         required: true
         description: Public key. May also be sent as the key header.
-        schema:
-          type: string
-      - name: proxy_type
-        in: query
-        required: false
-        description: Proxy product type
-        schema:
-          type: string
-      - name: country_code
-        in: query
-        required: false
-        description: ISO country code
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Success. Billed only when the payload code is 200.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '400':
-          description: Bad Request - invalid parameters were passed. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '401':
-          description: Unauthorized - authentication failed; check token validity. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '403':
-          description: Forbidden - the target server refused to fulfill the request. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '429':
-          description: Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '500':
-          description: Internal Server Error. Retryable with exponential backoff. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '504':
-          description: Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-  /cities:
-    get:
-      operationId: listCities
-      tags:
-      - Locations
-      summary: List supported cities
-      parameters:
-      - name: token
-        in: query
-        required: true
-        description: Public token. May also be sent as the token header.
-        schema:
-          type: string
-      - name: key
-        in: query
-        required: true
-        description: Public key. May also be sent as the key header.
-        schema:
-          type: string
-      - name: proxy_type
-        in: query
-        required: false
-        description: Proxy product type
-        schema:
-          type: string
-      - name: country_code
-        in: query
-        required: false
-        description: ISO country code
-        schema:
-          type: string
-      - name: state_code
-        in: query
-        required: false
-        description: State code
-        schema:
-          type: string
-      responses:
-        '200':
-          description: Success. Billed only when the payload code is 200.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '400':
-          description: Bad Request - invalid parameters were passed. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '401':
-          description: Unauthorized - authentication failed; check token validity. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '403':
-          description: Forbidden - the target server refused to fulfill the request. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '429':
-          description: Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '500':
-          description: Internal Server Error. Retryable with exponential backoff. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-        '504':
-          description: Timeout Error - the proxy server timed out waiting for the upstream server. Not billed.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Envelope'
-  /asn:
-    get:
-      operationId: listAsns
-      tags:
-      - Locations
-      summary: List supported ASNs for a country
-      parameters:
-      - name: token
-        in: query
-        required: true
-        description: Public token. May also be sent as the token header.
-        schema:
-          type: string
-      - name: key
-        in: query
-        required: true
-        description: Public key. May also be sent as the key header.
-        schema:
-          type: string
-      - name: proxy_type
-        in: query
-        required: false
-        description: Proxy product type
-        schema:
-          type: string
-      - name: country_code
-        in: query
-        required: false
-        description: ISO country code
         schema:
           type: string
       responses:

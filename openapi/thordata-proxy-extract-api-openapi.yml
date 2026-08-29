@@ -1,9 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Thordata Proxy IP Extract API
+  title: Thordata Proxy IP Extract Proxy Extract API
   version: 1.0.0
-  description: Pull a batch of proxy endpoints (host:port) for the residential or unlimited product, optionally filtered by
-    country, state, city, protocol and session time.
+  description: Pull a batch of proxy endpoints (host:port) for the residential or unlimited product, optionally filtered by country, state, city, protocol and session time.
   contact:
     name: Thordata Support
     email: support@thordata.com
@@ -25,7 +24,7 @@ paths:
       - Proxy Extract
       summary: Extract residential proxy endpoints
       description: Supports country/state/city filters.
-      parameters: &id001
+      parameters:
       - name: city
         in: query
         required: false
@@ -91,7 +90,7 @@ paths:
         description: Time limit (seconds or minutes depending on backend), passed as 'time'
         schema:
           type: string
-      responses: &id002
+      responses:
         '200':
           description: Proxy endpoints as text (host:port separated by sep) or JSON.
           content:
@@ -144,15 +143,124 @@ paths:
       tags:
       - Proxy Extract
       summary: Extract unlimited-product proxy endpoints
-      parameters: *id001
-      responses: *id002
+      parameters:
+      - name: city
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: country
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: num
+        in: query
+        required: true
+        description: Number of IPs to request
+        schema:
+          type: string
+      - name: port
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: protocol
+        in: query
+        required: false
+        description: Proxy protocol hint for returned endpoints
+        schema:
+          type: string
+      - name: return_type
+        in: query
+        required: false
+        description: Response format
+        schema:
+          type: string
+          enum:
+          - txt
+          - json
+          default: txt
+      - name: sep
+        in: query
+        required: false
+        description: Separator used for txt return_type
+        schema:
+          type: string
+          default: \r\n
+      - name: state
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - name: td-customer
+        in: query
+        required: false
+        description: Optional username identifier used by the service
+        schema:
+          type: string
+      - name: time
+        in: query
+        required: false
+        description: Time limit (seconds or minutes depending on backend), passed as 'time'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Proxy endpoints as text (host:port separated by sep) or JSON.
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 1.2.3.4:9999
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        ip:
+                          type: string
+                        port:
+                          type: integer
+        '400':
+          description: Bad Request - invalid parameters were passed. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '401':
+          description: Unauthorized - authentication failed; check token validity. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '429':
+          description: Too Many Requests - request rate exceeded the API limit. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
+        '500':
+          description: Internal Server Error. Retryable with exponential backoff. Not billed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Envelope'
 components:
-  securitySchemes: {}
   schemas:
     Envelope:
       type: object
-      description: Thordata JSON envelope. The effective status is the payload `code` when present and not 200, otherwise
-        the HTTP status (v1.json errors.precedence).
+      description: Thordata JSON envelope. The effective status is the payload `code` when present and not 200, otherwise the HTTP status (v1.json errors.precedence).
       properties:
         code:
           type: integer
