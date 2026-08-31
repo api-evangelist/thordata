@@ -34,19 +34,19 @@ modified: '2026-08-11'
 specificationVersion: '0.23'
 tags:
   - Proxy network
-  - Web Scraping
-  - Data Extraction
+  - Web scraping
+  - Data extraction
   - SERP
   - Search data
   - Web unblocking
-  - Residential Proxies
-  - Mobile Proxies
-  - ISP Proxies
-  - Datacenter Proxies
-  - Scraping Browser
+  - Residential proxies
+  - Mobile proxies
+  - ISP proxies
+  - Datacenter proxies
+  - Scraping browser
   - Data-for-AI
   - RAG data pipelines
-  - Web Data
+  - Web data
 tags_raw:
   - Proxy network
   - Web scraping
@@ -72,8 +72,8 @@ apis:
   baseURL: https://openapi.thordata.com/api/locations
   tags:
   - Proxy network
-  - Residential Proxies
-  - Mobile Proxies
+  - Residential proxies
+  - Mobile proxies
   tags_raw:
   - Proxy network
   - Residential proxies
@@ -94,8 +94,8 @@ apis:
   baseURL: https://get-ip.thordata.net
   tags:
   - Proxy network
-  - Residential Proxies
-  - Datacenter Proxies
+  - Residential proxies
+  - Datacenter proxies
   tags_raw:
   - Proxy network
   - Residential proxies
@@ -273,6 +273,8 @@ apis:
   humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
   baseURL: https://scraperapi.thordata.com
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
