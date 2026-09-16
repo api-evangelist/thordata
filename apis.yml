@@ -324,46 +324,6 @@ apis:
     url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
   - type: ToolCrosswalk
     url: mcp/thordata-tool-crosswalk.yml
-- aid: thordata:thordata-universal-scraping-api-api
-  name: Thordata Universal Scraping API
-  description: Fetch any URL through Thordata's unblocking layer
-  humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
-  baseURL: https://scraperapi.thordata.com
-  tags:
-  - Universal Scraping API
-  properties:
-  - type: OpenAPI
-    url: openapi/thordata-universal-scraping-api-api-openapi.yml
-  - type: Documentation
-    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
-  - type: APIReference
-    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
-  - type: GettingStarted
-    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
-  - type: Pricing
-    url: https://www.thordata.com/pricing/serpapi
-  - type: Sandbox
-    url: https://dashboard.thordata.com/serp-api/playground
-  - type: Documentation
-    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
-  - type: APIReference
-    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
-  - type: GettingStarted
-    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
-  - type: Pricing
-    url: https://www.thordata.com/pricing/web-unlocker
-  - type: Documentation
-    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
-  - type: APIReference
-    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
-  - type: Webhooks
-    url: asyncapi/thordata-web-scraper-webhooks.yml
-  - type: Pricing
-    url: https://www.thordata.com/pricing/web-scraper-api
-  - type: Documentation
-    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
-  - type: ToolCrosswalk
-    url: mcp/thordata-tool-crosswalk.yml
 - aid: thordata:thordata-web-scraper-api-api
   name: Thordata Web Scraper API
   description: Pre-built site scrapers launched as asynchronous tasks
@@ -414,6 +374,86 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/thordata-whitelist-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-public-api-api
+  name: Thordata Public API
+  description: The Public API API from Thordata — 1 operation(s) for public api.
+  humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/location-settings
+  baseURL: https://openapi.thordata.com/api/locations
+  tags:
+  - Public API
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-public-api-api-openapi.yml
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/serp-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/serp-api/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/serp-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/serpapi
+  - type: Sandbox
+    url: https://dashboard.thordata.com/serp-api/playground
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/introduction
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-unlocker/query-parameters
+  - type: GettingStarted
+    url: https://doc.thordata.com/doc/scraping/universal-scraping-api/quick-start-guide
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-unlocker
+  - type: Documentation
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/getting-started-guide
+  - type: APIReference
+    url: https://doc.thordata.com/doc/scraping/web-scraper-api/parameter-description
+  - type: Webhooks
+    url: asyncapi/thordata-web-scraper-webhooks.yml
+  - type: Pricing
+    url: https://www.thordata.com/pricing/web-scraper-api
+  - type: Documentation
+    url: https://doc.thordata.com/doc/proxies/residential-proxies/getting-started
+  - type: ToolCrosswalk
+    url: mcp/thordata-tool-crosswalk.yml
+- aid: thordata:thordata-universal-api-api
+  name: Thordata Universal API
+  description: The Universal API API from Thordata — 1 operation(s) for universal api.
+  humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/location-settings
+  baseURL: https://openapi.thordata.com/api/locations
+  tags:
+  - Universal API
+  properties:
+  - type: OpenAPI
+    url: openapi/thordata-universal-api-api-openapi.yml
   - type: Documentation
     url: https://doc.thordata.com/doc/scraping/serp-api/introduction
   - type: APIReference
