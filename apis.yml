@@ -410,6 +410,8 @@ apis:
   humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/location-settings
   baseURL: https://openapi.thordata.com/api/locations
   tags:
+  - Public APIs
+  tags_raw:
   - Public API
   properties:
   - type: OpenAPI
