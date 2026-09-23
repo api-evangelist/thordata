@@ -1,41 +1,55 @@
 {
   "provider": "thordata",
   "sources": [
+    "_original/thordata-openapi.json",
+    "_ae-authored/thordata-public-api-openapi.yml",
+    "_ae-authored/thordata-scraper-api-openapi.yml",
+    "_ae-authored/thordata-web-scraper-tasks-openapi.yml",
     "thordata-locations-api-openapi.yml",
-    "thordata-proxy-extract-api-openapi.yml",
-    "thordata-public-api-openapi.yml",
-    "thordata-scraper-api-openapi.yml",
-    "thordata-universal-api-openapi.yml",
-    "thordata-web-scraper-tasks-openapi.yml"
+    "thordata-proxy-extract-api-openapi.yml"
   ],
   "outputs": [
-    "thordata-locations-api-openapi.yml",
-    "thordata-proxy-extract-api-openapi.yml",
+    "thordata-public-api-api-openapi.yml",
+    "thordata-universal-api-api-openapi.yml",
+    "thordata-web-scraper-api-api-openapi.yml",
     "thordata-account-api-openapi.yml",
     "thordata-proxy-api-openapi.yml",
     "thordata-proxy-users-api-openapi.yml",
     "thordata-whitelist-api-openapi.yml",
     "thordata-serp-api-api-openapi.yml",
-    "thordata-web-scraper-api-api-openapi.yml",
-    "thordata-universal-scraping-api-api-openapi.yml",
-    "thordata-tasks-api-openapi.yml"
+    "thordata-tasks-api-openapi.yml",
+    "thordata-locations-api-openapi.yml",
+    "thordata-proxy-extract-api-openapi.yml"
   ],
-  "archived": [
-    "archived openapi/thordata-public-api-openapi.yml",
-    "archived openapi/thordata-scraper-api-openapi.yml",
-    "archived openapi/thordata-universal-api-openapi.yml",
-    "archived openapi/thordata-web-scraper-tasks-openapi.yml"
-  ],
+  "archived": [],
   "errors": [],
-  "warnings": [],
+  "warnings": [
+    "thordata-locations-api-openapi.yml: previously refined output kept for 4 operation(s) no archived document covers (e.g. /asn get, /cities get, /countries get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth.",
+    "thordata-proxy-extract-api-openapi.yml: previously refined output kept for 2 operation(s) no archived document covers (e.g. /api get, /unlimited_api get); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
   "notes": [
-    "thordata-locations-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "thordata-proxy-extract-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "thordata-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "thordata-openapi.json: declared missing tag: Public API",
+    "thordata-openapi.json: declared missing tag: Universal API",
+    "thordata-openapi.json: declared missing tag: Web Scraper API",
     "thordata-public-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "thordata-scraper-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "thordata-universal-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "thordata-web-scraper-tasks-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "apis.yml register: written (+8 apis, 10 total)"
+    "tag 'Web Scraper API' spans 2 source specs (thordata-openapi.json, thordata-scraper-api-openapi.yml): per-path servers applied",
+    "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "_ae-authored/thordata-universal-api-openapi.yml: archived document superseded by a larger archived document",
+    "thordata-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thordata-proxy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thordata-proxy-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thordata-public-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thordata-serp-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thordata-tasks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thordata-universal-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thordata-web-scraper-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "thordata-whitelist-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

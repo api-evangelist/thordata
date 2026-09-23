@@ -1,0 +1,71 @@
+openapi: 3.2.0
+info:
+  title: Thordata API Reference Public API
+  version: 1.0.0
+  description: 'Official API documentation for Thordata services.
+
+
+    **Authentication**:
+
+    - SERP/Universal: Bearer Token (`scraperToken`)
+
+    - Public/Tasks: Query/Header params (`publicToken` + `publicKey`)'
+servers:
+- url: https://scraperapi.thordata.com
+  description: Scraper API (SERP, Builder)
+- url: https://universalapi.thordata.com
+  description: Universal API
+- url: https://openapi.thordata.com/api
+  description: Public & Web Scraper API
+- url: https://api.thordata.com/api
+  description: Proxy API
+tags:
+- name: Public API
+paths:
+  /account/usage-statistics:
+    get:
+      summary: Get Usage Statistics
+      tags:
+      - Public API
+      security:
+      - PublicAuth: []
+      parameters:
+      - name: token
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: from_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: to_date
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      responses:
+        '200':
+          description: Usage Data
+      operationId: getAccountUsageStatistics
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    ScraperAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: Use `scraperToken` from Dashboard -> Account Settings.
+    PublicAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: Use `publicToken` + `key` query param.

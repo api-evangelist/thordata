@@ -1,0 +1,75 @@
+openapi: 3.2.0
+info:
+  title: Thordata API Reference Universal API
+  version: 1.0.0
+  description: 'Official API documentation for Thordata services.
+
+
+    **Authentication**:
+
+    - SERP/Universal: Bearer Token (`scraperToken`)
+
+    - Public/Tasks: Query/Header params (`publicToken` + `publicKey`)'
+servers:
+- url: https://scraperapi.thordata.com
+  description: Scraper API (SERP, Builder)
+- url: https://universalapi.thordata.com
+  description: Universal API
+- url: https://openapi.thordata.com/api
+  description: Public & Web Scraper API
+- url: https://api.thordata.com/api
+  description: Proxy API
+tags:
+- name: Universal API
+paths:
+  /request:
+    post:
+      summary: Universal Scraper (Web Unlocker)
+      description: Scrape any URL with antibot bypass.
+      tags:
+      - Universal API
+      servers:
+      - url: https://universalapi.thordata.com
+      security:
+      - ScraperAuth: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                js_render:
+                  type: string
+                  enum:
+                  - 'True'
+                  - 'False'
+                type:
+                  type: string
+                  enum:
+                  - html
+                  - png
+                country:
+                  type: string
+                wait:
+                  type: integer
+              required:
+              - url
+      responses:
+        '200':
+          description: HTML or PNG data
+      operationId: postRequest
+      x-operation-id-source: derived
+components:
+  securitySchemes:
+    ScraperAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Token
+      description: Use `scraperToken` from Dashboard -> Account Settings.
+    PublicAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: Use `publicToken` + `key` query param.
