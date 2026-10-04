@@ -48,7 +48,7 @@ created: '2026-07-23'
 modified: '2026-08-11'
 specificationVersion: '0.23'
 tags:
-  - Proxy network
+  - Proxy Network
   - Web Scraping
   - Data Extraction
   - SERP
@@ -86,7 +86,7 @@ apis:
   humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/location-settings
   baseURL: https://openapi.thordata.com/api/locations
   tags:
-  - Proxy network
+  - Proxy Network
   - Residential Proxies
   - Mobile Proxies
   tags_raw:
@@ -108,7 +108,7 @@ apis:
   humanURL: https://doc.thordata.com/doc/proxies/residential-proxies/making-request
   baseURL: https://get-ip.thordata.net
   tags:
-  - Proxy network
+  - Proxy Network
   - Residential Proxies
   - Datacenter Proxies
   tags_raw:
