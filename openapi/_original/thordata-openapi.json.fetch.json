@@ -1,0 +1,12 @@
+{
+ "url": "https://thordata.github.io/thordata-sdk-spec/openapi.json",
+ "requested_url": "https://thordata.github.io/thordata-sdk-spec/openapi.json",
+ "status": 200,
+ "content_type": "application/json; charset=utf-8",
+ "bytes": 6325,
+ "sha256": "92766faf2e3cf43e29466260ce5f9370918245df99ff0a3dd1c0fe1e66aa77be",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
