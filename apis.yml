@@ -248,6 +248,8 @@ apis:
   humanURL: https://doc.thordata.com/doc/scraping/serp-api/introduction
   baseURL: https://scraperapi.thordata.com
   tags:
+  - SERP
+  tags_raw:
   - SERP API
   properties:
   - type: OpenAPI
