@@ -30,3 +30,73 @@
     builder: provider (package published from the provider's own domain)
   status: not-a-workflow
   arazzo: null
+- slug: thordata-go-module-proxy
+  label: Go module proxy
+  partner_name: Go module proxy
+  category: official SDK (Go)
+  type: register
+  channel: package-registry
+  evidence: https://pkg.go.dev/github.com/Thordata/thordata-go-sdk
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Go module proxy (public registry JSON)
+    spec_file: null
+    language: Go
+    packages:
+    - name: github.com/Thordata/thordata-go-sdk
+      version: v1.3.0
+      released: '2026-01-16'
+      released_field: Time
+      lapsed: false
+      page: https://pkg.go.dev/github.com/Thordata/thordata-go-sdk
+      repo_leg: github-org:thordata
+      publisher_leg: org:thordata
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: thordata-pypi
+  label: PyPI
+  partner: pypi
+  partner_name: PyPI
+  category: official SDK (Python)
+  type: register
+  channel: package-registry
+  evidence: https://pypi.org/project/thordata-firecrawl/
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: PyPI (public registry JSON)
+    spec_file: null
+    language: Python
+    packages:
+    - name: thordata-firecrawl
+      version: 0.2.0
+      released: '2026-03-06'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/thordata-firecrawl/
+      repo_leg: github-org:thordata
+      publisher_leg: email:thordata.com
+      matched_by: domain
+    - name: thordata-sdk
+      version: 1.8.5
+      released: '2026-02-27'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/thordata-sdk/
+      repo_leg: github-org:thordata
+      publisher_leg: email:thordata.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
