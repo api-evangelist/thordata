@@ -96,6 +96,21 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: n8n (n8n-community)
+  partner: n8n
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: n8n-community
+  evidence: https://www.npmjs.com/package/n8n-nodes-thordata
+  mirror_of: n8n/integrations/n8n-integration-edges.yml
+  apps: []
+  listing_count: 1
+  detected: '2026-10-19'
+  detected_by: mirror-platform-listings.py
 method: searched
 checked:
 - https://api.nuget.org/v3
@@ -106,5 +121,6 @@ checked:
 - https://registry.npmjs.org/-/v1/search?text=keywords:n8n-community-node-package
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+- n8n/integrations/n8n-integration-edges.yml
 source:
 - https://registry.npmjs.org/-/v1/search?text=keywords:n8n-community-node-package
