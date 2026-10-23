@@ -73,3 +73,9 @@ components:
       in: query
       name: token
       description: Use `publicToken` + `key` query param.
+x-provenance:
+  method: harvested
+  publisher: Thordata
+  source: https://thordata.github.io/thordata-sdk-spec/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

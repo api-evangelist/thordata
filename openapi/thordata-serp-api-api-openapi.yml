@@ -194,3 +194,9 @@ components:
       in: header
       name: key
       description: Public key (THORDATA_PUBLIC_KEY) from the Thordata Dashboard.
+x-provenance:
+  method: harvested
+  publisher: Thordata
+  source: https://thordata.github.io/thordata-sdk-spec/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
